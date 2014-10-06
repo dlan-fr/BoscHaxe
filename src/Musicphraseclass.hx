@@ -128,18 +128,21 @@ package ;
 			numnotes--;
 		}
 		
-		public var notes: Array<Rectangle> = new Array<Rectangle>;
+		public var notes: Array<Rectangle> = new Array<Rectangle>();
 		public var start:Int;
 		public var numnotes:Int;
 		
-		public var cutoffgraph: Array<Int> = new Array<Int>;
-    public var resonancegraph: Array<Int> = new Array<Int>;
-		public var volumegraph: Array<Int> = new Array<Int>;
+		public var cutoffgraph: Array<Int> = new Array<Int>();
+    public var resonancegraph: Array<Int> = new Array<Int>();
+		public var volumegraph: Array<Int> = new Array<Int>();
 		public var recordfilter:Int;
 		
-		public var topnote:Int, bottomnote:Int, notespan:Float;
+		public var topnote:Int;
+		public var bottomnote:Int;
+		public var notespan:Float;
 		
-		public var key:Int, scale:Int;
+		public var key:Int;
+		public var scale:Int;
 		
 		public var instr:Int;
 		

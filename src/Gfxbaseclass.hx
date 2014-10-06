@@ -13,6 +13,7 @@ package;
 	import flash.display.Shape;
 	import flash.geom.Matrix;
 	import flash.display.Bitmap;
+	import flash.text.TextField;
 	
 	class Gfxbaseclass extends Sprite {
 		
@@ -357,8 +358,8 @@ package;
 		public var tempshape:Shape = new Shape();
 		public var shapematrix:Matrix = new Matrix();
 		
-		[Embed(source = "graphics/font.swf", symbol = "FFF Aquarius Bold Condensed")]
-		public var ttffont:Class;
+		//[Embed(source = "graphics/font.swf", symbol = "FFF Aquarius Bold Condensed")]
+		//public var ttffont:Class;
 		
 		
 		public var tf_1:TextField = new TextField();

@@ -8,12 +8,12 @@ package ;
 		public function new():Void {
 		var i:Int = 0;
 	while( i < 1000){
-				bar.push(new barclass);
+				bar.push(new Barclass());
 			 i++;
 }
 		i = 0;
 	while( i < 100){
-				copybuffer.push(new barclass);
+				copybuffer.push(new Barclass());
 			 i++;
 }
 			copybuffersize = 0;
@@ -128,12 +128,13 @@ package ;
 			lastbar--;
 		}
 		
-		public var copybuffer: Array<barclass> = new Array<barclass>;
+		public var copybuffer: Array<Barclass> = new Array<Barclass>();
 		public var copybuffersize:Int;
 		
-		public var bar: Array<barclass> = new Array<barclass>;
-		public var channelon: Array<Bool> = new Array<Bool>;
-		public var loopstart:Int, loopend:Int;
+		public var bar: Array<Barclass> = new Array<Barclass>();
+		public var channelon: Array<Bool> = new Array<Bool>();
+		public var loopstart:Int;
+		public var loopend:Int;
 		public var currentbar:Int;
 		
 		public var lastbar:Int;

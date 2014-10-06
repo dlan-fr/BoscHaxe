@@ -21,7 +21,7 @@ package ;
 			selection = -1;
 		}
 		
-		public function init(gfx:graphicsclass, xp:Int, yp:Int):Void {
+		public function init(gfx:Graphicsclass, xp:Int, yp:Int):Void {
 			x = xp; y = yp; active = true;
 			getwidth(gfx);
 			h = numitems * gfx.linesize;
@@ -31,7 +31,7 @@ package ;
 			active = false;
 		}
 		
-		public function getwidth(gfx:graphicsclass):Void {
+		public function getwidth(gfx:Graphicsclass):Void {
 			w = 0;
 			var temp:Int;
 		var i:Int = 0;
@@ -43,10 +43,13 @@ package ;
 			w += 10;
 		}
 		
-		public var item: Array<String> = new Array<String>;
+		public var item: Array<String> = new Array<String>();
 		public var numitems:Int;
 		public var active:Bool;
-		public var x:Int, y:Int, w:Int, h:Int;
+		public var x:Int;
+		public var y:Int;
+		public var w:Int;
+		public var h:Int;
 		public var type:Int;
 		public var selection:Int;
 	}

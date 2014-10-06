@@ -53,8 +53,9 @@ package ;
 			}
 		}
 		
-		public var cutoff:Int, resonance:Int;
-		public var voice:SiONVoice = new SiONVoice;
+		public var cutoff:Int;
+		public var resonance:Int;
+		public var voice:SiONVoice = new SiONVoice();
 		
 		public var category:String;
 		public var name:String;

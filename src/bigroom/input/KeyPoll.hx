@@ -167,8 +167,9 @@ package bigroom.input;
 			
 			if (ev.keyCode == 16) shiftheld = true;
 			if (ev.keyCode == 17) ctrlheld = true;
-			if (ev.keyCode == 27){
-				ev.preventDefault();
+			if (ev.keyCode == 27) {
+				ev.stopImmediatePropagation();
+				//ev.preventDefault();
 			}
 		}
 		

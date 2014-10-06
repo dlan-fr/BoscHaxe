@@ -22,6 +22,6 @@ package ;
 }
 		}
 		
-		public var channel: Array<Int> = new Array<Int>;
+		public var channel: Array<Int> = new Array<Int>();
 	}
 

@@ -1,19 +1,34 @@
 package ;
-	import flash.display.*;
+	/*import flash.display.*;
 	import flash.geom.*;
   import flash.events.*;
 	import flash.utils.*;
   import flash.net.*;
+	import flash.utils.ByteArray;
+  	import org.si.sion.effector.*;
+  import org.si.sion.events.*;
+	import flash.filesystem.*;*/
   import org.si.sion.SiONDriver;
 	import org.si.sion.SiONData;
 	import org.si.sion.utils.SiONPresetVoice;
 	import org.si.sion.SiONVoice;
 	import org.si.sion.sequencer.SiMMLTrack;
-	import org.si.sion.effector.*;
-  import org.si.sion.events.*;
-	import flash.filesystem.*;
-  import flash.net.FileFilter;
+	import systools.Dialogs;
+	
+	import openfl.display.Sprite;
+	import openfl.events.Event;
+	import org.si.sion.events.SiONEvent;
+
+  //import flash.net.FileFilter;
+  import vfs.FileStream;
+  
   import flash.system.Capabilities;
+  import openfl.filesystem.File;
+  import systools.Browser;
+
+  import flash.utils.ByteArray;
+  import flash.net.SharedObject;
+
 		
 	class Controlclass extends Sprite{
 		public var SCALE_NORMAL:Int = 0;
@@ -1250,9 +1265,22 @@ package ;
 		}
 		
 		public function loadceol():Void {
-			file = File.desktopDirectory.resolvePath("");
-      file.addEventListener(Event.SELECT, onloadceol);
-			file.browseForOpen("Load .ceol File", [ceolFilter]);
+			file = File.desktopDirectory;
+			
+			
+			var result:Array<String> = Dialogs.openFile(
+			"Load .ceol File"
+			, "Load .ceol File"
+			, ceolFilter
+			);	
+			
+			onloadceol(result);
+			
+			//file.addEventListener(Event.SELECT, onloadceol);
+
+			//Browser.launch(file.url);
+			//Dialogs.openFile("Load .ceol File",'Load .ceol File',
+			//file.browseForOpen("Load .ceol File", [ceolFilter]);
 			
 			fixmouseclicks = true;
 		}
@@ -1283,16 +1311,28 @@ package ;
 			showmessage("SONG LOADED");
 		}
 		
-		private function onloadceol(e:Event):Void {  
-			file = cast(e.currentTarget,File);
+		private function onloadceol(arr:Array<String>):Void {  
+	
+			if (arr != null && arr.length > 0)
+			{
+				stream = new FileStream(arr[0]);
+				
+				stream.readAllBytesAsync(onreadceolcomplete);
+				//stream.open(arr[0], FileMode.READ);
+				//filestring = stream.readUTFBytes(stream.bytesAvailable);
+				//stream.close();
+				
+			}
 			
-			stream = new FileStream();
-			stream.open(file, FileMode.READ);
-			filestring = stream.readUTFBytes(stream.bytesAvailable);
-			stream.close();
+			
+		}
+		
+		private function onreadceolcomplete(result:ByteArray):Void
+		{
 			
 			filestream = new Array<Dynamic>();
-			filestream = filestring.split(",");
+			filestream = result.readUTFBytes(result.bytesAvailable).toString().split(",");
+			//result.asString().split(",");
 			
 			numinstrument = 1;
 			numboxes = 0;
@@ -1386,7 +1426,12 @@ package ;
 		public var filestring:String;
 		public var fi:Int;
 		public var filestream:Array<Dynamic>;
-		public var ceolFilter:FileFilter = new FileFilter("Ceol", "*.ceol");
+		
+		var ceolFilter: FILEFILTERS =
+			{ count: 1
+			, descriptions: ["Ceol files"]
+			, extensions: ["*.ceol"]	
+			};	
 		
 		public var i:Int;
 		public var j:Int;

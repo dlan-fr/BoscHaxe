@@ -398,12 +398,12 @@ package ;
 			create("DRUMKIT", "Midi Drumkit", "drumkit.3", 20);
 		}
 		
-		public function fixlengths(gfx:graphicsclass):Void {
+		public function fixlengths(gfx:Graphicsclass):Void {
 			
 		var i:Int = 0;
 	while( i < listsize){
 				while (gfx.len(name[i]) > 95) {
-					name[i] = help.Left(name[i], name[i].length - 1)					
+					name[i] = help.Left(name[i], name[i].length - 1);					
 				}
 			 i++;
 }
@@ -457,14 +457,14 @@ package ;
 			return 0;
 		}
 		
-		public var category: Array<String> = new Array<String>;
-		public var name: Array<String> = new Array<String>;
-		public var voice: Array<String> = new Array<String>;
-		public var palette: Array<Int> = new Array<Int>;
+		public var category: Array<String> = new Array<String>();
+		public var name: Array<String> = new Array<String>();
+		public var voice: Array<String> = new Array<String>();
+		public var palette: Array<Int> = new Array<Int>();
 		
-		public var subname: Array<String> = new Array<String>;
-		public var subvoice: Array<String> = new Array<String>;
-		public var subpalette: Array<Int> = new Array<Int>;
+		public var subname: Array<String> = new Array<String>();
+		public var subvoice: Array<String> = new Array<String>();
+		public var subpalette: Array<Int> = new Array<Int>();
 		public var sublistsize:Int;
 		
 		public var listsize:Int;
