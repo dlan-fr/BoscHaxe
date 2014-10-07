@@ -11,7 +11,7 @@ package ;
 	while( i < 256){
 				subname.push("");
 				subvoice.push("");
-				subpalette.push("");
+				subpalette.push(0);
 			 i++;
 }
 			init();
@@ -403,7 +403,7 @@ package ;
 		var i:Int = 0;
 	while( i < listsize){
 				while (gfx.len(name[i]) > 95) {
-					name[i] = help.Left(name[i], name[i].length - 1);					
+					name[i] = name[i].substring(0, name[i].length - 1);					
 				}
 			 i++;
 }

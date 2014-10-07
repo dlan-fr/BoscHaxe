@@ -52,7 +52,7 @@ package ;
 		var i:Int = 0;
 	while( i < numnotes){
 				if (notes[i].x > topnote) {
-					topnote = notes[i].x;
+					topnote = Std.int(notes[i].x);
 				}
 			 i++;
 }
@@ -63,7 +63,7 @@ package ;
 		var i:Int = 0;
 	while( i < numnotes){
 				if (notes[i].x < bottomnote) {
-					bottomnote = notes[i].x;
+					bottomnote = Std.int(notes[i].x);
 				}
 			 i++;
 }

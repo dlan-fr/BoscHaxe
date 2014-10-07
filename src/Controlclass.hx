@@ -13,6 +13,18 @@ package ;
 	import org.si.sion.utils.SiONPresetVoice;
 	import org.si.sion.SiONVoice;
 	import org.si.sion.sequencer.SiMMLTrack;
+	
+	import org.si.sion.effector.SiEffectStereoDelay;
+	import org.si.sion.effector.SiEffectStereoChorus;
+	import org.si.sion.effector.SiEffectDistortion;
+	import org.si.sion.effector.SiFilterLowBoost;
+	import org.si.sion.effector.SiEffectCompressor;
+	import org.si.sion.effector.SiCtrlFilterHighPass;
+	import org.si.sion.effector.SiEffectStereoReverb;
+	
+	import sys.FileSystem;
+	import sys.io.FileInput;
+	import sys.io.FileOutput;
 	import systools.Dialogs;
 	
 	import openfl.display.Sprite;
@@ -20,49 +32,53 @@ package ;
 	import org.si.sion.events.SiONEvent;
 
   //import flash.net.FileFilter;
-  import vfs.FileStream;
   
   import flash.system.Capabilities;
-  import openfl.filesystem.File;
+  //import openfl.filesystem.File;
+  import sys.io.File;
+   import sys.FileStat;
   import systools.Browser;
 
   import flash.utils.ByteArray;
   import flash.net.SharedObject;
+  
+  import flash.utils.Endian;
+  import haxe.io.Input;
 
 		
 	class Controlclass extends Sprite{
-		public var SCALE_NORMAL:Int = 0;
-		public var SCALE_MAJOR:Int = 1;
-		public var SCALE_MINOR:Int = 2;
-		public var SCALE_BLUES:Int = 3;
-		public var SCALE_HARMONIC_MINOR:Int = 4;
-		public var SCALE_PENTATONIC_MAJOR:Int = 5;
-		public var SCALE_PENTATONIC_MINOR:Int = 6;
-		public var SCALE_PENTATONIC_BLUES:Int = 7;
-		public var SCALE_PENTATONIC_NEUTRAL:Int = 8;
-		public var SCALE_ROMANIAN_FOLK:Int = 9;
-		public var SCALE_SPANISH_GYPSY:Int = 10;
-		public var SCALE_ARABIC_MAGAM:Int = 11;
-		public var SCALE_CHINESE:Int = 12;
-		public var SCALE_HUNGARIAN:Int = 13;
-		public var CHORD_MAJOR:Int = 14;
-		public var CHORD_MINOR:Int = 15;
-		public var CHORD_5TH:Int = 16;
-		public var CHORD_DOM_7TH:Int = 17;
-		public var CHORD_MAJOR_7TH:Int = 18;
-		public var CHORD_MINOR_7TH:Int = 19;
-		public var CHORD_MINOR_MAJOR_7TH:Int = 20;
-		public var CHORD_SUS4:Int = 21;
-		public var CHORD_SUS2:Int = 22;
+		inline static public var SCALE_NORMAL:Int = 0;
+		inline static public var SCALE_MAJOR:Int = 1;
+		inline static public var SCALE_MINOR:Int = 2;
+		inline static public var SCALE_BLUES:Int = 3;
+		inline static public var SCALE_HARMONIC_MINOR:Int = 4;
+		inline static public var SCALE_PENTATONIC_MAJOR:Int = 5;
+		inline static public var SCALE_PENTATONIC_MINOR:Int = 6;
+		inline static public var SCALE_PENTATONIC_BLUES:Int = 7;
+		inline static public var SCALE_PENTATONIC_NEUTRAL:Int = 8;
+		inline static public var SCALE_ROMANIAN_FOLK:Int = 9;
+		inline static public var SCALE_SPANISH_GYPSY:Int = 10;
+		inline static public var SCALE_ARABIC_MAGAM:Int = 11;
+		inline static public var SCALE_CHINESE:Int = 12;
+		inline static public var SCALE_HUNGARIAN:Int = 13;
+		inline static public var CHORD_MAJOR:Int = 14;
+		inline static public var CHORD_MINOR:Int = 15;
+		inline static public var CHORD_5TH:Int = 16;
+		inline static public var CHORD_DOM_7TH:Int = 17;
+		inline static public var CHORD_MAJOR_7TH:Int = 18;
+		inline static public var CHORD_MINOR_7TH:Int = 19;
+		inline static public var CHORD_MINOR_MAJOR_7TH:Int = 20;
+		inline static public var CHORD_SUS4:Int = 21;
+		inline static public var CHORD_SUS2:Int = 22;
 		
-		public var LIST_KEY:Int = 0;
-		public var LIST_SCALE:Int = 1;
-		public var LIST_INSTRUMENT:Int = 2;
-		public var LIST_CATEGORY:Int = 3;
-		public var LIST_SELECTINSTRUMENT:Int = 4;
-		public var LIST_BUFFERSIZE:Int = 5;
-		public var LIST_SCREENSIZE:Int = 6;
-		public var LIST_EFFECTS:Int = 7;
+		inline static public var LIST_KEY:Int = 0;
+		inline static public var LIST_SCALE:Int = 1;
+		inline static public var LIST_INSTRUMENT:Int = 2;
+		inline static public var LIST_CATEGORY:Int = 3;
+		inline static public var LIST_SELECTINSTRUMENT:Int = 4;
+		inline static public var LIST_BUFFERSIZE:Int = 5;
+		inline static public var LIST_SCREENSIZE:Int = 6;
+		inline static public var LIST_EFFECTS:Int = 7;
 		
 		public function new():Void {
 			version = 3;
@@ -157,10 +173,10 @@ package ;
 	while( i < 16){
 				instrument.push(new Instrumentclass());
 				if (i == 0) {
-				  instrument[i].voice = _presets["midi.piano1"];
+				  instrument[i].voice = _presets.dynProperties.get("midi.piano1");
 				}else {
 					voicelist.index = Std.int(Math.random() * voicelist.listsize);
-					instrument[i].voice = _presets[voicelist.voice[voicelist.index]];
+					instrument[i].voice = _presets.dynProperties.get(voicelist.voice[voicelist.index]);
 					instrument[i].category = voicelist.category[voicelist.index];
 					instrument[i].name = voicelist.name[voicelist.index];
 					instrument[i].palette = voicelist.palette[voicelist.index];
@@ -198,7 +214,7 @@ package ;
 			
 			programsettings = SharedObject.getLocal("boscaceoil_settings");
 			
-			if (programsettings.data.buffersize == undefined) {
+			if (programsettings.data.buffersize == null) {
 				buffersize = 2048;
 				programsettings.data.buffersize = buffersize;
 				programsettings.flush();
@@ -228,7 +244,7 @@ package ;
 			
 			_driver.addEventListener(SiONEvent.STREAM, onStream);
 			
-			_driver.bpm = bpm; 
+			_driver.bpm(bpm); 
 			_driver.play(null, false);
 			
 			startup = 1;
@@ -236,6 +252,8 @@ package ;
 				invokeceol(invokefile);
 				invokefile = "null";
 			}
+			
+			super();
 		}
 		
 		public function notecut():Void {
@@ -327,7 +345,7 @@ package ;
 													drumkit[instrument[musicbox[i].instr].type-1].updatefilter(musicbox[i].cutoffgraph[looptime % boxcount], musicbox[i].resonancegraph[looptime % boxcount]);
 												  drumkit[instrument[musicbox[i].instr].type-1].updatevolume(musicbox[i].volumegraph[looptime % boxcount]);
 												}
-												_driver.noteOn(drumkit[instrument[musicbox[i].instr].type-1].voicenote[int(musicbox[i].notes[j].x)], drumkit[instrument[musicbox[i].instr].type-1].voicelist[int(musicbox[i].notes[j].x)], Std.int(musicbox[i].notes[j].y));
+												_driver.noteOn(drumkit[instrument[musicbox[i].instr].type-1].voicenote[Std.int(musicbox[i].notes[j].x)], drumkit[instrument[musicbox[i].instr].type-1].voicelist[Std.int(musicbox[i].notes[j].x)], Std.int(musicbox[i].notes[j].y));
 											}
 										}	
 									}
@@ -412,7 +430,7 @@ package ;
 		
 		public function adddrumkitnote(t:Int, name:String, voice:String, note:Int = 60):Void {
 			if (t == 2 && note == 60) note = 16;
-			drumkit[t].voicelist.push(_presets[voice]);
+			drumkit[t].voicelist.push(_presets.dynProperties.get(voice));
       drumkit[t].voicename.push(name);
       drumkit[t].voicenote.push(note);
 			drumkit[t].size++;
@@ -432,7 +450,7 @@ package ;
 					adddrumkitnote(0, "Open Hi-Hat", "valsound.percus17", 60);
 					adddrumkitnote(0, "Closed Hi-Hat", "valsound.percus23", 72);
 					adddrumkitnote(0, "Crash Cymbal", "valsound.percus8", 48);
-				break;
+
 				case 1:
 					
 					drumkit[1].kitname = "SiON Drumkit";
@@ -474,7 +492,7 @@ package ;
 					adddrumkitnote(1, "Synth Tom #3", "valsound.percus36");
 					adddrumkitnote(1, "Synth -DX7- Tom #4", "valsound.percus37");
 					adddrumkitnote(1, "Triangle 1 o5c", "valsound.percus38");
-				break;
+
 				case 2:
 					
 					drumkit[2].kitname = "Midi Drumkit";
@@ -539,7 +557,6 @@ package ;
 					adddrumkitnote(2, "Shaker", "midi.drum82");
 					adddrumkitnote(2, "Jingle Bells", "midi.drum83");
 					adddrumkitnote(2, "Bell Tree", "midi.drum84");
-				break;
 			}
 		}
 		
@@ -559,7 +576,7 @@ package ;
 		public function changescale(t:Int):Void {
 		i = 0;
 	while( i < musicbox[currentbox].numnotes){
-				musicbox[currentbox].notes[i].x = invertpianoroll[musicbox[currentbox].notes[i].x];
+				musicbox[currentbox].notes[i].x = invertpianoroll[Std.int(musicbox[currentbox].notes[i].x)];
 			 i++;
 }
 			
@@ -567,7 +584,7 @@ package ;
 			updatepianoroll();
 		i = 0;
 	while( i < musicbox[currentbox].numnotes){
-				musicbox[currentbox].notes[i].x = pianoroll[musicbox[currentbox].notes[i].x];
+				musicbox[currentbox].notes[i].x = pianoroll[Std.int(musicbox[currentbox].notes[i].x)];
 			 i++;
 }
 			musicbox[currentbox].scale = t;
@@ -650,29 +667,30 @@ package ;
 		public function setscale(t:Int):Void {
 			currentscale = t;
 			switch(t) {
-				case SCALE_MAJOR: _setscale(2, 2, 1, 2, 2, 2, 1); break;
-				case SCALE_MINOR: _setscale(2, 1, 2, 2, 2, 2, 1); break;
-				case SCALE_BLUES: _setscale(3, 2, 1, 1, 3, 2); break;
-				case SCALE_HARMONIC_MINOR: _setscale(2, 1, 2, 2, 1, 3, 1); break;
-				case SCALE_PENTATONIC_MAJOR: _setscale(2, 3, 2, 2, 3); break;
-				case SCALE_PENTATONIC_MINOR: _setscale(3, 2, 2, 3, 2); break;
-				case SCALE_PENTATONIC_BLUES: _setscale(3, 2, 1, 1, 3, 2); break;
-				case SCALE_PENTATONIC_NEUTRAL: _setscale(2, 3, 2, 3, 2); break;
-				case SCALE_ROMANIAN_FOLK: _setscale(2, 1, 3, 1, 2, 1, 2); break;
-				case SCALE_SPANISH_GYPSY: _setscale(2, 1, 3, 1, 2, 1, 2); break;
-				case SCALE_ARABIC_MAGAM: _setscale(2, 2, 1, 1, 2, 2, 2); break;
-				case SCALE_CHINESE: _setscale(4, 2, 1, 4, 1); break;
-				case SCALE_HUNGARIAN: _setscale(2, 1, 3, 1, 1, 3, 1); break;
-				case CHORD_MAJOR: _setscale(4, 3, 5); break;
-				case CHORD_MINOR: _setscale(3, 4, 5); break;
-				case CHORD_5TH: _setscale(7, 5); break;
-				case CHORD_DOM_7TH: _setscale(4, 3, 3, 2); break;
-				case CHORD_MAJOR_7TH: _setscale(4, 3, 4, 1); break;
-				case CHORD_MINOR_7TH: _setscale(3, 4, 3, 2); break;
-				case CHORD_MINOR_MAJOR_7TH: _setscale(3, 4, 4, 1); break;
-				case CHORD_SUS4: _setscale(5, 2, 5); break;
-				case CHORD_SUS2: _setscale(2, 5, 5); break;
-				default: case SCALE_NORMAL:_setscale(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);	break;
+				case SCALE_MAJOR: _setscale(2, 2, 1, 2, 2, 2, 1); 
+				case SCALE_MINOR: _setscale(2, 1, 2, 2, 2, 2, 1); 
+				case SCALE_BLUES: _setscale(3, 2, 1, 1, 3, 2); 
+				case SCALE_HARMONIC_MINOR: _setscale(2, 1, 2, 2, 1, 3, 1); 
+				case SCALE_PENTATONIC_MAJOR: _setscale(2, 3, 2, 2, 3); 
+				case SCALE_PENTATONIC_MINOR: _setscale(3, 2, 2, 3, 2); 
+				case SCALE_PENTATONIC_BLUES: _setscale(3, 2, 1, 1, 3, 2);
+				case SCALE_PENTATONIC_NEUTRAL: _setscale(2, 3, 2, 3, 2); 
+				case SCALE_ROMANIAN_FOLK: _setscale(2, 1, 3, 1, 2, 1, 2); 
+				case SCALE_SPANISH_GYPSY: _setscale(2, 1, 3, 1, 2, 1, 2); 
+				case SCALE_ARABIC_MAGAM: _setscale(2, 2, 1, 1, 2, 2, 2); 
+				case SCALE_CHINESE: _setscale(4, 2, 1, 4, 1); 
+				case SCALE_HUNGARIAN: _setscale(2, 1, 3, 1, 1, 3, 1); 
+				case CHORD_MAJOR: _setscale(4, 3, 5); 
+				case CHORD_MINOR: _setscale(3, 4, 5); 
+				case CHORD_5TH: _setscale(7, 5);
+				case CHORD_DOM_7TH: _setscale(4, 3, 3, 2); 
+				case CHORD_MAJOR_7TH: _setscale(4, 3, 4, 1); 
+				case CHORD_MINOR_7TH: _setscale(3, 4, 3, 2); 
+				case CHORD_MINOR_MAJOR_7TH: _setscale(3, 4, 4, 1); 
+				case CHORD_SUS4: _setscale(5, 2, 5); 
+				case CHORD_SUS2: _setscale(2, 5, 5); 
+				case SCALE_NORMAL:_setscale(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);	
+				default: _setscale(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);	
 			}
 		}
 		
@@ -785,7 +803,7 @@ package ;
 					 i++;
 }
 					list.numitems = 12;
-				break;
+		
 				case LIST_SCALE:
 				i = 0;
 	while( i < 23){
@@ -793,7 +811,7 @@ package ;
 					 i++;
 }
 					list.numitems = 23;
-				break;
+			
 			  case LIST_CATEGORY:
 					list.item[0] = "MIDI";
 					list.item[1] = "DRUMKIT";
@@ -809,7 +827,7 @@ package ;
 					list.item[11] = "SPECIAL";
 					list.item[12] = "WORLD";
 					list.numitems = 13;
-				break;
+	
 			  case LIST_INSTRUMENT:
 				  if (voicelist.sublistsize > 15) {
 						
@@ -841,7 +859,7 @@ package ;
 }
 						list.numitems = voicelist.sublistsize;
 					}
-				break;
+		
 			  case LIST_SELECTINSTRUMENT:
 				  
 				i = 0;
@@ -850,23 +868,23 @@ package ;
 					 i++ ;
 }
 					list.numitems = numinstrument;
-				break;
+	
 				case LIST_BUFFERSIZE:
 					list.item[0] = "2048 (default, high performance)";
 					list.item[1] = "4096 (try if you cracking on wav exports)";
 					list.item[2] = "8192 (slow, not recommended)";
 					list.numitems = 3;
-				break;
+		
 			  case LIST_SCREENSIZE:
 				  i = 1;
-					var sw:Int = flash.system.Capabilities.screenResolutionX;
-					var sh:Int = flash.system.Capabilities.screenResolutionY;
+					var sw:Int = Std.int( Capabilities.screenResolutionX);
+					var sh:Int = Std.int(Capabilities.screenResolutionY);
 					while (384 * i < sw && 240 * i < sh) {
 					  list.item[i - 1] = "x" + Std.string(i);
 						i++;
 					}
 					list.numitems = i - 1;
-				break;
+		
 			  case LIST_EFFECTS:
 				 i = 0;
  while( i < 7){
@@ -874,19 +892,20 @@ package ;
 					 i++;
 }
 					list.numitems = 7;
-				break;
+
 			}
 		}
 		
 		public function setinstrumenttoindex(t:Int):Void {
 			voicelist.index = instrument[t].index;
-			if (help.Left(voicelist.voice[voicelist.index], 7) == "drumkit") {
-			  instrument[t].type = Std.int(help.Right(voicelist.voice[voicelist.index]));
+	
+			if (voicelist.voice[voicelist.index].substr(0,7) == "drumkit") {
+			  instrument[t].type = Std.parseInt(voicelist.voice[voicelist.index].charAt(voicelist.voice[voicelist.index].length - 1));
 				instrument[t].updatefilter();
 				drumkit[instrument[t].type-1].updatefilter(instrument[t].cutoff, instrument[t].resonance);
 			}else {
 				instrument[t].type = 0;
-				instrument[t].voice = _presets[voicelist.voice[voicelist.index]];
+				instrument[t].voice = _presets.dynProperties.get(voicelist.voice[voicelist.index]);
 				instrument[t].updatefilter();
 			}
 			
@@ -898,8 +917,8 @@ package ;
 		public function changeinstrumentvoice(t:String):Void {
 			instrument[currentinstrument].name = t;
 			voicelist.index = voicelist.getvoice(t);
-			if (help.Left(voicelist.voice[voicelist.index], 7) == "drumkit") {
-			  instrument[currentinstrument].type = Std.int(help.Right(voicelist.voice[voicelist.index]));
+			if (voicelist.voice[voicelist.index].substr(0,7) == "drumkit") {
+			  instrument[currentinstrument].type = Std.parseInt(voicelist.voice[voicelist.index].charAt(voicelist.voice[voicelist.index].length - 1));
 				instrument[currentinstrument].updatefilter();
 				drumkit[instrument[currentinstrument].type-1].updatefilter(instrument[currentinstrument].cutoff, instrument[currentinstrument].resonance);
 				
@@ -910,7 +929,7 @@ package ;
 				}
 			}else {
 				instrument[currentinstrument].type = 0;
-				instrument[currentinstrument].voice = _presets[voicelist.voice[voicelist.index]];
+				instrument[currentinstrument].voice = _presets.dynProperties.get(voicelist.voice[voicelist.index]);
 				instrument[currentinstrument].updatefilter();
 			}
 			
@@ -994,7 +1013,7 @@ package ;
 		public function newsong():Void {
 			bpm = 120; boxcount = 16; barcount = 4; doublesize = false;
 			effectvalue = 0; effecttype = 0; updateeffects();
-			_driver.bpm = bpm;
+			_driver.bpm(bpm) ;
 			arrange.clear();
 			musicbox[0].clear();
 			changekey(0); changescale(0);
@@ -1018,7 +1037,7 @@ package ;
 				swing = readfilestream();
 				effecttype = readfilestream();
 				effectvalue = readfilestream(); updateeffects();
-				bpm = readfilestream();	_driver.bpm = bpm;
+				bpm = readfilestream();	_driver.bpm( bpm);
 				boxcount = readfilestream(); doublesize = boxcount > 16;
 				barcount = readfilestream();
 				numinstrument = readfilestream();
@@ -1094,7 +1113,7 @@ package ;
 				case 2: 
 					swing = readfilestream();
 					effecttype = 0; effectvalue = 0;
-					bpm = readfilestream();	_driver.bpm = bpm;
+					bpm = readfilestream();	_driver.bpm ( bpm);
 					boxcount = readfilestream(); doublesize = boxcount > 16;
 					barcount = readfilestream();
 					numinstrument = readfilestream();
@@ -1158,9 +1177,9 @@ package ;
 }
 					 i++;
 }
-				break;
+			
 				case 1: 
-					bpm = readfilestream();	_driver.bpm = bpm; 
+					bpm = readfilestream();	_driver.bpm(bpm); 
 					swing = 0; effecttype = 0; effectvalue = 0;
 					boxcount = readfilestream(); doublesize = boxcount > 16;
 					barcount = readfilestream();
@@ -1223,49 +1242,54 @@ package ;
 }
 					 i++;
 }
-				break;
+		
 			}
 		}
 		
-		public function fileHasExtension(file:File, extension:String):Bool {     
-			if (!file.extension || file.extension.toLowerCase() != extension) {         
+		public function fileHasExtension(filename:String, extension:String):Bool {
+
+			if (!StringTools.endsWith(filename, extension)) {         
 				return false;     
 			}                 
 			return true; 
 		}
 		
-		public function addExtensionToFile(file:File, extension:String):Void {     
-			file.url += "." + extension; 
+		public function addExtensionToFile(filename:String, extension:String):Void {     
+			filename += "." + extension; 
 		}
 		
 		public function saveceol():Void {
-			file = File.desktopDirectory.resolvePath("*.ceol");
-      file.addEventListener(Event.SELECT, onsaveceol);
-			file.browseForSave("Save .ceol File");
+			//file = File.desktopDirectory.resolvePath("*.ceol");
+     // file.addEventListener(Event.SELECT, onsaveceol);
+		//	file.browseForSave("Save .ceol File");
+		
+			var filename:String = Dialogs.saveFile("Save .ceol File", "Save .ceol File", Sys.getCwd(), ceolFilter);
+			
+			
+			onsaveceol(filename);
 			
 			fixmouseclicks = true;
 		}
 		
-		private function onsaveceol(e:Event):Void {    
-			file = cast(e.currentTarget,File);
+		private function onsaveceol(filename:String):Void {    
 			
-			if (!fileHasExtension(file, "ceol")) {
-				addExtensionToFile(file, "ceol");
+			if (!fileHasExtension(filename, "ceol")) {
+				addExtensionToFile(filename, "ceol");
 			}
 			
 			makefilestring();
 			
-			stream = new FileStream();
-			stream.open(file, FileMode.WRITE);
-			stream.writeUTFBytes(filestring);
-			stream.close();
+			var fo:FileOutput =  File.write(filename);
+			
+			fo.writeString(filestring);
+			fo.close();
 			
 			fixmouseclicks = true;
 			showmessage("SONG SAVED");
 		}
 		
 		public function loadceol():Void {
-			file = File.desktopDirectory;
+			//file = File.desktopDirectory;
 			
 			
 			var result:Array<String> = Dialogs.openFile(
@@ -1286,16 +1310,20 @@ package ;
 		}
 		
 		public function invokeceol(t:String):Void { 
-			file = new File();
-			file.nativePath = t;
 			
-			stream = new FileStream();
-			stream.open(file, FileMode.READ);
-			filestring = stream.readUTFBytes(stream.bytesAvailable);
-			stream.close();
+			var filein:FileInput = File.read(t);
+			
+			var ld_ceol:ByteArray = new ByteArray();
+			ld_ceol.endian = Endian.LITTLE_ENDIAN;
+				
+
+			while (!filein.eof())
+				ld_ceol.writeByte(filein.readByte());
+			
+			filein.close();
 			
 			filestream = new Array<Dynamic>();
-			filestream = filestring.split(",");
+			filestream = ld_ceol.readUTFBytes(ld_ceol.bytesAvailable).split(",");
 			
 			numinstrument = 1;
 			numboxes = 0;
@@ -1315,12 +1343,18 @@ package ;
 	
 			if (arr != null && arr.length > 0)
 			{
-				stream = new FileStream(arr[0]);
+				var fi:FileInput = File.read(arr[0]);
 				
-				stream.readAllBytesAsync(onreadceolcomplete);
-				//stream.open(arr[0], FileMode.READ);
-				//filestring = stream.readUTFBytes(stream.bytesAvailable);
-				//stream.close();
+				var ld_ceol:ByteArray = new ByteArray();
+				ld_ceol.endian = Endian.LITTLE_ENDIAN;
+				
+				
+				while (!fi.eof())
+					ld_ceol.writeByte(fi.readByte());
+				
+				fi.close();
+				
+				onreadceolcomplete(ld_ceol);
 				
 			}
 			
@@ -1354,9 +1388,9 @@ package ;
 		}
 		
 		public function onStream(e : SiONEvent) : Void{
-			e.streamBuffer.position = 0;
-			while(e.streamBuffer.bytesAvailable > 0){
-				var d : Int = e.streamBuffer.readFloat() * 32767;
+			e.streamBuffer().position = 0;
+			while(e.streamBuffer().bytesAvailable > 0){
+				var d : Int = Std.int( e.streamBuffer().readFloat() * 32767);
 				if (nowexporting) _data.writeShort(d);
 			}
 		}
@@ -1398,31 +1432,39 @@ package ;
 			_data.position = 0;
 			_wav.writeBytes(_data);
 			
-			file = File.desktopDirectory.resolvePath("*.wav");
-      file.addEventListener(Event.SELECT, onsavewav);
-			file.browseForSave("Export .wav File");
+
+			var result:String =Dialogs.saveFile("Export .wav File", "Export .wav File", Sys.getCwd(), wavFilter);
+			
+			onsavewav(result);
+			
 			
 			fixmouseclicks = true;
 		}
 		
-		private function onsavewav(e:Event):Void {    
-			file = cast(e.currentTarget,File);
+		private function onsavewav(filename:String):Void {    
 			
-			if (!fileHasExtension(file, "wav")) {
-				addExtensionToFile(file, "wav");
+			
+			if (!fileHasExtension(filename, "wav")) {
+				addExtensionToFile(filename, "wav");
 			}
 			
-			stream = new FileStream();
-			stream.open(file, FileMode.WRITE);
-			stream.writeBytes(_wav, 0, _wav.length);
-			stream.close();
+			var fo:FileOutput = File.write(filename);
+			
+			var iwav:Int = 0;
+			
+			while (iwav < _wav.byteLength)
+			{
+				fo.writeByte(_wav.get(iwav));
+				iwav++;
+			}
+			
+			fo.close();
 			
 			fixmouseclicks = true;
 			showmessage("SONG EXPORTED AS WAV");
 		}
 		
-		public var file:File;
-		public var stream:FileStream;
+		//public var file:FileInput;
 		public var filestring:String;
 		public var fi:Int;
 		public var filestream:Array<Dynamic>;
@@ -1432,6 +1474,13 @@ package ;
 			, descriptions: ["Ceol files"]
 			, extensions: ["*.ceol"]	
 			};	
+			
+		var wavFilter:FILEFILTERS = 
+		{
+			count: 1,
+			descriptions: ["Wav file"],
+			extensions: ["*.wav"]
+		};
 		
 		public var i:Int;
 		public var j:Int;
