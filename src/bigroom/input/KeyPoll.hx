@@ -163,8 +163,10 @@ package bigroom.input;
 		
 		private function keyDownListener( ev:KeyboardEvent ):Void
 		{
-			states[ ev.keyCode >>> 3 ] |= 1 << (ev.keyCode & 7);
+			var val:Int = states.get(ev.keyCode >>> 3);
 			
+			states.set(ev.keyCode >>> 3, val | 1 << (ev.keyCode & 7));
+
 			if (ev.keyCode == 16) shiftheld = true;
 			if (ev.keyCode == 17) ctrlheld = true;
 			if (ev.keyCode == 27) {
@@ -175,7 +177,11 @@ package bigroom.input;
 		
 		private function keyUpListener( ev:KeyboardEvent ):Void
 		{
-			states[ ev.keyCode >>> 3 ] &= ~(1 << (ev.keyCode & 7));
+			var val:Int = states.get(ev.keyCode >>> 3);
+			
+			states.set(ev.keyCode >>> 3, val & ~(1 << (ev.keyCode & 7)));
+			
+			//states[ ev.keyCode >>> 3 ] &= ~(1 << (ev.keyCode & 7));
 			
 			if (ev.keyCode == 16) shiftheld = false;
 			if (ev.keyCode == 17) ctrlheld = false;

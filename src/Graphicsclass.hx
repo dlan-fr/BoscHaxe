@@ -110,10 +110,10 @@ package;
 		public function drawpatterneditor(control:Controlclass):Void {
 			
 			if (control.doublesize) {
-				control.boxsize = (screenwidth - 30) / 32;
+				control.boxsize = Std.int((screenwidth - 30) / 32);
 				control.barsize = control.boxsize * control.barcount;
 			}else{
-				control.boxsize = (screenwidth - 30) / 16;
+				control.boxsize = Std.int((screenwidth - 30) / 16);
 				control.barsize = control.boxsize * control.barcount;
 			}
 			
@@ -221,10 +221,10 @@ package;
 			
 		j = 0;
 	while( j < control.musicbox[control.currentbox].numnotes){
-				i = control.musicbox[control.currentbox].notes[j].width;
+				i = Std.int(control.musicbox[control.currentbox].notes[j].width);
 				if(i<control.boxcount){
-					control.drawnoteposition = control.invertpianoroll[control.musicbox[control.currentbox].notes[j].x];
-					control.drawnotelength = control.musicbox[control.currentbox].notes[j].y * control.boxsize;
+					control.drawnoteposition = control.invertpianoroll[Std.int(control.musicbox[control.currentbox].notes[j].x)];
+					control.drawnotelength = Std.int(control.musicbox[control.currentbox].notes[j].y * control.boxsize);
 					if (control.drawnoteposition > -1) {			
 						control.drawnoteposition -= control.musicbox[control.currentbox].start;
 						if (control.drawnoteposition < 0) {
@@ -261,8 +261,8 @@ package;
 			control.seekposition(control.boxsize * control.looptime);
 			if (control.musicbox[control.currentbox].isplayed) {
 				
-				fillrect(20 + control.barposition, pianorollposition + linesize, 2, linesize * 12, 10);
-				fillrect(20 + control.barposition + 2, pianorollposition + linesize, 2, linesize * 12, 11);
+				fillrect(Std.int(20 + control.barposition), pianorollposition + linesize, 2, linesize * 12, 10);
+				fillrect(Std.int(20 + control.barposition + 2), pianorollposition + linesize, 2, linesize * 12, 11);
 			}
 			
 			
@@ -305,7 +305,7 @@ package;
 				
 				fillrect(control.list.x - 2, control.list.y - 2, control.list.w + 4, control.list.h + 4, 12);
 				fillrect(control.list.x, control.list.y, control.list.w, control.list.h, 11);
-				if (control.list.type == control.LIST_SELECTINSTRUMENT) {
+				if (control.list.type == Controlclass.LIST_SELECTINSTRUMENT) {
 				i = 0;
 	while( i < control.list.numitems){
 						fillrect(control.list.x, control.list.y + (i * linesize), control.list.w, linesize, 101 + (control.instrument[i].palette*10));
@@ -357,22 +357,22 @@ package;
 				fillrect(xp+22, yp+1, patternwidth - 23, 10, 101 + (temppal * 10));
 			mbj = 0;
 	while( mbj < control.musicbox[t].numnotes){
-					mbi = control.musicbox[t].notes[mbj].width;
-					control.drawnoteposition = control.musicbox[t].notes[mbj].x;
+					mbi = Std.int(control.musicbox[t].notes[mbj].width);
+					control.drawnoteposition = Std.int(control.musicbox[t].notes[mbj].x);
 					control.drawnotelength = Math.ceil(control.musicbox[t].notes[mbj].y * zoomoffset);
 					if (mbi + control.musicbox[t].notes[mbj].y > control.boxcount) {
 						
 						control.drawnotelength = patternwidth - (21 + Std.int(mbi * zoomoffset));
-						control.drawnotelength += (patternwidth * (control.musicbox[t].notes[mbj].y - (control.boxcount - mbi)) / control.boxcount);
+						control.drawnotelength += Std.int((patternwidth * (control.musicbox[t].notes[mbj].y - (control.boxcount - mbi)) / control.boxcount));
 					}
 					if (control.drawnoteposition > -1) {			
 						control.drawnoteposition -= control.musicbox[t].bottomnote;
 						if(control.musicbox[t].notespan>10){
-							control.drawnoteposition = ((control.drawnoteposition * 8) / control.musicbox[t].notespan) + 2;
+							control.drawnoteposition = Std.int(((control.drawnoteposition * 8) / control.musicbox[t].notespan) + 2);
 						}else {
 							control.drawnoteposition++;
 							if (control.musicbox[t].notespan < 6) {
-								control.drawnoteposition += 6 - control.musicbox[t].notespan;
+								control.drawnoteposition += Std.int(6 - control.musicbox[t].notespan);
 							}
 						}
 						if (control.drawnoteposition >= 1 && control.drawnoteposition < 11) {
@@ -439,7 +439,7 @@ package;
 }
 			
 			
-			i = ((control.looptime * patternwidth) / control.boxcount) + ((control.arrange.currentbar-control.arrange.viewstart) * patternwidth);
+			i = Std.int(((control.looptime * patternwidth) / control.boxcount) + ((control.arrange.currentbar-control.arrange.viewstart) * patternwidth));
 			fillrect(i, linesize, 2, pianorollposition, 10);
 			fillrect(i + 2, linesize, 2, pianorollposition, 11);
 			
@@ -509,11 +509,12 @@ package;
 		}
 		
 		public function drawmenu(control:Controlclass):Void {
+			
 			bigprint(12, (linesize * 2) + 2 - 5, "BOSCA CEOIL", 0, 0, 0, false, 3);
 			if (control.looptime % control.barcount==1) {
-				bigprint(10-2+(Math.random()*4), linesize*2-5-6+(Math.random()*4), "BOSCA CEOIL", 255 - (help.glow*4), 255 - help.glow, 64 + (help.glow*2), false, 3);
+				bigprint(Std.int(10-2+(Math.random()*4)), Std.int(linesize*2-5-6+(Math.random()*4)), "BOSCA CEOIL", 255 - (Help.glow*4), 255 - Help.glow, 64 + (Help.glow*2), false, 3);
 			}else{
-			  bigprint(10, linesize * 2 - 5, "BOSCA CEOIL", 255 - (help.glow * 4), 255 - help.glow, 64 + (help.glow * 2), false, 3);
+			  bigprint(10, linesize * 2 - 5, "BOSCA CEOIL", Std.int(255 - (Help.glow * 4)), 255 - Help.glow, 64 + (Help.glow * 2), false, 3);
 			}
 			print(165, (linesize * 4)+4, "v1.1", 2, false, true);
 			
@@ -563,7 +564,7 @@ package;
 			print(140, (linesize * 3) +2, Std.string(control.buffersize), 0, false, true);
 			
 			if (control.buffersize != control.currentbuffersize) {
-			  if (help.slowsine >= 32) {
+			  if (Help.slowsine >= 32) {
 				  print(24, (linesize * 4) + 7, "REQUIRES RESTART", 0);
 				}else {
 				  print(24, (linesize * 4) + 7, "REQUIRES RESTART", 15);
@@ -708,7 +709,7 @@ package;
 					}
 				 i++;
 }
-				if ((help.slowsine % 32) < 16) {
+				if ((Help.slowsine % 32) < 16) {
 				  print(143 + 40, (linesize * 4) + 57, "! RECORDING FOR PATTERN " + Std.string(control.currentbox + 1) + "!", 15, false, true);
 				}
 				

@@ -11,15 +11,15 @@ package ;
 			slowsine = 0;
 		}
 		
-		public function RGB(red:Float,green:Float,blue:Float):Float{
-			return (blue | (green << 8) | (red << 16))
+		public function RGB(red:Float,green:Float,blue:Float):Int{
+			return (Std.int(blue) | (Std.int(green) << 8) | (Std.int(red) << 16));
 		}
 		
 		public static function removeObject(obj:Dynamic, arr:Array<Dynamic>):Void{
 			var i:String;
 			for (i in arr){
 				if (arr[i] == obj){
-					arr.splice(i,1)
+					arr.splice(i, 1);
 					break;
 				}
 			}
@@ -72,7 +72,8 @@ package ;
 		  return s.substr(s.length-length,length);
 		} 
 		
-		public static var glow:Int, slowsine:Int;
+		public static var glow:Int;
+		public static var slowsine:Int;
 		public static var glowdir:Int;
 	}
 

@@ -1,10 +1,5 @@
 package;
-	/*import flash.display.*;
-	import flash.geom.*;
-  import flash.events.*;
-  import flash.net.*;
-	import flash.text.*;*/
-	//import flash.display.NativeWindow;
+
 	import flash.display.Sprite;
 	import flash.display.BitmapData;
 	import flash.geom.Point;
@@ -14,6 +9,9 @@ package;
 	import flash.geom.Matrix;
 	import flash.display.Bitmap;
 	import flash.text.TextField;
+	import flash.text.TextFormat;
+	import flash.text.AntiAliasType;
+	import flash.display.Stage;
 	
 	class Gfxbaseclass extends Sprite {
 		
@@ -22,7 +20,7 @@ package;
 			screenscale = 2;
 			
 			screenwidth = 384; screenheight = 240;
-			screenwidthmid = screenwidth / 2; screenheightmid = screenheight / 2;
+			screenwidthmid = Std.int(screenwidth / 2); screenheightmid = Std.int(screenheight / 2);
 			screenviewwidth = screenwidth; screenviewheight = screenheight;
 			linesize = 10; patternheight = 12; patterncount = 54;
 			setzoomlevel(4);
@@ -70,9 +68,15 @@ package;
 		
 		public function changewindowsize(t:Int):Void {
 			screenscale = t;
-			if (stage && stage.nativeWindow) {
-				stage.nativeWindow.width = (screenwidth * t) + 18;
-				stage.nativeWindow.height = (screenheight * t) + 45;
+		
+			
+			if (stage != null) {
+				stage.resize((screenwidth * t) + 18, (screenheight * t) + 45);
+				 /*stage.width = 
+				 stage.height =
+				 stage.res
+				//stage.nativeWindow.width = 
+				//stage.nativeWindow.height = */
 			}
 		}
 
@@ -129,7 +133,7 @@ package;
 
 		public function fillrect(x1:Int, y1:Int, w1:Int, h1:Int, t:Int):Void {
 			settrect(x1, y1, w1, h1);
-			backbuffer.fillRect(trect, RGB(pal[t].r, pal[t].g, pal[t].b));
+			backbuffer.fillRect(trect, Std.int(RGB(pal[t].r, pal[t].g, pal[t].b)));
 		}
 		
 		public function drawbuffericon(x:Int, y:Int, t:Int):Void {
@@ -178,7 +182,7 @@ package;
 			
 			tf_1.textColor = RGB(pal[col].r, pal[col].g, pal[col].b);
 			tf_1.text = t;
-			if (cen) x = screenwidthmid - (tf_1.textWidth / 2) + x;
+			if (cen) x = screenwidthmid - Std.int(tf_1.textWidth / 2) + x;
 			
 			if (shadow) {
 				shapematrix.translate(x+1, y+1);
@@ -198,48 +202,48 @@ package;
 		public function len(t:String, sz:Int = 1):Int {
 			if(sz==1){
 				tf_1.text = t;
-				return tf_1.textWidth;
+				return Std.int(tf_1.textWidth);
 			}else if (sz == 2) {
 				tf_2.text = t;
-				return tf_2.textWidth;
+				return Std.int(tf_2.textWidth);
 			}else if (sz == 3) {
 				tf_3.text = t;
-				return tf_3.textWidth;
+				return Std.int(tf_3.textWidth);
 			}else if (sz == 4) {
 				tf_4.text = t;
-				return tf_4.textWidth;
+				return Std.int(tf_4.textWidth);
 			}else if (sz == 5) {
 				tf_5.text = t;
-				return tf_5.textWidth;
+				return Std.int(tf_5.textWidth);
 			}
 			
 			tf_1.text = t;
-			return tf_1.textWidth;
+			return Std.int(tf_1.textWidth);
 		}
 		public function hig(t:String, sz:Int = 1):Int {
 			if(sz==1){
 				tf_1.text = t;
-				return tf_1.textHeight;
+				return Std.int(tf_1.textHeight);
 			}else if (sz == 2) {
 				tf_2.text = t;
-				return tf_2.textHeight;
+				return Std.int(tf_2.textHeight);
 			}else if (sz == 3) {
 				tf_3.text = t;
-				return tf_3.textHeight;
+				return Std.int(tf_3.textHeight);
 			}else if (sz == 4) {
 				tf_4.text = t;
-				return tf_4.textHeight;
+				return Std.int(tf_4.textHeight);
 			}else if (sz == 5) {
 				tf_5.text = t;
-				return tf_5.textHeight;
+				return Std.int(tf_5.textHeight);
 			}
 			
 			tf_1.text = t;
-			return tf_1.textHeight;
+			return Std.int(tf_1.textHeight);
 		}
 
 		public function rbigprint(x:Int, y:Int, t:String, r:Int, g:Int, b:Int, cen:Bool = false, sc:Float = 2):Void {
-			x = x - len(t, sc);
+			x = x - len(t, Std.int(sc));
 			bigprint(x, y, t, r, g, b, cen, sc);
 		}
 
@@ -251,35 +255,35 @@ package;
 			
 			if (sc == 2) {
 				tf_2.text = t;
-				if (cen) x = screenwidthmid - (tf_2.textWidth / 2);
+				if (cen) x = screenwidthmid - Std.int(tf_2.textWidth / 2);
 				
 				shapematrix.translate(x, y);
-				tf_2.textColor = RGB(r, g, b);
+				tf_2.textColor = Std.int(RGB(r, g, b));
 				backbuffer.draw(tf_2, shapematrix);
 				
 				shapematrix.translate(-x, -y);
 			}else if (sc == 3) {
 				tf_3.text = t;
-				if (cen) x = screenwidthmid - (tf_3.textWidth / 2);
+				if (cen) x = screenwidthmid - Std.int(tf_3.textWidth / 2);
 				
 				shapematrix.translate(x, y);
-				tf_3.textColor = RGB(r, g, b);
+				tf_3.textColor = Std.int(RGB(r, g, b));
 				backbuffer.draw(tf_3, shapematrix);
 				
 				shapematrix.translate(-x, -y);
 			}else if (sc == 4) {
 				tf_4.text = t;
-				if (cen) x = screenwidthmid - (tf_4.textWidth / 2);
+				if (cen) x = screenwidthmid - Std.int(tf_4.textWidth / 2);
 				
 				shapematrix.translate(x, y);
-				tf_4.textColor = RGB(r, g, b);
+				tf_4.textColor = Std.int(RGB(r, g, b));
 				backbuffer.draw(tf_4, shapematrix);
 				
 				shapematrix.translate(-x, -y);
 			}else if (sc == 5) {
-				tf_5.textColor = RGB(r, g, b);
+				tf_5.textColor = Std.int(RGB(r, g, b));
 				tf_5.text = t;
-				if (cen) x = screenwidthmid - (tf_5.textWidth / 2);
+				if (cen) x = screenwidthmid - Std.int(tf_5.textWidth / 2);
 				
 				shapematrix.translate(x, y);
 				backbuffer.draw(tf_5, shapematrix);
@@ -287,8 +291,8 @@ package;
 			}
 		}
 		
-		public function RGB(red:Float,green:Float,blue:Float):Float{
-			return (blue | (green << 8) | (red << 16));
+		public function RGB(red:Float,green:Float,blue:Float):Int{
+			return (Std.int(blue) | (Std.int(green) << 8) | (Std.int(red) << 16));
 		}
 		
 		

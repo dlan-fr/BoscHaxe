@@ -107,7 +107,7 @@ package ;
 }
 			 i--;
 }
-		j = 0;
+		var j:Int = 0;
 	while( j < 8){
 				bar[t].channel[j] = -1;
 			 j++;
