@@ -12,8 +12,18 @@ package;
 	import flash.text.TextFormat;
 	import flash.text.AntiAliasType;
 	import flash.display.Stage;
+	import flash.text.Font;
+	
+	@:font("graphics/FFF.ttf") class DefaultFont extends Font {}
 	
 	class Gfxbaseclass extends Sprite {
+		
+		public function new()
+		{
+		  super();
+		  
+		  Font.registerFont (DefaultFont);
+		}
 		
 		public function initgfx():Void {
 			
@@ -364,6 +374,8 @@ package;
 		
 		//[Embed(source = "graphics/font.swf", symbol = "FFF Aquarius Bold Condensed")]
 		//public var ttffont:Class;
+		
+
 		
 		
 		public var tf_1:TextField = new TextField();
