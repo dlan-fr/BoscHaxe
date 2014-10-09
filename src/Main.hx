@@ -218,7 +218,7 @@ class Main extends Sprite
 	
 	public static function main() 
 	{
-		new Local(true);
+		//new Local(true);
 		// static entry point
 		Lib.current.stage.scaleMode = StageScaleMode.EXACT_FIT;
 		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;

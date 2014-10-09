@@ -510,12 +510,17 @@ package;
 		
 		public function drawmenu(control:Controlclass):Void {
 			
-			bigprint(12, (linesize * 2) + 2 - 5, "BOSCA CEOIL", 0, 0, 0, false, 3);
+			
+			
 			if (control.looptime % control.barcount==1) {
-				bigprint(Std.int(10-2+(Math.random()*4)), Std.int(linesize*2-5-6+(Math.random()*4)), "BOSCA CEOIL", 255 - (Help.glow*4), 255 - Help.glow, 64 + (Help.glow*2), false, 3);
+				bigprint(Std.int(12-2+(Math.random()*4)), Std.int(linesize*2-5-6+(Math.random()*4)), "BOSCA CEOIL", 255 - (Help.glow*4), 255 - Help.glow, 64 + (Help.glow*2), false, 3);
 			}else{
-			  bigprint(10, linesize * 2 - 5, "BOSCA CEOIL", Std.int(255 - (Help.glow * 4)), 255 - Help.glow, 64 + (Help.glow * 2), false, 3);
+			  bigprint(12, linesize * 2 + 2 - 5, "BOSCA CEOIL", Std.int(255 - (Help.glow * 4)), 255 - Help.glow, 64 + (Help.glow * 2), false, 3);
 			}
+			
+			bigprint(10, (linesize * 2) - 5, "BOSCA CEOIL", 0, 0, 0, false, 3);
+			
+			
 			print(165, (linesize * 4)+4, "v1.1", 2, false, true);
 			
 			
@@ -543,7 +548,7 @@ package;
 			
 			fillrect(220, (linesize * 7)-1, 160, linesize, 1);
 			rprint(280, (linesize * 7) - 1, "PATTERN", 0, true);
-		  drawicon(290, (linesize * 7)-1, 3);
+			drawicon(290, (linesize * 7)-1, 3);
 			print(305, (linesize * 7) - 1, Std.string(control.barcount), 0, false, true);
 			drawicon(320, (linesize * 7) - 1, 2);
 			drawicon(335, (linesize * 7)-1, 3);

@@ -104,13 +104,13 @@ package;
 		
 		public function makeiconarray():Void {
 		var i:Int = 0;
-	while( i < 6){
+			while( i < 6){
 				var t:BitmapData = new BitmapData(16, 16, true, 0x000000);
 				var temprect:Rectangle = new Rectangle(i * 16, 0, 16, 16);	
 				t.copyPixels(buffer, temprect, tl);
 				icons.push(t);
 			 i++;
-}
+		}
 		}	
 		
 		
@@ -151,33 +151,33 @@ package;
 		}
 
 		public function drawicon(x:Int, y:Int, t:Int):Void {
-			backbuffer.copyPixels(icons[t], icons_rect, new Point(x, y));
+			backbuffer.copyPixels(icons[t], icons_rect, new Point(x, y),icons[t], new Point(x, y),true);
 		}
 		
 		
 		public function initfont():Void {			
-		  tf_1.embedFonts = true;
-			tf_1.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[0],0,true);
+			tf_1.embedFonts = true;
+			tf_1.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[0],0,false);
 			tf_1.width = screenwidth; tf_1.height = 48;
 			tf_1.antiAliasType = AntiAliasType.NORMAL;
 			
 		  tf_2.embedFonts = true;
-			tf_2.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[1],0,true);
+			tf_2.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[1],0,false);
 			tf_2.width = screenwidth; tf_2.height = 100;
 			tf_2.antiAliasType = AntiAliasType.NORMAL;
 			
 		  tf_3.embedFonts = true;
-			tf_3.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[2],0,true);
+			tf_3.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[2],0,false);
 			tf_3.width = screenwidth; tf_3.height = 100;
 			tf_3.antiAliasType = AntiAliasType.NORMAL;
 			
 		  tf_4.embedFonts = true;
-			tf_4.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[3],0,true);
+			tf_4.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[3],0,false);
 			tf_4.width = screenwidth; tf_4.height = 100;
 			tf_4.antiAliasType = AntiAliasType.NORMAL;
 			
 		  tf_5.embedFonts = true;
-			tf_5.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[4],0,true);
+			tf_5.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[4],0,false);
 			tf_5.width = screenwidth; tf_5.height = 100;
 			tf_5.antiAliasType = AntiAliasType.NORMAL;
 		}
@@ -189,24 +189,25 @@ package;
 
 		public function print(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool=false):Void {
 			y -= 3;
-			
-			tf_1.textColor = RGB(pal[col].r, pal[col].g, pal[col].b);
-			tf_1.text = t;
+		
 			if (cen) x = screenwidthmid - Std.int(tf_1.textWidth / 2) + x;
 			
 			if (shadow) {
-				shapematrix.translate(x+1, y+1);
 				tf_1.textColor = RGB(0, 0, 0);
+				tf_1.text = t;
+				shapematrix.translate(x + 1, y + 1);
 				backbuffer.draw(tf_1, shapematrix);
 				
-				shapematrix.translate(-x-1, -y-1);
+				shapematrix.identity();
 			}
 			
-			shapematrix.translate(x, y);
 			tf_1.textColor = RGB(pal[col].r, pal[col].g, pal[col].b);
+			tf_1.text = t;
+			
+			shapematrix.translate(x, y);
 			backbuffer.draw(tf_1, shapematrix);
 			
-			shapematrix.translate(-x, -y);
+			shapematrix.identity();
 		}
 		
 		public function len(t:String, sz:Int = 1):Int {
