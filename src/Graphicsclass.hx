@@ -259,8 +259,9 @@ package;
 			
 			
 			control.seekposition(control.boxsize * control.looptime);
+		
+			
 			if (control.musicbox[control.currentbox].isplayed) {
-				
 				fillrect(Std.int(20 + control.barposition), pianorollposition + linesize, 2, linesize * 12, 10);
 				fillrect(Std.int(20 + control.barposition + 2), pianorollposition + linesize, 2, linesize * 12, 11);
 			}

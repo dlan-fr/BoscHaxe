@@ -3,29 +3,30 @@
 	<!-- NMML reference: https://gist.github.com/1763850 -->
 	
 	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
-	<meta title="BoscHaxe" package="BoscHaxe" version="1.0.0" company="dlan" />
+	<meta title="BoscHaxe" package="com.bosca.ceoil" version="1.0.0" company="dlan" />
 	
 	<!-- output -->
 	<app main="Main" file="BoscHaxe" path="bin" />
 	
 	<window background="#000000" fps="60" />
-	<window width="800" height="480" unless="mobile" />
+	<window width="0" height="0" />
+	<window width="640" height="480" if="desktop" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
-	
+	 
 	<!-- classpath, haxe libs -->
 	<source path="src" />
 	<source path="org" />
 	<!--<haxelib name="openfl-native" />-->
 	<haxelib name="openfl" />
-	<haxelib name="actuate" />
-	<haxelib name="systools" />
+	<haxelib name="actuate" /> 
+	<haxelib name="systools" if="desktop" />
 	<!--<haxelib name="hxcpp" />-->
 	<haxedef name="HXCPP_DEBUGGER" />
 	<haxelib name="hxcpp-debugger" />
 	
 	<!-- assets -->
-	<icon path="assets/openfl.svg" />
-	<assets path="assets/img" rename="img" />
+	<!--<icon path="assets/openfl.svg" />
+	<assets path="assets/img" rename="img" />-->
 	<assets path="src/graphics" rename="graphics" />
 	
 	<!-- optimize output

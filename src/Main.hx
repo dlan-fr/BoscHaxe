@@ -119,10 +119,8 @@ class Main extends Sprite
 		tempbmp = new Bitmap(Assets.getBitmapData("graphics/icons.png"));
 		gfx.buffer = tempbmp.bitmapData;	
 		gfx.makeiconarray();
-		gfx.buffer = new BitmapData(384, 240, false, 0x000000);
+		gfx.buffer = new BitmapData(gfx.screenwidth, gfx.screenheight, false, 0x000000);
 		control.voicelist.fixlengths(gfx);
-		
-		
 		
 		//Lib.current.stage.fullScreenSourceRect = new Rectangle(0, 0, 768, 480);
 		addChild(gfx);
@@ -137,8 +135,8 @@ class Main extends Sprite
 	}
 	
 	public function _input():Void {
-			control.mx = Std.int(mouseX / 2);
-			control.my = Std.int(mouseY / 2);
+			control.mx = Std.int(mouseX / gfx.screenscale);
+			control.my = Std.int(mouseY / gfx.screenscale);
 			Input.input(key, gfx, control,updategraphicsmode);
 			
 		}
@@ -218,11 +216,10 @@ class Main extends Sprite
 	
 	public static function main() 
 	{
-		//new Local(true);
+		new Local(true);
 		// static entry point
-		Lib.current.stage.scaleMode = StageScaleMode.EXACT_FIT;
 		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
-		Lib.current.stage.scaleMode = flash.display.StageScaleMode.NO_SCALE;
+		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
 		Lib.current.addChild(new Main());
 	}
 }

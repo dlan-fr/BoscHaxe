@@ -13,6 +13,7 @@ package;
 	import flash.text.AntiAliasType;
 	import flash.display.Stage;
 	import flash.text.Font;
+	import flash.Lib;
 	
 	@:font("graphics/FFF.ttf") class DefaultFont extends Font {}
 	
@@ -29,7 +30,12 @@ package;
 			
 			screenscale = 2;
 			
-			screenwidth = 384; screenheight = 240;
+			#if android
+				screenwidth = 512; screenheight = 512;
+			#else
+				screenwidth = 384; screenheight = 240;
+			#end
+			
 			screenwidthmid = Std.int(screenwidth / 2); screenheightmid = Std.int(screenheight / 2);
 			screenviewwidth = screenwidth; screenviewheight = screenheight;
 			linesize = 10; patternheight = 12; patterncount = 54;
@@ -51,9 +57,9 @@ package;
 			tbuffer = new BitmapData(1, 1, true);
 			ct = new ColorTransform(0, 0, 0, 1, 255, 255, 255, 1); 
 			tempicon = new BitmapData(16, 16, false, 0x000000);
-			
-			backbuffer = new BitmapData(384, 240, false, 0x000000);
-			screenbuffer = new BitmapData(384, 240, false, 0x000000);
+			trace("create back buffer");
+			backbuffer = new BitmapData(screenwidth, screenheight, false, 0x000000);
+			screenbuffer = new BitmapData(screenwidth, screenheight, false, 0x000000);
 			
 		i = 0;
 	while( i < 400){
@@ -63,11 +69,11 @@ package;
 			
 			buttonpress = 0;
 			
+			trace("create screen");
 			screen = new Bitmap(screenbuffer);
-			screen.width = screenwidth * 2;
-			screen.height = screenheight * 2; 
 			screen.x = 0;
 			screen.y = 0; 
+			trace("add screen to sprite");
 			addChild(screen);
 		}
 		
@@ -81,12 +87,9 @@ package;
 		
 			
 			if (stage != null) {
-				stage.resize((screenwidth * t) + 18, (screenheight * t) + 45);
-				 /*stage.width = 
-				 stage.height =
-				 stage.res
-				//stage.nativeWindow.width = 
-				//stage.nativeWindow.height = */
+				stage.resize((screenwidth * t), (screenheight * t));
+				screen.scaleX = screenscale;
+				screen.scaleY = screenscale;
 			}
 		}
 
@@ -389,4 +392,7 @@ package;
 		public var pal: Array<Paletteclass> = new Array<Paletteclass>();
 		
 		public var buttonpress:Int;
+		
+		private static inline var base_screen_width:Int = 320; 
+		private static inline var base_screen_height:Int = 240;
 	}

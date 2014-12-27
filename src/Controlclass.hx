@@ -1,13 +1,4 @@
 package ;
-	/*import flash.display.*;
-	import flash.geom.*;
-  import flash.events.*;
-	import flash.utils.*;
-  import flash.net.*;
-	import flash.utils.ByteArray;
-  	import org.si.sion.effector.*;
-  import org.si.sion.events.*;
-	import flash.filesystem.*;*/
   import org.si.sion.SiONDriver;
 	import org.si.sion.SiONData;
 	import org.si.sion.utils.SiONPresetVoice;
@@ -25,7 +16,10 @@ package ;
 	import sys.FileSystem;
 	import sys.io.FileInput;
 	import sys.io.FileOutput;
-	import systools.Dialogs;
+	
+	#if !android
+		import systools.Dialogs;
+	#end
 	
 	import openfl.display.Sprite;
 	import openfl.events.Event;
@@ -37,7 +31,10 @@ package ;
   //import openfl.filesystem.File;
   import sys.io.File;
    import sys.FileStat;
-  import systools.Browser;
+   
+   #if !android
+	import systools.Browser;
+   #end
 
   import flash.utils.ByteArray;
   import flash.net.SharedObject;
@@ -212,20 +209,21 @@ package ;
 			
 			boxcount = 16; barcount = 4;
 			
-			programsettings = SharedObject.getLocal("boscaceoil_settings");
+			//programsettings = SharedObject.getLocal("boscaceoil_settings");
+			buffersize = 2048;
 			
-			if (programsettings.data.buffersize == null) {
+			/*if (programsettings.data.buffersize == null) {
 				buffersize = 2048;
 				programsettings.data.buffersize = buffersize;
 				programsettings.flush();
 				programsettings.close();
 				programsettings.data.fullscreen = 0;
 				programsettings.data.windowsize = 2;
-      } else {
-				buffersize = programsettings.data.buffersize;
-				programsettings.flush();
-				programsettings.close();
-      }
+			  } else {
+					buffersize = programsettings.data.buffersize;
+					programsettings.flush();
+					programsettings.close();
+			  }*/
 			
 			
 			_driver = new SiONDriver(buffersize); currentbuffersize = buffersize;
@@ -289,7 +287,7 @@ package ;
 		}
 		
 		public function _onTimerInterruption():Void {
-			if(musicplaying){
+			if (musicplaying) {
 				if (looptime >= boxcount) {
 					looptime-= boxcount;
 					SetSwing();
@@ -388,22 +386,12 @@ package ;
     }
 		
 		public function loadscreensettings(gfx:Graphicsclass):Void {
-			programsettings = SharedObject.getLocal("boscaceoil_settings");		
-			
-			if (programsettings.data.fullscreen == 0) {
-				fullscreen = false;
-			}else {
-				fullscreen = true;
-			}
-			
-			gfx.changewindowsize(programsettings.data.windowsize);
-			
-			programsettings.flush();
-			programsettings.close();
+			fullscreen = false;
+			gfx.changewindowsize(2);
 		}
 		
 		public function savescreensettings(gfx:Graphicsclass):Void {
-			programsettings = SharedObject.getLocal("boscaceoil_settings");		
+			/*programsettings = SharedObject.getLocal("boscaceoil_settings");		
 			
 			if (!fullscreen){
 				programsettings.data.fullscreen = 0;
@@ -414,7 +402,7 @@ package ;
 			programsettings.data.windowsize = gfx.screenscale;
 			
 			programsettings.flush();
-			programsettings.close();
+			programsettings.close();*/
 		}
 		
 		public function setbuffersize(t:Int):Void {
@@ -422,10 +410,10 @@ package ;
 			if (t == 1) buffersize = 4096;
 			if (t == 2) buffersize = 8192;
 			
-			programsettings = SharedObject.getLocal("boscaceoil_settings");			
+			/*programsettings = SharedObject.getLocal("boscaceoil_settings");			
 			programsettings.data.buffersize = buffersize;
 			programsettings.flush();
-			programsettings.close();
+			programsettings.close();*/
 		}
 		
 		public function adddrumkitnote(t:Int, name:String, voice:String, note:Int = 60):Void {
@@ -1263,16 +1251,17 @@ package ;
      // file.addEventListener(Event.SELECT, onsaveceol);
 		//	file.browseForSave("Save .ceol File");
 		
+			#if !android
 			var filename:String = Dialogs.saveFile("Save .ceol File", "Save .ceol File", Sys.getCwd(), ceolFilter);
 			
 			
 			onsaveceol(filename);
 			
 			fixmouseclicks = true;
+			#end
 		}
 		
 		private function onsaveceol(filename:String):Void {    
-			
 			if (!fileHasExtension(filename, "ceol")) {
 				addExtensionToFile(filename, "ceol");
 			}
@@ -1290,7 +1279,7 @@ package ;
 		
 		public function loadceol():Void {
 			//file = File.desktopDirectory;
-			
+			#if !android
 			
 			var result:Array<String> = Dialogs.openFile(
 			"Load .ceol File"
@@ -1307,10 +1296,10 @@ package ;
 			//file.browseForOpen("Load .ceol File", [ceolFilter]);
 			
 			fixmouseclicks = true;
+			#end
 		}
 		
 		public function invokeceol(t:String):Void { 
-			
 			var filein:FileInput = File.read(t);
 			
 			var ld_ceol:ByteArray = new ByteArray();
@@ -1340,7 +1329,6 @@ package ;
 		}
 		
 		private function onloadceol(arr:Array<String>):Void {  
-	
 			if (arr != null && arr.length > 0)
 			{
 				var fi:FileInput = File.read(arr[0]);
@@ -1358,12 +1346,10 @@ package ;
 				
 			}
 			
-			
 		}
 		
 		private function onreadceolcomplete(result:ByteArray):Void
 		{
-			
 			filestream = new Array<Dynamic>();
 			filestream = result.readUTFBytes(result.bytesAvailable).toString().split(",");
 			//result.asString().split(",");
@@ -1387,7 +1373,8 @@ package ;
 			messagedelay = 90;
 		}
 		
-		public function onStream(e : SiONEvent) : Void{
+		public function onStream(e : SiONEvent) : Void {
+			trace("Driver onStream");
 			e.streamBuffer().position = 0;
 			while(e.streamBuffer().bytesAvailable > 0){
 				var d : Int = Std.int( e.streamBuffer().readFloat() * 32767);
@@ -1432,17 +1419,17 @@ package ;
 			_data.position = 0;
 			_wav.writeBytes(_data);
 			
-
+			#if !android
 			var result:String =Dialogs.saveFile("Export .wav File", "Export .wav File", Sys.getCwd(), wavFilter);
 			
 			onsavewav(result);
+			#end
 			
 			
 			fixmouseclicks = true;
 		}
 		
 		private function onsavewav(filename:String):Void {    
-			
 			
 			if (!fileHasExtension(filename, "wav")) {
 				addExtensionToFile(filename, "wav");
@@ -1469,18 +1456,21 @@ package ;
 		public var fi:Int;
 		public var filestream:Array<Dynamic>;
 		
-		var ceolFilter: FILEFILTERS =
-			{ count: 1
-			, descriptions: ["Ceol files"]
-			, extensions: ["*.ceol"]	
-			};	
-			
-		var wavFilter:FILEFILTERS = 
-		{
-			count: 1,
-			descriptions: ["Wav file"],
-			extensions: ["*.wav"]
-		};
+		
+		#if !android
+			var ceolFilter: FILEFILTERS =
+				{ count: 1
+				, descriptions: ["Ceol files"]
+				, extensions: ["*.ceol"]	
+				};	
+				
+			var wavFilter:FILEFILTERS = 
+			{
+				count: 1,
+				descriptions: ["Wav file"],
+				extensions: ["*.wav"]
+			};
+		#end
 		
 		public var i:Int;
 		public var j:Int;
@@ -1581,7 +1571,7 @@ package ;
 		
 		public var doubleclickcheck:Int;
 		
-		public var programsettings:SharedObject;
+		//public var programsettings:SharedObject;
 		public var buffersize:Int;
 		public var currentbuffersize:Int;
 		

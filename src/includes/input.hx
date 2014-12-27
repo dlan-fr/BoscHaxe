@@ -663,6 +663,8 @@ class Input
 			}
 		}
 		
+		
+		
 		if (key.isDown(Keyboard.ESCAPE)) {
 			System.exit(0);
 		}
