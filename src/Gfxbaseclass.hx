@@ -174,6 +174,11 @@ package;
 			tf_3.width = screenwidth; tf_3.height = 100;
 			tf_3.antiAliasType = AntiAliasType.NORMAL;
 			
+		tf_33.embedFonts = true;
+			tf_33.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[2],0,false);
+			tf_33.width = screenwidth; tf_33.height = 100;
+			tf_33.antiAliasType = AntiAliasType.NORMAL;
+			
 		  tf_4.embedFonts = true;
 			tf_4.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[3],0,false);
 			tf_4.width = screenwidth; tf_4.height = 100;
@@ -274,8 +279,6 @@ package;
 				shapematrix.translate(x, y);
 				tf_2.textColor = Std.int(RGB(r, g, b));
 				backbuffer.draw(tf_2, shapematrix);
-				
-				shapematrix.translate(-x, -y);
 			}else if (sc == 3) {
 				tf_3.text = t;
 				if (cen) x = screenwidthmid - Std.int(tf_3.textWidth / 2);
@@ -283,8 +286,13 @@ package;
 				shapematrix.translate(x, y);
 				tf_3.textColor = Std.int(RGB(r, g, b));
 				backbuffer.draw(tf_3, shapematrix);
+			}else if (sc == 33) {
+				tf_33.text = t;
+				if (cen) x = screenwidthmid - Std.int(tf_33.textWidth / 2);
 				
-				shapematrix.translate(-x, -y);
+				shapematrix.translate(x, y);
+				tf_33.textColor = Std.int(RGB(r, g, b));
+				backbuffer.draw(tf_33, shapematrix);
 			}else if (sc == 4) {
 				tf_4.text = t;
 				if (cen) x = screenwidthmid - Std.int(tf_4.textWidth / 2);
@@ -292,8 +300,6 @@ package;
 				shapematrix.translate(x, y);
 				tf_4.textColor = Std.int(RGB(r, g, b));
 				backbuffer.draw(tf_4, shapematrix);
-				
-				shapematrix.translate(-x, -y);
 			}else if (sc == 5) {
 				tf_5.textColor = Std.int(RGB(r, g, b));
 				tf_5.text = t;
@@ -301,8 +307,9 @@ package;
 				
 				shapematrix.translate(x, y);
 				backbuffer.draw(tf_5, shapematrix);
-				shapematrix.translate(-x, -y);
 			}
+			
+			shapematrix.identity();
 		}
 		
 		public function RGB(red:Float,green:Float,blue:Float):Int{
@@ -385,6 +392,7 @@ package;
 		public var tf_1:TextField = new TextField();
 		public var tf_2:TextField = new TextField();
 		public var tf_3:TextField = new TextField();
+		public var tf_33:TextField = new TextField();
 		public var tf_4:TextField = new TextField();
 		public var tf_5:TextField = new TextField();
 		public var fontsize: Array<Int> = new Array<Int>();

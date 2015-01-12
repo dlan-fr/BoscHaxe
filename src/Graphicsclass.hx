@@ -511,17 +511,17 @@ package;
 		
 		public function drawmenu(control:Controlclass):Void {
 			
-			
+			bigprint(10, (linesize * 2) - 5, "BOSCA CEOIL", 0, 0, 0, false, 33);
 			
 			if (control.looptime % control.barcount==1) {
-				bigprint(Std.int(12-2+(Math.random()*4)), Std.int(linesize*2-5-6+(Math.random()*4)), "BOSCA CEOIL", 255 - (Help.glow*4), 255 - Help.glow, 64 + (Help.glow*2), false, 3);
+				bigprint(Std.int(8-2+(Math.random()*4)), Std.int(linesize*2-7-6+(Math.random()*4)), "BOSCA CEOIL", 255 - (Help.glow*4), 255 - Help.glow, 64 + (Help.glow*2), false, 3);
 			}else{
-			  bigprint(12, linesize * 2 + 2 - 5, "BOSCA CEOIL", Std.int(255 - (Help.glow * 4)), 255 - Help.glow, 64 + (Help.glow * 2), false, 3);
+			  bigprint(8, (linesize * 2) - 7, "BOSCA CEOIL", Std.int(255 - (Help.glow * 4)), 255 - Help.glow, 64 + (Help.glow * 2), false, 3);
 			}
 			
-			bigprint(10, (linesize * 2) - 5, "BOSCA CEOIL", 0, 0, 0, false, 3);
 			
 			
+
 			print(165, (linesize * 4)+4, "v1.1", 2, false, true);
 			
 			
@@ -560,7 +560,9 @@ package;
 			rprint(280, (linesize * 9) - 1, "BPM", 0, true);
 			drawicon(305, (linesize * 9)-1, 3);
 			print(320, (linesize * 9) - 1, Std.string(control.bpm), 0, false, true);
-			drawicon(350, (linesize * 9)-1, 2);
+			drawicon(350, (linesize * 9) - 1, 2);
+			
+			
 		}
 		
 		public function drawadvancedmenu(control:Controlclass):Void {
