@@ -227,6 +227,7 @@ package ;
 			
 			
 			_driver = new SiONDriver(buffersize); currentbuffersize = buffersize;
+			_driver.debugMode(true);
 			_driver.setBeatCallbackInterval(1);
 			_driver.setTimerInterruption(1, _onTimerInterruption);
 			
@@ -301,21 +302,21 @@ package ;
 					}
 					
 				i = 0;
-	while( i < numboxes){
+					while( i < numboxes){
 						musicbox[i].isplayed = false;
 					 i++;
-}
+					}
 				}
 				
 			k = 0;
-	while( k < 8){
+			while( k < 8){
 					if (arrange.channelon[k]) {
 						i = arrange.bar[arrange.currentbar].channel[k];
 						if (i > -1) {
 							musicbox[i].isplayed = true;
 							if (instrument[musicbox[i].instr].type == 0) {
 							j = 0;
-	while( j < musicbox[i].numnotes){
+							while( j < musicbox[i].numnotes){
 									if (musicbox[i].notes[j].width == looptime) {
 										if (musicbox[i].notes[j].x > -1) {
 											instrument[musicbox[i].instr].updatefilter();
@@ -327,11 +328,11 @@ package ;
 										}	
 									}
 								 j++;
-}
+							}
 							}else {
 								
 							j = 0;
-	while( j < musicbox[i].numnotes){
+							while( j < musicbox[i].numnotes){
 									if (musicbox[i].notes[j].width == looptime) {
 										if (musicbox[i].notes[j].x > -1) {
 											if (musicbox[i].notes[j].x < drumkit[instrument[musicbox[i].instr].type-1].size) {												
@@ -348,12 +349,12 @@ package ;
 										}	
 									}
 								 j++;
-}
+							}
 							}
 						}
 					}
 				 k++;
-}
+			}
 				
 				looptime = looptime + 1;
 				SetSwing();
