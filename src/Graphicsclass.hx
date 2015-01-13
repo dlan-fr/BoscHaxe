@@ -519,9 +519,6 @@ package;
 			  bigprint(8, (linesize * 2) - 7, "BOSCA CEOIL", Std.int(255 - (Help.glow * 4)), 255 - Help.glow, 64 + (Help.glow * 2), false, 3);
 			}
 			
-			
-			
-
 			print(165, (linesize * 4)+4, "v1.1", 2, false, true);
 			
 			
