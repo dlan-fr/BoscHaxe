@@ -227,6 +227,7 @@ package ;
 			
 			
 			_driver = new SiONDriver(buffersize); currentbuffersize = buffersize;
+			_driver.debugMode(true);
 			_driver.setBeatCallbackInterval(1);
 			_driver.setTimerInterruption(1, _onTimerInterruption);
 			
@@ -247,7 +248,7 @@ package ;
 			
 			startup = 1;
 			if (invokefile != "null") {
-				invokeceol(invokefile);
+				onloadceol([invokefile]);
 				invokefile = "null";
 			}
 			
@@ -301,21 +302,21 @@ package ;
 					}
 					
 				i = 0;
-	while( i < numboxes){
+					while( i < numboxes){
 						musicbox[i].isplayed = false;
 					 i++;
-}
+					}
 				}
 				
 			k = 0;
-	while( k < 8){
+			while( k < 8){
 					if (arrange.channelon[k]) {
 						i = arrange.bar[arrange.currentbar].channel[k];
 						if (i > -1) {
 							musicbox[i].isplayed = true;
 							if (instrument[musicbox[i].instr].type == 0) {
 							j = 0;
-	while( j < musicbox[i].numnotes){
+							while( j < musicbox[i].numnotes){
 									if (musicbox[i].notes[j].width == looptime) {
 										if (musicbox[i].notes[j].x > -1) {
 											instrument[musicbox[i].instr].updatefilter();
@@ -327,11 +328,11 @@ package ;
 										}	
 									}
 								 j++;
-}
+							}
 							}else {
 								
 							j = 0;
-	while( j < musicbox[i].numnotes){
+							while( j < musicbox[i].numnotes){
 									if (musicbox[i].notes[j].width == looptime) {
 										if (musicbox[i].notes[j].x > -1) {
 											if (musicbox[i].notes[j].x < drumkit[instrument[musicbox[i].instr].type-1].size) {												
@@ -348,12 +349,12 @@ package ;
 										}	
 									}
 								 j++;
-}
+							}
 							}
 						}
 					}
 				 k++;
-}
+			}
 				
 				looptime = looptime + 1;
 				SetSwing();
@@ -1236,39 +1237,37 @@ package ;
 		
 		public function fileHasExtension(filename:String, extension:String):Bool {
 
-			if (!StringTools.endsWith(filename, extension)) {         
+			if (!StringTools.endsWith(filename, "."+extension)) {         
 				return false;     
 			}                 
 			return true; 
 		}
 		
-		public function addExtensionToFile(filename:String, extension:String):Void {     
-			filename += "." + extension; 
+		public function addExtensionToFile(filename:String, extension:String):String {     
+			return filename + "." + extension;
 		}
 		
 		public function saveceol():Void {
-			//file = File.desktopDirectory.resolvePath("*.ceol");
-     // file.addEventListener(Event.SELECT, onsaveceol);
-		//	file.browseForSave("Save .ceol File");
 		
 			#if !android
 			var filename:String = Dialogs.saveFile("Save .ceol File", "Save .ceol File", Sys.getCwd(), ceolFilter);
 			
-			
-			onsaveceol(filename);
+			if(StringTools.trim(filename) != "")
+				onsaveceol(filename);
 			
 			fixmouseclicks = true;
 			#end
 		}
 		
 		private function onsaveceol(filename:String):Void {    
+			
 			if (!fileHasExtension(filename, "ceol")) {
-				addExtensionToFile(filename, "ceol");
+				filename = addExtensionToFile(filename, "ceol");
 			}
 			
 			makefilestring();
 			
-			var fo:FileOutput =  File.write(filename);
+			var fo:FileOutput =  File.write(filename,false);
 			
 			fo.writeString(filestring);
 			fo.close();
@@ -1278,7 +1277,6 @@ package ;
 		}
 		
 		public function loadceol():Void {
-			//file = File.desktopDirectory;
 			#if !android
 			
 			var result:Array<String> = Dialogs.openFile(
@@ -1287,72 +1285,40 @@ package ;
 			, ceolFilter
 			);	
 			
-			onloadceol(result);
-			
-			//file.addEventListener(Event.SELECT, onloadceol);
 
-			//Browser.launch(file.url);
-			//Dialogs.openFile("Load .ceol File",'Load .ceol File',
-			//file.browseForOpen("Load .ceol File", [ceolFilter]);
+			if (result != null && result.length != 0)
+				onloadceol(result);
 			
 			fixmouseclicks = true;
 			#end
 		}
 		
-		public function invokeceol(t:String):Void { 
-			var filein:FileInput = File.read(t);
-			
-			var ld_ceol:ByteArray = new ByteArray();
-			ld_ceol.endian = Endian.LITTLE_ENDIAN;
-				
 
-			while (!filein.eof())
-				ld_ceol.writeByte(filein.readByte());
-			
-			filein.close();
-			
-			filestream = new Array<Dynamic>();
-			filestream = ld_ceol.readUTFBytes(ld_ceol.bytesAvailable).split(",");
-			
-			numinstrument = 1;
-			numboxes = 0;
-			arrange.clear();
-			arrange.currentbar = 0; arrange.viewstart = 0;
-			
-			convertfilestring();
-			
-			changemusicbox(0);
-			looptime = 0;
-			
-			fixmouseclicks = true;
-			showmessage("SONG LOADED");
-		}
-		
 		private function onloadceol(arr:Array<String>):Void {  
 			if (arr != null && arr.length > 0)
 			{
-				var fi:FileInput = File.read(arr[0]);
+				var str_ceol:String = File.getContent(arr[0]);
 				
-				var ld_ceol:ByteArray = new ByteArray();
-				ld_ceol.endian = Endian.LITTLE_ENDIAN;
-				
-				
-				while (!fi.eof())
-					ld_ceol.writeByte(fi.readByte());
-				
-				fi.close();
-				
-				onreadceolcomplete(ld_ceol);
+				onreadceolcomplete(str_ceol);
 				
 			}
 			
 		}
 		
-		private function onreadceolcomplete(result:ByteArray):Void
+		private function onreadceolcomplete(result:String):Void
 		{
 			filestream = new Array<Dynamic>();
-			filestream = result.readUTFBytes(result.bytesAvailable).toString().split(",");
-			//result.asString().split(",");
+			filestream = result.split(",");
+			
+			
+			//stop playing sound before loading new level
+			if (musicplaying)
+			{
+				musicplaying = false;
+				looptime = 0;
+				notecut();
+			}
+			
 			
 			numinstrument = 1;
 			numboxes = 0;
