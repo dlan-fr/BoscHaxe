@@ -87,7 +87,8 @@ package;
 		
 			
 			if (stage != null) {
-				stage.resize((screenwidth * t), (screenheight * t));
+				stage.onWindowResize((screenwidth * t), (screenheight * t));
+				
 				screen.scaleX = screenscale;
 				screen.scaleY = screenscale;
 			}
