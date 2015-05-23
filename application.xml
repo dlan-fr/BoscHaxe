@@ -21,8 +21,8 @@
 	<haxelib name="actuate" /> 
 	<haxelib name="systools" if="desktop" />
 	<!--<haxelib name="hxcpp" />-->
-	<haxedef name="HXCPP_DEBUGGER" />
-	<haxelib name="hxcpp-debugger" />
+	<haxedef name="HXCPP_DEBUGGER" if="cpp" />
+	<haxelib name="hxcpp-debugger" if="cpp" />
 	
 	<!-- assets -->
 	<!--<icon path="assets/openfl.svg" />

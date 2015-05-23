@@ -87,7 +87,10 @@ package;
 		
 			
 			if (stage != null) {
-				stage.onWindowResize((screenwidth * t), (screenheight * t));
+				//stage.onWindowResize((screenwidth * t), (screenheight * t));openfl v3
+				#if !html5
+				stage.resize((screenwidth * t), (screenheight * t));
+				#end
 				
 				screen.scaleX = screenscale;
 				screen.scaleY = screenscale;

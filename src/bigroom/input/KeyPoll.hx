@@ -163,9 +163,15 @@ package bigroom.input;
 		
 		private function keyDownListener( ev:KeyboardEvent ):Void
 		{
-			var val:Int = states.get(ev.keyCode >>> 3);
+			#if html5
+				var val:Int = states.__get(ev.keyCode >>> 3);
+				states.__set(ev.keyCode >>> 3, val | 1 << (ev.keyCode & 7));
+			#else
+				var val:Int = states.get(ev.keyCode >>> 3);
+				states.set(ev.keyCode >>> 3, val | 1 << (ev.keyCode & 7));
+			#end
 			
-			states.set(ev.keyCode >>> 3, val | 1 << (ev.keyCode & 7));
+			
 
 			if (ev.keyCode == 16) shiftheld = true;
 			if (ev.keyCode == 17) ctrlheld = true;
@@ -177,10 +183,18 @@ package bigroom.input;
 		
 		private function keyUpListener( ev:KeyboardEvent ):Void
 		{
+			#if html5
+			
+			var val:Int = states.__get(ev.keyCode >>> 3);
+			
+			states.__set(ev.keyCode >>> 3, val & ~(1 << (ev.keyCode & 7)));
+			#else
+			
 			var val:Int = states.get(ev.keyCode >>> 3);
 			
 			states.set(ev.keyCode >>> 3, val & ~(1 << (ev.keyCode & 7)));
-			
+
+			#end
 			//states[ ev.keyCode >>> 3 ] &= ~(1 << (ev.keyCode & 7));
 			
 			if (ev.keyCode == 16) shiftheld = false;
@@ -189,29 +203,45 @@ package bigroom.input;
 		
 		private function activateListener( ev:Event ):Void
 		{
-		 var i:Int = 0;
-	while( i < 8){
-				states[ i ] = 0;
-			 ++i ;
-}
+			 var i:Int = 0;
+			while ( i < 8) {
+						#if html5
+							states.__set(i, 0);
+						#else
+							states[i] = 0;
+						#end
+					 ++i ;
+			}
 		}
 
 		private function deactivateListener( ev:Event ):Void
 		{
 		 var i:Int = 0;
-	while( i < 8){
-				states[ i ] = 0;
-			 ++i ;
-}
+			while ( i < 8) {
+						#if html5
+							states.__set(i, 0);
+						#else
+							states[ i ] = 0;
+						#end
+					 ++i ;
+			}
 		}
 
 		public function isDown( keyCode:Int ):Bool
 		{
+			#if html5
+			return (states.__get(keyCode >>> 3) & (1 << (keyCode & 7))) != 0;
+			#else
 			return ( states[ keyCode >>> 3 ] & (1 << (keyCode & 7)) ) != 0;
+			#end
 		}
 		
 		public function isUp( keyCode:Int ):Bool
 		{
+			#if html5
+			return ( states.__get(keyCode >>> 3 ) & (1 << (keyCode & 7)) ) == 0;
+			#else
 			return ( states[ keyCode >>> 3 ] & (1 << (keyCode & 7)) ) == 0;
+			#end
 		}
 	}
