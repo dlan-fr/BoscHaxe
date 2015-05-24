@@ -13,12 +13,14 @@ package ;
 	import org.si.sion.effector.SiCtrlFilterHighPass;
 	import org.si.sion.effector.SiEffectStereoReverb;
 	
+	#if cpp
 	import sys.FileSystem;
 	import sys.io.FileInput;
 	import sys.io.FileOutput;
 	
-	#if !android
-		import systools.Dialogs;
+		#if !android
+			import systools.Dialogs;
+		#end
 	#end
 	
 	import openfl.display.Sprite;
@@ -29,11 +31,13 @@ package ;
   
   import flash.system.Capabilities;
   //import openfl.filesystem.File;
-  import sys.io.File;
-   import sys.FileStat;
-   
-   #if !android
-	import systools.Browser;
+  #if cpp
+	   import sys.io.File;
+	   import sys.FileStat;
+	   
+	   #if !android
+		import systools.Browser;
+	   #end
    #end
 
   import flash.utils.ByteArray;
@@ -331,6 +335,17 @@ package ;
 							}
 							}else {
 								
+								
+								//DRUMKIT sound generation code
+								//ok voice atm:
+								//valsound.percus1
+								//buggy voice atm:
+								//valsound.percus13
+								//valsound.percus3
+								//valsound.percus30
+								//valsound.percus27
+								
+								//check _setOPNParamByArray data input from SiONPresetVoice
 							j = 0;
 							while( j < musicbox[i].numnotes){
 									if (musicbox[i].notes[j].width == looptime) {
@@ -344,7 +359,9 @@ package ;
 													drumkit[instrument[musicbox[i].instr].type-1].updatefilter(musicbox[i].cutoffgraph[looptime % boxcount], musicbox[i].resonancegraph[looptime % boxcount]);
 												  drumkit[instrument[musicbox[i].instr].type-1].updatevolume(musicbox[i].volumegraph[looptime % boxcount]);
 												}
-												_driver.noteOn(drumkit[instrument[musicbox[i].instr].type-1].voicenote[Std.int(musicbox[i].notes[j].x)], drumkit[instrument[musicbox[i].instr].type-1].voicelist[Std.int(musicbox[i].notes[j].x)], Std.int(musicbox[i].notes[j].y));
+												var testvoice:SiONVoice =  _presets.dynProperties.get("valsound.percus27");
+												// drumkit[instrument[musicbox[i].instr].type-1].voicelist[Std.int(musicbox[i].notes[j].x)]
+												_driver.noteOn(drumkit[instrument[musicbox[i].instr].type-1].voicenote[Std.int(musicbox[i].notes[j].x)],testvoice, Std.int(musicbox[i].notes[j].y));
 											}
 										}	
 									}
@@ -368,8 +385,11 @@ package ;
       
       var fswing:Float = 0.2+(swing+10)*(1.8-0.2)/20.0;
       
+	 
+	  
 			if (swing == 0) {
 				if (swingoff == 1) {
+					 
 					_driver.setTimerInterruption(1, _onTimerInterruption);
 					swingoff = 0;
 				}
@@ -1249,13 +1269,15 @@ package ;
 		
 		public function saveceol():Void {
 		
-			#if !android
-			var filename:String = Dialogs.saveFile("Save .ceol File", "Save .ceol File", Sys.getCwd(), ceolFilter);
-			
-			if(StringTools.trim(filename) != "")
-				onsaveceol(filename);
-			
-			fixmouseclicks = true;
+			#if cpp
+				#if !android
+				var filename:String = Dialogs.saveFile("Save .ceol File", "Save .ceol File", Sys.getCwd(), ceolFilter);
+				
+				if(StringTools.trim(filename) != "")
+					onsaveceol(filename);
+				
+				fixmouseclicks = true;
+				#end
 			#end
 		}
 		
@@ -1267,29 +1289,33 @@ package ;
 			
 			makefilestring();
 			
+			#if cpp
 			var fo:FileOutput =  File.write(filename,false);
 			
 			fo.writeString(filestring);
 			fo.close();
+			#end
 			
 			fixmouseclicks = true;
 			showmessage("SONG SAVED");
 		}
 		
 		public function loadceol():Void {
-			#if !android
-			
-			var result:Array<String> = Dialogs.openFile(
-			"Load .ceol File"
-			, "Load .ceol File"
-			, ceolFilter
-			);	
-			
+			#if cpp
+				#if !android
+				
+				var result:Array<String> = Dialogs.openFile(
+				"Load .ceol File"
+				, "Load .ceol File"
+				, ceolFilter
+				);	
+				
 
-			if (result != null && result.length != 0)
-				onloadceol(result);
-			
-			fixmouseclicks = true;
+				if (result != null && result.length != 0)
+					onloadceol(result);
+				
+				fixmouseclicks = true;
+				#end
 			#end
 		}
 		
@@ -1297,7 +1323,11 @@ package ;
 		private function onloadceol(arr:Array<String>):Void {  
 			if (arr != null && arr.length > 0)
 			{
-				var str_ceol:String = File.getContent(arr[0]);
+				#if cpp
+					var str_ceol:String = File.getContent(arr[0]);
+				#else
+					var str_ceol:String = "";
+				#end
 				
 				onreadceolcomplete(str_ceol);
 				
@@ -1340,7 +1370,6 @@ package ;
 		}
 		
 		public function onStream(e : SiONEvent) : Void {
-			trace("Driver onStream");
 			e.streamBuffer().position = 0;
 			while(e.streamBuffer().bytesAvailable > 0){
 				var d : Int = Std.int( e.streamBuffer().readFloat() * 32767);
@@ -1385,10 +1414,12 @@ package ;
 			_data.position = 0;
 			_wav.writeBytes(_data);
 			
-			#if !android
-			var result:String =Dialogs.saveFile("Export .wav File", "Export .wav File", Sys.getCwd(), wavFilter);
-			
-			onsavewav(result);
+			#if cpp
+				#if !android
+				var result:String =Dialogs.saveFile("Export .wav File", "Export .wav File", Sys.getCwd(), wavFilter);
+				
+				onsavewav(result);
+				#end
 			#end
 			
 			
@@ -1400,7 +1431,7 @@ package ;
 			if (!fileHasExtension(filename, "wav")) {
 				addExtensionToFile(filename, "wav");
 			}
-			
+			#if cpp
 			var fo:FileOutput = File.write(filename);
 			
 			var iwav:Int = 0;
@@ -1412,6 +1443,7 @@ package ;
 			}
 			
 			fo.close();
+			#end
 			
 			fixmouseclicks = true;
 			showmessage("SONG EXPORTED AS WAV");
@@ -1422,20 +1454,21 @@ package ;
 		public var fi:Int;
 		public var filestream:Array<Dynamic>;
 		
-		
-		#if !android
-			var ceolFilter: FILEFILTERS =
-				{ count: 1
-				, descriptions: ["Ceol files"]
-				, extensions: ["*.ceol"]	
-				};	
-				
-			var wavFilter:FILEFILTERS = 
-			{
-				count: 1,
-				descriptions: ["Wav file"],
-				extensions: ["*.wav"]
-			};
+		#if cpp
+			#if !android
+				var ceolFilter: FILEFILTERS =
+					{ count: 1
+					, descriptions: ["Ceol files"]
+					, extensions: ["*.ceol"]	
+					};	
+					
+				var wavFilter:FILEFILTERS = 
+				{
+					count: 1,
+					descriptions: ["Wav file"],
+					extensions: ["*.wav"]
+				};
+			#end
 		#end
 		
 		public var i:Int;

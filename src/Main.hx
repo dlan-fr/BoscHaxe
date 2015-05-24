@@ -38,7 +38,9 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ;
 
+#if cpp
 import cpp.vm.Debugger;
+#end
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Sprite;
@@ -63,7 +65,9 @@ import includes.Input;
 import includes.Logic;
 import includes.Render;
 
+#if cpp
 import debugger.Local;
+#end
 /*
 import Input;
 import Logic;
@@ -199,14 +203,15 @@ class Main extends Sprite
 
 	public function new() 
 	{
-		super();	
+		super();
 		addEventListener(Event.ADDED_TO_STAGE, added);
+		
 	}
 
 	function added(e) 
 	{
 		removeEventListener(Event.ADDED_TO_STAGE, added);
-		stage.addEventListener(Event.RESIZE, resize);
+		Lib.current.stage.addEventListener(Event.RESIZE, resize);
 		#if ios
 		haxe.Timer.delay(init, 100); // iOS 6
 		#else
@@ -216,7 +221,7 @@ class Main extends Sprite
 	
 	public static function main() 
 	{
-		new Local(true);
+		//new Local(true);
 		// static entry point
 		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;

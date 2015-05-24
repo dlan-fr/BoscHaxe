@@ -11,22 +11,30 @@
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />
-    <movie background="000000" />
+    <movie background="#000000" />
     <movie preferredSDK=";3;" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
+    <class path="D:\devel\HaxeToolkit\haxe\lib\openfl\2,1,8" />
+    <class path="D:\devel\HaxeToolkit\haxe\lib\lime\2,0,2" />
+    <class path="D:\devel\HaxeToolkit\haxe\lib\actuate\1,7,5" />
+    <class path="D:\devel\HaxeToolkit\haxe\lib\systools\1,1,0" />
+    <class path="D:\devel\HaxeToolkit\haxe\lib\hxcpp-debugger\1,0,6" />
+    <class path="D:\devel\HaxeToolkit\haxe\lib\hxcpp\3,1,48" />
     <class path="src" />
     <class path="org" />
+    <class path="D:\devel\HaxeToolkit\haxe\lib\lime\2,0,2\legacy" />
+    <class path="bin\windows\cpp\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="" />
+    <option directives="openfl=2.1.8&#xA;lime=2.0.2&#xA;actuate=1.7.5&#xA;systools=1.1.0&#xA;hxcpp-debugger=1.0.6&#xA;hxcpp=3.1.48&#xA;HXCPP_DEBUGGER&#xA;tools=2.0.2&#xA;lime-legacy&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="" />
+    <option additional="--remap flash:openfl&#xA;#--macro keep(&quot;Main&quot;)" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>
