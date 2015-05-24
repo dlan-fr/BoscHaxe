@@ -170,10 +170,10 @@ package ;
 	while( i < 16){
 				instrument.push(new Instrumentclass());
 				if (i == 0) {
-				  instrument[i].voice = _presets.dynProperties.get("midi.piano1");
+				  instrument[i].voice = _presets.voices.get("midi.piano1");
 				}else {
 					voicelist.index = Std.int(Math.random() * voicelist.listsize);
-					instrument[i].voice = _presets.dynProperties.get(voicelist.voice[voicelist.index]);
+					instrument[i].voice = _presets.voices.get(voicelist.voice[voicelist.index]);
 					instrument[i].category = voicelist.category[voicelist.index];
 					instrument[i].name = voicelist.name[voicelist.index];
 					instrument[i].palette = voicelist.palette[voicelist.index];
@@ -419,7 +419,7 @@ package ;
 		
 		public function adddrumkitnote(t:Int, name:String, voice:String, note:Int = 60):Void {
 			if (t == 2 && note == 60) note = 16;
-			drumkit[t].voicelist.push(_presets.dynProperties.get(voice));
+			drumkit[t].voicelist.push(_presets.voices.get(voice));
       drumkit[t].voicename.push(name);
       drumkit[t].voicenote.push(note);
 			drumkit[t].size++;
@@ -432,8 +432,8 @@ package ;
 					
 					drumkit[0].kitname = "Simple Drumkit";
 					adddrumkitnote(0, "Bass Drum 1", "valsound.percus1", 30);
-					adddrumkitnote(0, "Bass Drum 2", "valsound.percus13", 32);
-					adddrumkitnote(0, "Bass Drum 3", "valsound.percus3", 30);
+					adddrumkitnote(0, "Bass Drum 2", "valsound.percus13", 32);//13
+					adddrumkitnote(0, "Bass Drum 3", "valsound.percus3", 30);//3
 					adddrumkitnote(0, "Snare Drum", "valsound.percus30", 20);
 					adddrumkitnote(0, "Snare Drum 2", "valsound.percus29", 48);
 					adddrumkitnote(0, "Open Hi-Hat", "valsound.percus17", 60);
@@ -894,7 +894,7 @@ package ;
 				drumkit[instrument[t].type-1].updatefilter(instrument[t].cutoff, instrument[t].resonance);
 			}else {
 				instrument[t].type = 0;
-				instrument[t].voice = _presets.dynProperties.get(voicelist.voice[voicelist.index]);
+				instrument[t].voice = _presets.voices.get(voicelist.voice[voicelist.index]);
 				instrument[t].updatefilter();
 			}
 			
@@ -918,7 +918,7 @@ package ;
 				}
 			}else {
 				instrument[currentinstrument].type = 0;
-				instrument[currentinstrument].voice = _presets.dynProperties.get(voicelist.voice[voicelist.index]);
+				instrument[currentinstrument].voice = _presets.voices.get(voicelist.voice[voicelist.index]);
 				instrument[currentinstrument].updatefilter();
 			}
 			
