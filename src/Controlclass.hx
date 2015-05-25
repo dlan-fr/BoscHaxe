@@ -231,7 +231,7 @@ package ;
 			
 			
 			_driver = new SiONDriver(buffersize); currentbuffersize = buffersize;
-			_driver.debugMode(true);
+			_driver.debugMode = true;
 			_driver.setBeatCallbackInterval(1);
 			_driver.setTimerInterruption(1, _onTimerInterruption);
 			
@@ -247,7 +247,7 @@ package ;
 			
 			_driver.addEventListener(SiONEvent.STREAM, onStream);
 			
-			_driver.bpm(bpm); 
+			_driver.bpm = bpm; 
 			_driver.play(null, false);
 			
 			startup = 1;
@@ -359,8 +359,10 @@ package ;
 													drumkit[instrument[musicbox[i].instr].type-1].updatefilter(musicbox[i].cutoffgraph[looptime % boxcount], musicbox[i].resonancegraph[looptime % boxcount]);
 												  drumkit[instrument[musicbox[i].instr].type-1].updatevolume(musicbox[i].volumegraph[looptime % boxcount]);
 												}
-												var testvoice:SiONVoice =  _presets.dynProperties.get("valsound.percus27");
-												// drumkit[instrument[musicbox[i].instr].type-1].voicelist[Std.int(musicbox[i].notes[j].x)]
+												//var testvoice:SiONVoice =  _presets.voices.get("valsound.percus27");
+												var testvoice:SiONVoice = drumkit[instrument[musicbox[i].instr].type-1].voicelist[Std.int(musicbox[i].notes[j].x)];
+												//var testvoice:SiONVoice =  _presets.voices.get("valsound.percus27");
+												//
 												_driver.noteOn(drumkit[instrument[musicbox[i].instr].type-1].voicenote[Std.int(musicbox[i].notes[j].x)],testvoice, Std.int(musicbox[i].notes[j].y));
 											}
 										}	
@@ -1022,7 +1024,7 @@ package ;
 		public function newsong():Void {
 			bpm = 120; boxcount = 16; barcount = 4; doublesize = false;
 			effectvalue = 0; effecttype = 0; updateeffects();
-			_driver.bpm(bpm) ;
+			_driver.bpm = bpm;
 			arrange.clear();
 			musicbox[0].clear();
 			changekey(0); changescale(0);
@@ -1046,7 +1048,8 @@ package ;
 				swing = readfilestream();
 				effecttype = readfilestream();
 				effectvalue = readfilestream(); updateeffects();
-				bpm = readfilestream();	_driver.bpm( bpm);
+				bpm = readfilestream();	
+				_driver.bpm = bpm;
 				boxcount = readfilestream(); doublesize = boxcount > 16;
 				barcount = readfilestream();
 				numinstrument = readfilestream();
@@ -1122,7 +1125,8 @@ package ;
 				case 2: 
 					swing = readfilestream();
 					effecttype = 0; effectvalue = 0;
-					bpm = readfilestream();	_driver.bpm ( bpm);
+					bpm = readfilestream();	
+					_driver.bpm = bpm;
 					boxcount = readfilestream(); doublesize = boxcount > 16;
 					barcount = readfilestream();
 					numinstrument = readfilestream();
@@ -1188,7 +1192,8 @@ package ;
 }
 			
 				case 1: 
-					bpm = readfilestream();	_driver.bpm(bpm); 
+					bpm = readfilestream();	
+					_driver.bpm = bpm; 
 					swing = 0; effecttype = 0; effectvalue = 0;
 					boxcount = readfilestream(); doublesize = boxcount > 16;
 					barcount = readfilestream();
@@ -1370,9 +1375,9 @@ package ;
 		}
 		
 		public function onStream(e : SiONEvent) : Void {
-			e.streamBuffer().position = 0;
-			while(e.streamBuffer().bytesAvailable > 0){
-				var d : Int = Std.int( e.streamBuffer().readFloat() * 32767);
+			e.streamBuffer.position = 0;
+			while(e.streamBuffer.bytesAvailable > 0){
+				var d : Int = Std.int( e.streamBuffer.readFloat() * 32767);
 				if (nowexporting) _data.writeShort(d);
 			}
 		}
@@ -1513,9 +1518,9 @@ package ;
 		public var currentbox:Int;
 		public var currentnote:Int;
 		public var currentinstrument:Int;
-		public var boxsize:Int;
+		public var boxsize:Int = 1;
 		public var boxcount:Int;
-		public var barsize:Int;
+		public var barsize:Int = 1;
 		public var barcount:Int;
 		public var notelength:Int;
 		public var doublesize:Bool;

@@ -236,12 +236,12 @@ class Input
 							if (Help.inboxw(control.mx, control.my, 300, (gfx.linesize * 9) - 1, 10, 10)) {
 								control.bpm -= 5;
 								if (control.bpm < 10) control.bpm = 10;
-								control._driver.bpm(control.bpm);
+								control._driver.bpm = control.bpm;
 							}
 							if (Help.inboxw(control.mx, control.my, 350, (gfx.linesize * 9) - 1, 10, 10)) {
 								control.bpm += 5;
 								if (control.bpm > 220) control.bpm = 220;
-								control._driver.bpm(control.bpm);
+								control._driver.bpm = control.bpm;
 							}
 							if (Help.inboxw(control.mx, control.my, 290, (gfx.linesize * 7) - 1, 10, 10)) {
 								control.barcount--;
