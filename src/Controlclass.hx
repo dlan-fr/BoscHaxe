@@ -18,7 +18,7 @@ package ;
 	import sys.io.FileInput;
 	import sys.io.FileOutput;
 	
-		#if !android
+		#if (!android && !emscripten)
 			import systools.Dialogs;
 		#end
 	#end
@@ -35,7 +35,7 @@ package ;
 	   import sys.io.File;
 	   import sys.FileStat;
 	   
-	   #if !android
+	   #if (!android && !emscripten)
 		import systools.Browser;
 	   #end
    #end
@@ -1275,7 +1275,7 @@ package ;
 		public function saveceol():Void {
 		
 			#if cpp
-				#if !android
+				#if (!android && !emscripten)
 				var filename:String = Dialogs.saveFile("Save .ceol File", "Save .ceol File", Sys.getCwd(), ceolFilter);
 				
 				if(StringTools.trim(filename) != "")
@@ -1307,7 +1307,7 @@ package ;
 		
 		public function loadceol():Void {
 			#if cpp
-				#if !android
+				#if (!android && !emscripten)
 				
 				var result:Array<String> = Dialogs.openFile(
 				"Load .ceol File"
@@ -1420,7 +1420,7 @@ package ;
 			_wav.writeBytes(_data);
 			
 			#if cpp
-				#if !android
+				#if (!android && !emscripten)
 				var result:String =Dialogs.saveFile("Export .wav File", "Export .wav File", Sys.getCwd(), wavFilter);
 				
 				onsavewav(result);
@@ -1460,7 +1460,7 @@ package ;
 		public var filestream:Array<Dynamic>;
 		
 		#if cpp
-			#if !android
+			#if (!android && !emscripten)
 				var ceolFilter: FILEFILTERS =
 					{ count: 1
 					, descriptions: ["Ceol files"]

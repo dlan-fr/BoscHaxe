@@ -15,7 +15,11 @@ package;
 	import flash.text.Font;
 	import flash.Lib;
 	
+	#if (!emscripten)
 	@:font("graphics/FFF.ttf") class DefaultFont extends Font {}
+	#else
+	@:font("graphics/visitor1.ttf") class DefaultFont extends Font {}
+	#end
 	
 	class Gfxbaseclass extends Sprite {
 		
@@ -45,6 +49,7 @@ package;
 			fontsize.push(0); fontsize.push(0); fontsize.push(0); fontsize.push(0);		
 			fontsize.push(0); fontsize.push(0); fontsize.push(0); fontsize.push(0);		
 		
+
 			fontsize[0] = 8;
 			fontsize[1] = 16;
 			fontsize[2] = 24;
@@ -87,10 +92,13 @@ package;
 		
 			
 			if (stage != null) {
-				//stage.onWindowResize((screenwidth * t), (screenheight * t));openfl v3
-				#if !html5
-				stage.resize((screenwidth * t), (screenheight * t));
+				#if (emscripten)
+					//stage.onWindowResize((screenwidth * t), (screenheight * t));//openfl v3
+				#else
+					stage.resize((screenwidth * t), (screenheight * t));
 				#end
+	
+				//stage.onWindowResize
 				
 				screen.scaleX = screenscale;
 				screen.scaleY = screenscale;
@@ -163,35 +171,43 @@ package;
 		
 		
 		public function initfont():Void {			
+			
+			#if (!emscripten)
+			tf_1.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[0], 0, false);
 			tf_1.embedFonts = true;
-			tf_1.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[0],0,false);
 			tf_1.width = screenwidth; tf_1.height = 48;
 			tf_1.antiAliasType = AntiAliasType.NORMAL;
 			
-		  tf_2.embedFonts = true;
-			tf_2.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[1],0,false);
+		 
+			tf_2.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[1], 0, false);
+			 tf_2.embedFonts = true;
 			tf_2.width = screenwidth; tf_2.height = 100;
 			tf_2.antiAliasType = AntiAliasType.NORMAL;
 			
-		  tf_3.embedFonts = true;
-			tf_3.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[2],0,false);
+		 
+			tf_3.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[2], 0, false);
+			 tf_3.embedFonts = true;
 			tf_3.width = screenwidth; tf_3.height = 100;
 			tf_3.antiAliasType = AntiAliasType.NORMAL;
 			
-		tf_33.embedFonts = true;
-			tf_33.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[2],0,false);
+		
+			tf_33.defaultTextFormat = new TextFormat("FFF Condensed Bold, fontsize[2], 0, false);
+			tf_33.embedFonts = true;
 			tf_33.width = screenwidth; tf_33.height = 100;
 			tf_33.antiAliasType = AntiAliasType.NORMAL;
 			
-		  tf_4.embedFonts = true;
-			tf_4.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[3],0,false);
+		
+			tf_4.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[3], 0, false);
+			  tf_4.embedFonts = true;
 			tf_4.width = screenwidth; tf_4.height = 100;
 			tf_4.antiAliasType = AntiAliasType.NORMAL;
 			
-		  tf_5.embedFonts = true;
-			tf_5.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed",fontsize[4],0,false);
+		  
+			tf_5.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[4], 0, false);
+			tf_5.embedFonts = true;
 			tf_5.width = screenwidth; tf_5.height = 100;
 			tf_5.antiAliasType = AntiAliasType.NORMAL;
+			#end
 		}
 
 		public function rprint(x:Int, y:Int, t:String, col:Int, shadow:Bool = false):Void {
@@ -199,7 +215,8 @@ package;
 			print(x, y, t, col, false, shadow);
 		}
 
-		public function print(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool=false):Void {
+		public function print(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool = false):Void {
+			#if (!emscripten)
 			y -= 3;
 		
 			if (cen) x = screenwidthmid - Std.int(tf_1.textWidth / 2) + x;
@@ -220,6 +237,7 @@ package;
 			backbuffer.draw(tf_1, shapematrix);
 			
 			shapematrix.identity();
+			#end
 		}
 		
 		public function len(t:String, sz:Int = 1):Int {
@@ -271,6 +289,7 @@ package;
 		}
 
 		public function bigprint(x:Int, y:Int, t:String, r:Int, g:Int, b:Int, cen:Bool = false, sc:Float = 2):Void {
+			#if (!emscripten)
 			if (r < 0) r = 0; if (g < 0) g = 0; if (b < 0) b = 0;
 			if (r > 255) r = 255; if (g > 255) g = 255; if (b > 255) b = 255;
 			
@@ -314,6 +333,7 @@ package;
 			}
 			
 			shapematrix.identity();
+			#end
 		}
 		
 		public function RGB(red:Float,green:Float,blue:Float):Int{

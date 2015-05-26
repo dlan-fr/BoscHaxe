@@ -38,9 +38,6 @@ ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 package ;
 
-#if cpp
-import cpp.vm.Debugger;
-#end
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Sprite;
@@ -65,9 +62,6 @@ import includes.Input;
 import includes.Logic;
 import includes.Render;
 
-#if cpp
-import debugger.Local;
-#end
 /*
 import Input;
 import Logic;
@@ -221,7 +215,6 @@ class Main extends Sprite
 	
 	public static function main() 
 	{
-		//new Local(true);
 		// static entry point
 		Lib.current.stage.align = flash.display.StageAlign.TOP_LEFT;
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;

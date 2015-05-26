@@ -9,20 +9,19 @@
 	<app main="Main" file="BoscHaxe" path="bin" />
 	
 	<window background="#000000" fps="60" />
-	<window width="0" height="0" />
-	<window width="640" height="480" if="desktop" />
+	<window width="768" height="480" unless="android" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
 	 
 	<!-- classpath, haxe libs -->
 	<source path="src" />
 	<source path="org" />
 	<!--<haxelib name="openfl-native" />-->
+	<set name="openfl-legacy" />
+	<!--<set name="lime-hybrid" if="emscripten" />-->
 	<haxelib name="openfl" />
 	<haxelib name="actuate" /> 
 	<haxelib name="systools" if="desktop" />
 	<!--<haxelib name="hxcpp" />-->
-	<haxedef name="HXCPP_DEBUGGER" if="cpp" />
-	<haxelib name="hxcpp-debugger" if="cpp" />
 	
 	<!-- assets -->
 	<!--<icon path="assets/openfl.svg" />
