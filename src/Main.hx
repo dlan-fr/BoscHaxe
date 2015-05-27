@@ -57,10 +57,13 @@ import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.TimerEvent;
 import flash.display.StageDisplayState;
+import lime.audio.AudioManager;
 
 import includes.Input;
 import includes.Logic;
 import includes.Render;
+
+import lime.audio.openal.AL;
 
 /*
 import Input;
@@ -126,10 +129,12 @@ class Main extends Sprite
 		control.loadscreensettings(gfx);
 		updategraphicsmode(control);
 		
+		#if emscripten
+			Logic.initopenal();
+		#end
+		
 		_timer.addEventListener(TimerEvent.TIMER, mainloop);
 		_timer.start();
-
-		
 	}
 	
 	public function _input():Void {
@@ -166,6 +171,7 @@ class Main extends Sprite
 					if (key.hasmiddleclicked) key.middleclick = false;
 				}
 				_render();
+				Logic.doOpenal(control);
 				e.updateAfterEvent();
 			}
 		}

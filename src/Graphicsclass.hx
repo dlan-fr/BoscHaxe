@@ -402,9 +402,10 @@ package;
 			}
 		}
 		
-		public function drawarrangementeditor(control:Controlclass):Void {
-		i = 0;
-	while( i < 8){
+		public function drawarrangementeditor(control:Controlclass):Void 
+		{
+			i = 0;
+			while( i < 8){
 				if(control.arrange.channelon[i]){
 					if (i % 2 == 0) {
 						fillrect(0, linesize + (i * patternheight), screenwidth, patternheight, 4);
@@ -415,29 +416,30 @@ package;
 					fillrect(0, linesize + (i * patternheight), screenwidth, patternheight, 14);
 				}
 			 i++;
-}
+			}
 			
 			
-		i = 0;
-	while( i < 12){
-				drawline((i * patternwidth), linesize, i * patternwidth, pianorollposition+5, 6);
-			 i++;
-}
+			i = 0;
+			while( i < 12){
+					drawline((i * patternwidth), linesize, i * patternwidth, pianorollposition+5, 6);
+				 i++;
+			}
+				
+				
+			k = 12;
 			
-			
-		k = 12;
-	while( k >= 0){
-			j = 0;
-	while( j < 8){
-					if (k + control.arrange.viewstart > -1) {
-						if (control.arrange.bar[k + control.arrange.viewstart].channel[j] > -1) {
-							drawmusicbox(control, k * patternwidth, linesize + (j * patternheight), control.arrange.bar[k+control.arrange.viewstart].channel[j], control.arrange.channelon[j]);
+			while( k >= 0){
+				j = 0;
+				while( j < 8){
+						if (k + control.arrange.viewstart > -1) {
+							if (control.arrange.bar[k + control.arrange.viewstart].channel[j] > -1) {
+								drawmusicbox(control, k * patternwidth, linesize + (j * patternheight), control.arrange.bar[k+control.arrange.viewstart].channel[j], control.arrange.channelon[j]);
+							}
 						}
-					}
-				 j++;
-}
-			 k--;
-}
+					 j++;
+				}
+				 k--;
+			}
 			
 			
 			i = Std.int(((control.looptime * patternwidth) / control.boxcount) + ((control.arrange.currentbar-control.arrange.viewstart) * patternwidth));

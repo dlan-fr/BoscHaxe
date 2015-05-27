@@ -335,17 +335,7 @@ package ;
 							}
 							}else {
 								
-								
-								//DRUMKIT sound generation code
-								//ok voice atm:
-								//valsound.percus1
-								//buggy voice atm:
-								//valsound.percus13
-								//valsound.percus3
-								//valsound.percus30
-								//valsound.percus27
-								
-								//check _setOPNParamByArray data input from SiONPresetVoice
+
 							j = 0;
 							while( j < musicbox[i].numnotes){
 									if (musicbox[i].notes[j].width == looptime) {
@@ -359,11 +349,8 @@ package ;
 													drumkit[instrument[musicbox[i].instr].type-1].updatefilter(musicbox[i].cutoffgraph[looptime % boxcount], musicbox[i].resonancegraph[looptime % boxcount]);
 												  drumkit[instrument[musicbox[i].instr].type-1].updatevolume(musicbox[i].volumegraph[looptime % boxcount]);
 												}
-												//var testvoice:SiONVoice =  _presets.voices.get("valsound.percus27");
-												var testvoice:SiONVoice = drumkit[instrument[musicbox[i].instr].type-1].voicelist[Std.int(musicbox[i].notes[j].x)];
-												//var testvoice:SiONVoice =  _presets.voices.get("valsound.percus27");
-												//
-												_driver.noteOn(drumkit[instrument[musicbox[i].instr].type-1].voicenote[Std.int(musicbox[i].notes[j].x)],testvoice, Std.int(musicbox[i].notes[j].y));
+		
+												_driver.noteOn(drumkit[instrument[musicbox[i].instr].type-1].voicenote[Std.int(musicbox[i].notes[j].x)], drumkit[instrument[musicbox[i].instr].type-1].voicelist[Std.int(musicbox[i].notes[j].x)], Std.int(musicbox[i].notes[j].y));
 											}
 										}	
 									}

@@ -130,12 +130,14 @@ package;
 		
 		
 		public function drawline(x1:Int, y1:Int, x2:Int, y2:Int, col:Int):Void {
+			#if (!emscripten) 
 			if (x1 > x2) {
 				drawline(x2, y1, x1, y2, col);
 			}else if (y1 > y2) {
 				drawline(x1, y2, x2, y1, col);
 			}else {
-				tempshape.graphics.clear();
+				//under emscripten, it give us a Texture invalid / missing error
+				tempshape.graphics.clear(); 
 				tempshape.graphics.lineStyle(1, RGB(pal[col].r, pal[col].g, pal[col].b));
 				tempshape.graphics.lineTo(x2 - x1, y2 - y1);
 				
@@ -143,6 +145,7 @@ package;
 				backbuffer.draw(tempshape, shapematrix);
 				shapematrix.translate(-x1, -y1);
 			}
+			#end
 		}
 
 		public function drawbox(x1:Int, y1:Int, w1:Int, h1:Int, col:Int):Void {
@@ -172,7 +175,7 @@ package;
 		
 		public function initfont():Void {			
 			
-			#if (!emscripten)
+			#if (!emscripten)//under emscripten, it give us an error when lime try to create the font bitmap
 			tf_1.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[0], 0, false);
 			tf_1.embedFonts = true;
 			tf_1.width = screenwidth; tf_1.height = 48;
@@ -191,7 +194,7 @@ package;
 			tf_3.antiAliasType = AntiAliasType.NORMAL;
 			
 		
-			tf_33.defaultTextFormat = new TextFormat("FFF Condensed Bold, fontsize[2], 0, false);
+			tf_33.defaultTextFormat = new TextFormat("FFF Condensed Bold", fontsize[2], 0, false);
 			tf_33.embedFonts = true;
 			tf_33.width = screenwidth; tf_33.height = 100;
 			tf_33.antiAliasType = AntiAliasType.NORMAL;
@@ -216,7 +219,7 @@ package;
 		}
 
 		public function print(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool = false):Void {
-			#if (!emscripten)
+			#if (!emscripten)//can't work with emscripten unless font creation is successfull
 			y -= 3;
 		
 			if (cen) x = screenwidthmid - Std.int(tf_1.textWidth / 2) + x;
@@ -289,7 +292,7 @@ package;
 		}
 
 		public function bigprint(x:Int, y:Int, t:String, r:Int, g:Int, b:Int, cen:Bool = false, sc:Float = 2):Void {
-			#if (!emscripten)
+			#if (!emscripten)//can't work with emscripten unless font creation is successfull
 			if (r < 0) r = 0; if (g < 0) g = 0; if (b < 0) b = 0;
 			if (r > 255) r = 255; if (g > 255) g = 255; if (b > 255) b = 255;
 			

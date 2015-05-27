@@ -28,7 +28,6 @@ class Render
 			
 			gfx.fillrect((j * 4) + 20, 0, 21, 10, 3);
 			
-			
 			gfx.drawicon((j * 4) + 26, 1, control.fullscreen?5:4);
 			
 			gfx.fillrect(0, gfx.linesize, gfx.screenwidth, gfx.linesize * 10, 5);
