@@ -1,7 +1,8 @@
-package de.polygonal.ds
-;
+package de.polygonal.ds;
+
 	import flash.utils.Dictionary;
 	import de.polygonal.ds.Collection;
+	import de.polygonal.ds.Iterator;
 	
 	class HashMap implements Collection
 	{
@@ -47,8 +48,8 @@ package de.polygonal.ds
 			if (obj)
 			{
 				--_size;
-				delete _keyMap[key];
-				delete _objMap[obj];
+				_keyMap[key] = null;
+				_objMap[obj] = null;
 				return obj;
 			}
 			return null;
@@ -102,7 +103,7 @@ package de.polygonal.ds
 		public function toArray():Array<Dynamic>
 		{
 			var a:Array<Dynamic> = new Array<Dynamic>(_size), j:Int = 0;
-			for each (var i:Dynamic in _keyMap)
+			for (i in _keyMap)
 			{
 				a[j++] = i;
 			}
@@ -113,7 +114,7 @@ package de.polygonal.ds
 		public function getKeySet():Array<Dynamic>
 		{
 			var a:Array<Dynamic> = new Array<Dynamic>(_size), j:Int = 0;
-			for each (var i:Dynamic in _objMap)
+			for (i in _objMap)
 			{
 				a[j++] = i;
 			}
@@ -130,15 +131,13 @@ package de.polygonal.ds
 		public function dump():String
 		{
 			var s:String = "HashMap:\n";
-			for each (var i:Dynamic in _objMap)
+			for (i in _objMap)
 				s += "[key: " + i + " val:" + _keyMap[i] + "]\n";
 			return s;
 		}
 	}
-}
 
-import de.polygonal.ds.Iterator;
-import de.polygonal.ds.HashMap;
+
 
 class HashMapValueIterator implements Iterator
 {
@@ -225,3 +224,4 @@ class HashMapKeyIterator implements Iterator
 	{
 		return _keys[_cursor++];
 	}
+}

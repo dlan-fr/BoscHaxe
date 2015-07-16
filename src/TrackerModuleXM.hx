@@ -20,9 +20,9 @@ package ;
 		public var xm:XMSong;
 
 		public function loadFromLiveBoscaCeoilModel(desiredSongName:String):Void {
-			var boscaInstrument:instrumentclass;
+			var boscaInstrument:Instrumentclass;
 			
-			xm = new XMSong;
+			xm = new XMSong();
 			
 			xm.songname = desiredSongName;
 			xm.defaultBPM = control.bpm;

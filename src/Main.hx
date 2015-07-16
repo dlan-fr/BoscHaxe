@@ -84,6 +84,8 @@ class Main extends Sprite
 	/* ENTRY POINT */
 		public var key:KeyPoll;
 		
+		
+		
 		// Timer information (a shout out to ChevyRay for the implementation)
 		inline public static var TARGET_FPS:Float = 30; // the fixed-FPS we want the control to run at
 		private var	_rate:Float = 1000 / TARGET_FPS; // how long (in seconds) each frame is

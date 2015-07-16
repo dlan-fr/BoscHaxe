@@ -767,5 +767,4 @@ class Input
 		Gfx.updatebackground = 5;
 		}
 	}
-	}
 }

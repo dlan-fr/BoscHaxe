@@ -1,28 +1,28 @@
 
-package de.polygonal.ds
-;
+package de.polygonal.ds;
+
 	import de.polygonal.ds.Iterator;
 	
 	
-	public interface Collection
+	interface Collection
 	{
 		
-		function contains(obj:Dynamic):Bool
+		function contains(obj:Dynamic):Bool;
 		
 		
-		function clear():Void
+		function clear():Void;
 		
 		
-		function getIterator():Iterator
+		function getIterator():Iterator;
 		
 		
 		function size():Int;
 		
 		
-		function isEmpty():Bool
+		function isEmpty():Bool;
 		
 		
-		function toArray():Array<Dynamic>
+		function toArray():Array<Dynamic>;
 	}
 
 

@@ -1,5 +1,5 @@
 package ;
-	import flash.desktop.InteractiveIcon;
+
 	import flash.display.*;
 	import flash.geom.*;
   import flash.events.*;
@@ -42,7 +42,7 @@ package ;
 					addblackout();
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
-					addcentertextlabel(windowx, windowy + 30, windowwidth, "Looks like Std.is(this,your first time using Bosca Ceoil!", 0, true));
+					addcentertextlabel(windowx, windowy + 30, windowwidth, "Looks like it this your first time using Bosca Ceoil!", 0, true);
 					addcentertextlabel(windowx, windowy + 30 + Gfx.linesize, windowwidth, "Would you like a quick introduction?", 0, true);
 					
 					addbutton(windowx + (windowwidth / 3) - 75, windowy + 30 + (Gfx.linesize * 3), 150, "YES", "help1", 0, true);
@@ -84,7 +84,7 @@ package ;
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					windowline = 0;
 					addline("You can delete notes with");
-					addline("RIGHT CLICK, or " +control.ctrl + " + LEFT CLICK.", "RIGHT CLICK", control.ctrl + " + LEFT CLICK");
+					addline("RIGHT CLICK, or " +Control.ctrl + " + LEFT CLICK.", "RIGHT CLICK", Control.ctrl + " + LEFT CLICK");
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help3", 0, true);
 					addbutton(windowx + 15, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help1", 0, true);
@@ -98,10 +98,10 @@ package ;
 					}
 					
 					
-					if (control.doublesize) {
-						addhighlight((42 + (32 * control.boxsize)), Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth - (42 + (32 * control.boxsize)), Gfx.screenheight - Gfx.pianorollposition - Gfx.linesize - Gfx.linesize, 18, "");
+					if (Control.doublesize) {
+						addhighlight((42 + (32 * Control.boxsize)), Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth - (42 + (32 * Control.boxsize)), Gfx.screenheight - Gfx.pianorollposition - Gfx.linesize - Gfx.linesize, 18, "");
 					}else {
-						addhighlight((42 + (16 * control.boxsize)), Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth - (42 + (16 * control.boxsize)), Gfx.screenheight - Gfx.pianorollposition - Gfx.linesize - Gfx.linesize, 18, "");
+						addhighlight((42 + (16 * Control.boxsize)), Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth - (42 + (16 * Control.boxsize)), Gfx.screenheight - Gfx.pianorollposition - Gfx.linesize - Gfx.linesize, 18, "");
 					}
 					
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
@@ -166,14 +166,14 @@ package ;
 						windowtext = "HELP - Arrangements";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					helpcondition_check = "addnew_pattern";
 					addhighlight(Gfx.patternmanagerx + 10 - 5, Gfx.linespacing + Gfx.pianorollposition - 28 - 5, Gfx.screenwidth - (Gfx.patternmanagerx) - 16 + 10, Gfx.linesize+ 10, 18, "");
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
 					windowline = 0;
-					addline(Std.is("This,the ARRANGEMENT tab, where you", "ARRANGEMENT"));
+					addline("This is the ARRANGEMENT tab, where you", "ARRANGEMENT");
 					addline("put your song together, building it up");
 					addline("one pattern at a time.");
 					addline("");
@@ -190,8 +190,8 @@ package ;
 						windowtext = "HELP - Arrangements";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					addhighlight(0, Gfx.linesize, Gfx.screenwidth, Gfx.pianorollposition, 18, "");
 					highlightflash = 0;
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
@@ -223,8 +223,8 @@ package ;
 					highlightflash = 0;
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					windowxoffset = 0;
 					windowyoffset = Gfx.tutorialimageheight(3) + 15;
 					addtutorialimage(windowx + 25, windowy + 30 + (Gfx.linesize / 2), 3, true);
@@ -247,10 +247,10 @@ package ;
 					addhighlight(0, Gfx.pianorollposition + 8, Gfx.patternmanagerx, 12, 18, "");
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					windowline = 0;
-					addline("This thin Std.is(line,called the TIMELINE.", "TIMELINE"));
+					addline("This thin line is called the TIMELINE.", "TIMELINE");
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help10", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help8", 0, true);
@@ -266,8 +266,8 @@ package ;
 					addhighlight((2 * Gfx.patternwidth), Gfx.pianorollposition + 8, Gfx.patternwidth, 12, 18, "");
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					windowline = 0;
 					addline("If you CLICK on a section of the timeline,", "CLICK");
 					addline("the song will loop over that section.");
@@ -286,8 +286,8 @@ package ;
 					addhighlight((2 * Gfx.patternwidth), Gfx.pianorollposition + 8, Gfx.patternwidth * 3, 12, 18, "");
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					windowxoffset = 0;
 					windowyoffset = Gfx.tutorialimageheight(2) + 15;
 					addtutorialimage(windowx + 25, windowy + 30 + (Gfx.linesize / 2), 2, true);
@@ -306,8 +306,8 @@ package ;
 						windowtext = "HELP - Timeline";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					addhighlight(0, Gfx.pianorollposition + 8, Gfx.patternmanagerx, 12, 18, "");
 					highlightflash = 0;
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
@@ -346,13 +346,13 @@ package ;
 						windowtext = "HELP - Instruments";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_INSTRUMENTS);
+					Control.changetab_ifdifferent(Control.MENUTAB_INSTRUMENTS);
 					helpcondition_check = "addnew_instrument";
 					addhighlight(10 - 5, Gfx.linespacing + Gfx.pianorollposition - 28 - 5, 264 + 10, Gfx.linesize + 10, 18, "");
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
 					windowline = 0;
-					addline(Std.is("This,the INSTRUMENTS tab. Click on", "INSTRUMENTS"));
+					addline("This isthe INSTRUMENTS tab. Click on", "INSTRUMENTS");
 					addline("ADD NEW INSTRUMENT to be given a new", "ADD NEW INSTRUMENT");
 					addline("instrument at random!");
 					
@@ -367,7 +367,7 @@ package ;
 						windowtext = "HELP - Instruments";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_INSTRUMENTS);
+					Control.changetab_ifdifferent(Control.MENUTAB_INSTRUMENTS);
 					addhighlight(286-5, ((Gfx.linesize * 2) + 6)-5, 280+180+10, Gfx.linesize + 10, 18, "");
 					
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
@@ -407,14 +407,14 @@ package ;
 						windowtext = "HELP - Arrangements";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
 					addhighlight(0, Gfx.linesize, Gfx.screenwidth, Gfx.pianorollposition, 18, "");
 					highlightflash = 0;
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
 					windowline = 0;
 					addline("One last thing: when you're arranging your song,");
-					addline("something you'll probably want to do a Std.is(lot,to"));
+					addline("something you'll probably want to do a lot is to");
 					addline("make slight variations of your patterns. You can");
 					addline("do this by making DUPLICATES.", "DUPLICATES");
 					addline("");
@@ -452,7 +452,7 @@ package ;
 						windowtext = "HELP - Tips and Tricks";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
 					windowline = 0;
@@ -505,7 +505,7 @@ package ;
 					addline("right. When you're using a SCALE, only", "SCALE");
 					addline("the notes in that scale are shown!");
 					addline("");
-					addline("Limiting yourself to a given Std.is(scale,a"));
+					addline("Limiting yourself to a given given scale is a");
 					addline("great way to make things sound good");
 					addline("when you're learning to write music!");
 					
@@ -520,8 +520,8 @@ package ;
 						windowtext = "HELP - Tips and Tricks";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					addhighlight(0, Gfx.pianorollposition + 8, Gfx.patternmanagerx, 12, 18, "");
 					
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
@@ -544,22 +544,22 @@ package ;
 						windowtext = "HELP - Tips and Tricks";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
-					control.arrange.viewstart = 0;
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
+					Control.arrange.viewstart = 0;
 					addhighlight(0, Gfx.pianorollposition + 8, Gfx.patternmanagerx, 12, 18, "");
 					
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
 					windowline = 0;
 					addline("You can COPY and PASTE timeline sections", "COPY", "PASTE");
-					addline("with " + control.ctrl + "+C and " + control.ctrl + "+V.", control.ctrl + "+C", control.ctrl + "+V");
+					addline("with " + Control.ctrl + "+C and " + Control.ctrl + "+V.", Control.ctrl + "+C", Control.ctrl + "+V");
 					addline("");
 					addline("Just select the sections of the timeline you");
-					addline("want, and press " + control.ctrl + "+C to copy.", control.ctrl + "+C");
+					addline("want, and press " + Control.ctrl + "+C to copy.", Control.ctrl + "+C");
 					addline("");
 					addline("To paste, hold the mouse over the timeline");
 					addline("section you want to insert from, and press");
-					addline(control.ctrl + "+V to insert and paste there.", control.ctrl + "+V");
+					addline(Control.ctrl + "+V to insert and paste there.", Control.ctrl + "+V");
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp6", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "advancedhelp4", 0, true);
@@ -572,7 +572,7 @@ package ;
 						windowtext = "HELP - Tips and Tricks";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_INSTRUMENTS);
+					Control.changetab_ifdifferent(Control.MENUTAB_INSTRUMENTS);
 					addhighlight(286, (Gfx.linesize * 4), Gfx.screenwidth - 348, 110, 18, "");
 					
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
@@ -593,7 +593,7 @@ package ;
 						windowtext = "HELP - Tips and Tricks";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
 					addhighlight(Gfx.patternmanagerx, Gfx.linesize, Gfx.screenwidth - (Gfx.patternmanagerx), Gfx.pianorollposition, 18, "");
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
@@ -626,7 +626,7 @@ package ;
 					addline("pattern. Hold DOWN. There's a secret button!", "DOWN");
 					addline("");
 					addline("This enables FILTER RECORDING on this pattern.", "FILTER RECORDING");
-					addline("When FILTER Std.is(RECORDING,on, the filter values", "FILTER RECORDING"));
+					addline("When FILTER RECORDING is on, the filter values", "FILTER RECORDING");
 					addline("for this pattern can be changed over time!");
 					
 					
@@ -641,7 +641,7 @@ package ;
 						windowtext = "HELP - Tips and Tricks";
 					}
 					
-					control.changetab_ifdifferent(control.MENUTAB_ARRANGEMENTS);
+					Control.changetab_ifdifferent(Control.MENUTAB_ARRANGEMENTS);
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
 					windowline = 0;
@@ -817,7 +817,7 @@ package ;
 				adddownarrow(x + 210, y, "bufferlist");
 				addvariable(x + 240, y, "buffersize");
 				addvariable(x + 8, y + Gfx.buttonheight + 4, "buffersizealert");
-			}else if (type == "swingcontrol") {
+			}else if (type == "swingControl.") {
 				addrect(x, y - 4, 320, Gfx.buttonheight);
 				addrighttextlabel(x + 120, y, "SWING", 0);
 				
@@ -907,14 +907,14 @@ package ;
 	while( i < numbuttons){
 				if (button[i].active && button[i].visable) {
 					if (button[i].action == "window") {
-						if (help.inboxw(control.mx, control.my, button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height)) {
+						if (help.inboxw(Control.mx, Control.my, button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height)) {
 							button[i].mouseover = true;
 							overwindow = true;
 						}
 						
-						if (key.press && !control.clicklist) {
+						if (key.press && !Control.clicklist) {
 							if (button[i].moveable) {
-								if (help.inboxw(control.mx, control.my, button[i].position.x - 20, button[i].position.y - 20, button[i].position.width + 40, button[i].position.height + 40)) {
+								if (help.inboxw(Control.mx, Control.my, button[i].position.x - 20, button[i].position.y - 20, button[i].position.width + 40, button[i].position.height + 40)) {
 									dobuttonmoveaction(i);
 								}
 							}
@@ -928,7 +928,7 @@ package ;
 	while( i < numbuttons){
 				if (button[i].active && button[i].visable) {
 					if (!overwindow || button[i].onwindow) {
-						if (help.inboxw(control.mx, control.my, button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height)) {
+						if (help.inboxw(Control.mx, Control.my, button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height)) {
 							button[i].mouseover = true;
 						}else {
 							button[i].mouseover = false;
@@ -939,8 +939,8 @@ package ;
 						if (key.hasreleased) {
 							windowdrag = false;
 						}else {
-							button[i].position.x = control.mx - windowdx;
-							button[i].position.y = control.my - windowdy;
+							button[i].position.x = Control.mx - windowdx;
+							button[i].position.y = Control.my - windowdy;
 							if (button[i].position.x < 0) button[i].position.x = 0;
 							if (button[i].position.y < 0) button[i].position.y = 0;
 							
@@ -964,11 +964,11 @@ package ;
 							 j++;
 }
 						}
-					}else if (button[i].action != "" && button[i].action != "window" && !control.list.active) {
+					}else if (button[i].action != "" && button[i].action != "window" && !Control.list.active) {
 						if (!overwindow || button[i].onwindow) {
-							if (key.press && !control.clicklist) {
+							if (key.press && !Control.clicklist) {
 								if (button[i].moveable) {
-									if (help.inboxw(control.mx, control.my, button[i].position.x - 20, button[i].position.y - 20, button[i].position.width + 40, button[i].position.height + 40)) {
+									if (help.inboxw(Control.mx, Control.my, button[i].position.x - 20, button[i].position.y - 20, button[i].position.width + 40, button[i].position.height + 40)) {
 										dobuttonmoveaction(i);
 									}
 								}
@@ -1124,7 +1124,7 @@ package ;
 							Gfx.fillrect(button[i].position.x, button[i].position.y, 20, 26, 6);
 							Gfx.fillrect(button[i].position.x + 2, button[i].position.y + 2, 16, 22, 5);
 							
-							tx = Std.int((control.effectvalue));
+							tx = Std.int((Control.effectvalue));
 							Gfx.fillrect(button[i].position.x + tx, button[i].position.y, 20, 26, 4);
 							Gfx.fillrect(button[i].position.x + tx + 2, button[i].position.y + 2, 16, 22, 2);
 							
@@ -1134,15 +1134,15 @@ package ;
 						}
 					}else if (button[i].style == "variable") {
 						if(button[i].action == "barcount"){
-						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(control.barcount), button[i].position.width, false, true);
+						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.barcount), button[i].position.width, false, true);
 						}else if(button[i].action == "boxcount"){
-						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(control.boxcount), button[i].position.width, false, true);
+						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.boxcount), button[i].position.width, false, true);
 						}else if(button[i].action == "bpm"){
-						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(control.bpm), button[i].position.width, false, true);
+						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.bpm), button[i].position.width, false, true);
 						}else if(button[i].action == "buffersize"){
-						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(control.buffersize), button[i].position.width, false, true);
+						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.buffersize), button[i].position.width, false, true);
 						}else if (button[i].action == "buffersizealert") {
-							if (control.buffersize != control.currentbuffersize) {
+							if (Control.buffersize != Control.currentbuffersize) {
 								if (help.slowsine >= 32) {
 									Gfx.print(button[i].position.x, button[i].position.y, "REQUIRES RESTART", 0);
 								}else {
@@ -1150,29 +1150,29 @@ package ;
 								}
 							}
 						}else if (button[i].action == "swing") {
-							if(control.swing==-10){
-								Gfx.print(button[i].position.x, button[i].position.y, Std.string(control.swing), 0, false, true);
-							}else if (control.swing < 0 || control.swing == 10 ) {
-								Gfx.print(button[i].position.x + 5, button[i].position.y, Std.string(control.swing), 0, false, true);
+							if(Control.swing==-10){
+								Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.swing), 0, false, true);
+							}else if (Control.swing < 0 || Control.swing == 10 ) {
+								Gfx.print(button[i].position.x + 5, button[i].position.y, Std.string(Control.swing), 0, false, true);
 							}else{
-								Gfx.print(button[i].position.x + 10, button[i].position.y, Std.string(control.swing), 0, false, true);
+								Gfx.print(button[i].position.x + 10, button[i].position.y, Std.string(Control.swing), 0, false, true);
 							}
 						}else if (button[i].action == "currenteffect") {
-							Gfx.rprint(button[i].position.x, button[i].position.y, control.effectname[control.effecttype], button[i].position.width, true);
+							Gfx.rprint(button[i].position.x, button[i].position.y, Control.effectname[Control.effecttype], button[i].position.width, true);
 						}else if (button[i].action == "currentinstrument") {
-							if (control.currentbox > -1) {
-								Gfx.print(button[i].position.x, button[i].position.y, Std.string(control.musicbox[control.currentbox].instr + 1) + "  " + control.instrument[control.musicbox[control.currentbox].instr].name, 0, false, true);
+							if (Control.currentbox > -1) {
+								Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.musicbox[Control.currentbox].instr + 1) + "  " + Control.instrument[Control.musicbox[Control.currentbox].instr].name, 0, false, true);
 							}
 						}else if (button[i].action == "currentkey") {
-							Gfx.print(button[i].position.x, button[i].position.y, control.notename[control.key], 0, false, true);
+							Gfx.print(button[i].position.x, button[i].position.y, Control.notename[Control.key], 0, false, true);
 						}else if (button[i].action == "currentscale") {
-							Gfx.print(button[i].position.x, button[i].position.y, control.scalename[control.currentscale], 0, false, true);
+							Gfx.print(button[i].position.x, button[i].position.y, Control.scalename[Control.currentscale], 0, false, true);
 						}
 					}else if (button[i].style == "logo") {
 						tx = button[i].position.x;
 						ty = button[i].position.y;
-						if(control.currentbox!=-1){
-						  timage = control.musicbox[control.currentbox].palette;
+						if(Control.currentbox!=-1){
+						  timage = Control.musicbox[Control.currentbox].palette;
 							if (timage > 6) timage = 6;
 						}else {
 							timage = 6;
@@ -1181,11 +1181,11 @@ package ;
 						if (button[i].pressed > 0) {
 							Gfx.drawimage(7, tx + 6, ty + 2);
 							Gfx.drawimage(timage, tx, ty - 8);
-							if (control.looptime % control.barcount == 1) {
+							if (Control.looptime % Control.barcount == 1) {
 								button[i].pressed--;
 							}
 						}else{
-							if (control.looptime % control.barcount == 1) {
+							if (Control.looptime % Control.barcount == 1) {
 								Gfx.drawimage(7, tx + 6, ty + 10 - 8);
 								Gfx.drawimage(timage, tx, ty + 4 - 8);
 							}else {
@@ -1278,11 +1278,11 @@ package ;
 			
 			
 			
-			if (control.currentbox > -1) {
+			if (Control.currentbox > -1) {
 				addrect(0, Gfx.screenheight - (Gfx.linesize), Gfx.screenwidth, Gfx.linesize, 4);
-				if (control.currentbox > -1) {
+				if (Control.currentbox > -1) {
 					addcontrol(10, Gfx.screenheight - (Gfx.linesize), "footer_instrumentlist");
-					if (control.instrument[control.musicbox[control.currentbox].instr].type == 0) {
+					if (Control.instrument[Control.musicbox[Control.currentbox].instr].type == 0) {
 						addplusbutton(Gfx.screenwidth - 460, Gfx.screenheight - (Gfx.linesize), "transposeup");
 						addminusbutton(Gfx.screenwidth - 420, Gfx.screenheight - (Gfx.linesize), "transposedown");
 						addcontrol(Gfx.screenwidth - 380, Gfx.screenheight - (Gfx.linesize), "footer_scalelist");
@@ -1290,106 +1290,103 @@ package ;
 					}
 				}
 				
-				if (control.doublesize) {
+				if (Control.doublesize) {
 					
 					
-					addscrollupbutton(42 + (32 * control.boxsize), Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth - (42 + (32 * control.boxsize)), "notescrollup");
-				  addscrolldownbutton(42 + (32 * control.boxsize), Gfx.screenheight - Gfx.linesize - 20, Gfx.screenwidth - (42 + (32 * control.boxsize)), "notescrolldown");
+					addscrollupbutton(42 + (32 * Control.boxsize), Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth - (42 + (32 * Control.boxsize)), "notescrollup");
+				  addscrolldownbutton(42 + (32 * Control.boxsize), Gfx.screenheight - Gfx.linesize - 20, Gfx.screenwidth - (42 + (32 * Control.boxsize)), "notescrolldown");
 				}else {
 				  
 					
-					addscrollupbutton(42 + (16 * control.boxsize), Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth - (42 + (16 * control.boxsize)), "notescrollup");
-				  addscrolldownbutton(42 + (16 * control.boxsize), Gfx.screenheight - Gfx.linesize - 20, Gfx.screenwidth - (42 + (16 * control.boxsize)), "notescrolldown");
+					addscrollupbutton(42 + (16 * Control.boxsize), Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth - (42 + (16 * Control.boxsize)), "notescrollup");
+				  addscrolldownbutton(42 + (16 * Control.boxsize), Gfx.screenheight - Gfx.linesize - 20, Gfx.screenwidth - (42 + (16 * Control.boxsize)), "notescrolldown");
 				}
 			}
 			
 		  switch(t) {
-				case control.MENUTAB_FILE:
+				case Control.MENUTAB_FILE:
 					tx = (Gfx.screenwidth - 768) / 4;
 					addlogo(24 + tx, (Gfx.linespacing * 2));
-					addtextlabel(330 + tx, (Gfx.linespacing * 5), control.versionnumber);
+					addtextlabel(330 + tx, (Gfx.linespacing * 5), Control.versionnumber);
 					
 					addtextlabel(20 + tx, (Gfx.linespacing * 6) + 2, "Created by Terry Cavanagh");
-					addtextlabel(20 + tx, (Gfx.linespacing * 7) + 2, "http:
+					addtextlabel(20 + tx, (Gfx.linespacing * 7) + 2, "http://www.distractionware.com");
 					
-					addbutton(20 + tx, (gfx.linespacing * 9)-6, 120, "CREDITS", "creditstab");
-					addbutton(154 + tx, (gfx.linespacing * 9)-6, 120, "HELP", "helptab");
+					addbutton(20 + tx, (Gfx.linespacing * 9)-6, 120, "CREDITS", "creditstab");
+					addbutton(154 + tx, (Gfx.linespacing * 9)-6, 120, "HELP", "helptab");
 					
-					CONFIG::desktop {
-						addbutton(gfx.screenwidth - 340 - tx, gfx.linespacing * 2, 150, "NEW SONG", "newsong");
-						addbutton(gfx.screenwidth - 170 - tx, gfx.linespacing * 2, 150, "EXPORT...", "exportlist");
-						addbutton(gfx.screenwidth - 340 - tx, (gfx.linespacing * 4) + 10, 150, "LOAD .ceol", "loadceol");
-						addbutton(gfx.screenwidth - 170 - tx, (gfx.linespacing * 4) + 10, 150, "SAVE .ceol", "saveceol");
-					}
+					addbutton(Gfx.screenwidth - 340 - tx, Gfx.linespacing * 2, 150, "NEW SONG", "newsong");
+					addbutton(Gfx.screenwidth - 170 - tx, Gfx.linespacing * 2, 150, "EXPORT...", "exportlist");
+					addbutton(Gfx.screenwidth - 340 - tx, (Gfx.linespacing * 4) + 10, 150, "LOAD .ceol", "loadceol");
+					addbutton(Gfx.screenwidth - 170 - tx, (Gfx.linespacing * 4) + 10, 150, "SAVE .ceol", "saveceol");
 					
-					addcontrol(gfx.screenwidth - 340 - tx, (gfx.linespacing * 7) - 2, "changepatternlength");
-					addcontrol(gfx.screenwidth - 340 - tx, (gfx.linespacing * 9) - 2, "changebpm");
+					addcontrol(Gfx.screenwidth - 340 - tx, (Gfx.linespacing * 7) - 2, "changepatternlength");
+					addcontrol(Gfx.screenwidth - 340 - tx, (Gfx.linespacing * 9) - 2, "changebpm");
 					
-				  addrect(290 + tx, (gfx.linespacing * 9) - 6, 100, 26);
-					addplayarrow(300 + tx, (gfx.linespacing * 9) - 2, "play");
-					addpausebutton(330 + tx, (gfx.linespacing * 9) - 2, "pause");
-					addstopbutton(360 + tx, (gfx.linespacing * 9) - 2, "stop");
+				  addrect(290 + tx, (Gfx.linespacing * 9) - 6, 100, 26);
+					addplayarrow(300 + tx, (Gfx.linespacing * 9) - 2, "play");
+					addpausebutton(330 + tx, (Gfx.linespacing * 9) - 2, "pause");
+					addstopbutton(360 + tx, (Gfx.linespacing * 9) - 2, "stop");
 				break;
-				case control.MENUTAB_CREDITS:
-					tx = (gfx.screenwidth - 768) / 4;
-				  addtextlabel(tx + 20, (gfx.linespacing * 1)+10, "SiON softsynth library by Kei Mesuda", 0);
-					addtextlabel(tx + 20, (gfx.linespacing * 2)+10, "sites.google.com/site/sioncenter/");
+				case Control.MENUTAB_CREDITS:
+					tx = (Gfx.screenwidth - 768) / 4;
+				  addtextlabel(tx + 20, (Gfx.linespacing * 1)+10, "SiON softsynth library by Kei Mesuda, Haxe port by Brian Gunn", 0);
+					addtextlabel(tx + 20, (Gfx.linespacing * 2)+10, "sites.google.com/site/sioncenter/");
 					
-					addrighttextlabel(gfx.screenwidth - 20 - tx, (gfx.linespacing * 1)+10, "Midias library by Efishocean", 0);
-					addrighttextlabel(gfx.screenwidth - 20 - tx, (gfx.linespacing * 2)+10, "code.google.com/p/midas3/");
+					addrighttextlabel(Gfx.screenwidth - 20 - tx, (Gfx.linespacing * 1)+10, "Midias library by Efishocean", 0);
+					addrighttextlabel(Gfx.screenwidth - 20 - tx, (Gfx.linespacing * 2)+10, "code.google.com/p/midas3/");
 					
-					addtextlabel(tx + 20, (gfx.linespacing * 4), "XM, MML Exporters by Rob Hunter",0);
-					addtextlabel(tx + 20, (gfx.linespacing * 5), "about.me/rjhunter/");
+					addtextlabel(tx + 20, (Gfx.linespacing * 4), "XM, MML Exporters by Rob Hunter",0);
+					addtextlabel(tx + 20, (Gfx.linespacing * 5), "about.me/rjhunter/");
 					
-					addrighttextlabel(gfx.screenwidth - 20 - tx, (gfx.linespacing * 4), "Linux port by Damien L",0);
-					addrighttextlabel(gfx.screenwidth - 20 - tx, (gfx.linespacing * 5), "uncovergame.com/");
+					addrighttextlabel(Gfx.screenwidth - 20 - tx, (Gfx.linespacing * 4), "Haxe port by @dlan_fr",0);
+					addrighttextlabel(Gfx.screenwidth - 20 - tx, (Gfx.linespacing * 5), "uncovergame.com/");
 					
-					addtextlabel(tx + 20, (gfx.linespacing * 7) - 10, "Swing function by Stephen Lavelle", 0);
-					addtextlabel(tx + 20, (gfx.linespacing * 8) - 10, "increpare.com/");
+					addtextlabel(tx + 20, (Gfx.linespacing * 7) - 10, "Swing function by Stephen Lavelle", 0);
+					addtextlabel(tx + 20, (Gfx.linespacing * 8) - 10, "increpare.com/");
 					
-					addtextlabel(tx + 20, (gfx.linespacing * 9) + 8, "Available under FreeBSD Licence", 0);
+					addtextlabel(tx + 20, (Gfx.linespacing * 9) + 8, "Available under FreeBSD Licence", 0);
 					
-					addrighttextlabel(gfx.screenwidth - 20 - tx, (gfx.linespacing * 7) - 10, "Online version by Chris Kim", 0);
-				  addrighttextlabel(gfx.screenwidth - 20 - tx, (gfx.linespacing * 8) - 10, "dy-dx.com/");
+					addrighttextlabel(Gfx.screenwidth - 20 - tx, (Gfx.linespacing * 7) - 10, "Online version by Chris Kim", 0);
+				  addrighttextlabel(Gfx.screenwidth - 20 - tx, (Gfx.linespacing * 8) - 10, "dy-dx.com/");
 					
-					addbutton(gfx.screenwidth - 164 - tx, (gfx.linespacing * 9) + 8, 150, "BACK", "filetab");
+					addbutton(Gfx.screenwidth - 164 - tx, (Gfx.linespacing * 9) + 8, 150, "BACK", "filetab");
 				break;
-				case control.MENUTAB_HELP:
-					tx = (gfx.screenwidth - 768) / 2;
-					addcentertextlabel(tx,  (gfx.linespacing * 2), 768, "Learn the basics of how to make a song in Bosca Ceoil:", 0);
-					addbutton(gfx.screenwidthmid - 126, (gfx.linespacing * 3)+10, 250, "BASIC GUIDE", "help1");
+				case Control.MENUTAB_HELP:
+					tx = (Gfx.screenwidth - 768) / 2;
+					addcentertextlabel(tx,  (Gfx.linespacing * 2), 768, "Learn the basics of how to make a song in Bosca Ceoil:", 0);
+					addbutton(Gfx.screenwidthmid - 126, (Gfx.linespacing * 3)+10, 250, "BASIC GUIDE", "help1");
 					
-					addcentertextlabel(tx,  (gfx.linespacing * 6), 768, "Learn about some of the more advanced features:", 0);
-					addbutton(gfx.screenwidthmid - 125, (gfx.linespacing * 7)+10, 250, "TIPS AND TRICKS", "advancedhelp1");
+					addcentertextlabel(tx,  (Gfx.linespacing * 6), 768, "Learn about some of the more advanced features:", 0);
+					addbutton(Gfx.screenwidthmid - 125, (Gfx.linespacing * 7)+10, 250, "TIPS AND TRICKS", "advancedhelp1");
 					
-					addbutton(gfx.screenwidth - 164 - tx, (gfx.linespacing * 9) + 8, 150, "BACK", "filetab");
+					addbutton(Gfx.screenwidth - 164 - tx, (Gfx.linespacing * 9) + 8, 150, "BACK", "filetab");
 				break;
-			  case control.MENUTAB_ARRANGEMENTS:
-				  addbutton(gfx.patternmanagerx + 10, gfx.linespacing + gfx.pianorollposition - 28, gfx.screenwidth - (gfx.patternmanagerx) - 16, "ADD NEW", "addnewpattern");
+			  case Control.MENUTAB_ARRANGEMENTS:
+				  addbutton(Gfx.patternmanagerx + 10, Gfx.linespacing + Gfx.pianorollposition - 28, Gfx.screenwidth - (Gfx.patternmanagerx) - 16, "ADD NEW", "addnewpattern");
 			  break;
-			  case control.MENUTAB_INSTRUMENTS:
-				  addbutton(10, gfx.linespacing + gfx.pianorollposition - 28, 264, "ADD NEW INSTRUMENT", "addnewinstrument");
-					addminusbutton(706, (gfx.linespacing * 2) + 6, "previousinstrument");
-					addplusbutton(726, (gfx.linespacing * 2) + 6, "nextinstrument");
+			  case Control.MENUTAB_INSTRUMENTS:
+				  addbutton(10, Gfx.linespacing + Gfx.pianorollposition - 28, 264, "ADD NEW INSTRUMENT", "addnewinstrument");
+					addminusbutton(706, (Gfx.linespacing * 2) + 6, "previousinstrument");
+					addplusbutton(726, (Gfx.linespacing * 2) + 6, "nextinstrument");
 				break;
-				case control.MENUTAB_ADVANCED:
-					tx = (gfx.screenwidth - 768) / 4;
-				  addcontrol(40 + tx, (gfx.linespacing * 3) + 4, "changesoundbuffer");
-					addcontrol(40 + tx, (gfx.linespacing * 7) + 4, "swingcontrol");
-					addcontrol(gfx.screenwidth - 210 - tx,  (gfx.linespacing * 3) + 4, "globaleffects");
+				case Control.MENUTAB_ADVANCED:
+					tx = (Gfx.screenwidth - 768) / 4;
+				  addcontrol(40 + tx, (Gfx.linespacing * 3) + 4, "changesoundbuffer");
+					addcontrol(40 + tx, (Gfx.linespacing * 7) + 4, "swingControl.");
+					addcontrol(Gfx.screenwidth - 210 - tx,  (Gfx.linespacing * 3) + 4, "globaleffects");
 					
-					if (gfx.scalemode == 0) {
-						addbutton(gfx.screenwidth - 340 - tx, gfx.linespacing * 7, 150, "SCALE UP", "changescale");
+					if (Gfx.scalemode == 0) {
+						addbutton(Gfx.screenwidth - 340 - tx, Gfx.linespacing * 7, 150, "SCALE UP", "changescale");
 					}else {
-						addbutton(gfx.screenwidth - 340 - tx, gfx.linespacing * 7, 150, "SCALE DOWN", "changescale");
+						addbutton(Gfx.screenwidth - 340 - tx, Gfx.linespacing * 7, 150, "SCALE DOWN", "changescale");
 					}
-					CONFIG::desktop {
-						addbutton(gfx.screenwidth - 170 - tx, gfx.linespacing * 7, 150, "IMPORT .mid", "loadmidi");
-					}
+
+					addbutton(Gfx.screenwidth - 170 - tx, Gfx.linespacing * 7, 150, "IMPORT .mid", "loadmidi");
 				break;
 			}
 			
-			if (windowx >= gfx.screenwidth || windowy >= gfx.screenheight) {
+			if (windowx >= Gfx.screenwidth || windowy >= Gfx.screenheight) {
 				changewindow(helpwindow);
 			}else{
 				changewindow(helpwindow, false);
@@ -1400,48 +1397,48 @@ package ;
 			currentbutton = button[i].action;
 			
 			if (currentbutton == "window") {
-				if (control.mx >= button[i].position.x && control.mx < button[i].position.x + button[i].position.width && control.my >= button[i].position.y && control.my <= button[i].position.y + 22 && control.dragaction == 0) {
+				if (Control.mx >= button[i].position.x && Control.mx < button[i].position.x + button[i].position.width && Control.my >= button[i].position.y && Control.my <= button[i].position.y + 22 && Control.dragaction == 0) {
 					
 					if (windowdrag) {
 					}else {
 						
-						if (control.mx >= button[i].position.x + button[i].position.width - 20) {
+						if (Control.mx >= button[i].position.x + button[i].position.width - 20) {
 							
 							changewindow("nothing");
-							changetab(control.currenttab);
-							control.clicklist = true;
+							changetab(Control.currenttab);
+							Control.clicklist = true;
 						}else{
 							windowdrag = true;
-							windowdx = control.mx - button[i].position.x; windowdy = control.my - button[i].position.y;
+							windowdx = Control.mx - button[i].position.x; windowdy = Control.my - button[i].position.y;
 						}
 					}
 				}
 			}else	if (currentbutton == "currenteffect") {
-				if (control.mx >= button[i].position.x - 5  - 20 && control.mx < button[i].position.x + button[i].position.width + 20 && control.my >= button[i].position.y - 4 - 20 && control.my <= button[i].position.y + gfx.buttonheight + 4 + 20) {
-					var barposition:Int = control.mx - (button[i].position.x + 5);
+				if (Control.mx >= button[i].position.x - 5  - 20 && Control.mx < button[i].position.x + button[i].position.width + 20 && Control.my >= button[i].position.y - 4 - 20 && Control.my <= button[i].position.y + Gfx.buttonheight + 4 + 20) {
+					var barposition:Int = Control.mx - (button[i].position.x + 5);
 					if (barposition < 0) barposition = 0; 
 					if (barposition > button[i].position.width) barposition = button[i].position.width;
 					
-					control.effectvalue = barposition;
-					control.updateeffects();
+					Control.effectvalue = barposition;
+					Control.updateeffects();
 				}
 			}else if (currentbutton == "notescrollup") {
-				if (control.mx >= button[i].position.x && control.mx < button[i].position.x + button[i].position.width && control.my >= button[i].position.y && control.my <= button[i].position.y + button[i].position.width) {
+				if (Control.mx >= button[i].position.x && Control.mx < button[i].position.x + button[i].position.width && Control.my >= button[i].position.y && Control.my <= button[i].position.y + button[i].position.width) {
 					button[i].pressed = 2;
-					if (control.currentbox > -1) {
-						control.musicbox[control.currentbox].start++;
-						if (control.musicbox[control.currentbox].start > control.pianorollsize - gfx.notesonscreen) {
-							control.musicbox[control.currentbox].start = control.pianorollsize - gfx.notesonscreen;
+					if (Control.currentbox > -1) {
+						Control.musicbox[Control.currentbox].start++;
+						if (Control.musicbox[Control.currentbox].start > Control.pianorollsize - Gfx.notesonscreen) {
+							Control.musicbox[Control.currentbox].start = Control.pianorollsize - Gfx.notesonscreen;
 						}
 					}
 				}
 			}else if (currentbutton == "notescrolldown") {
-				if (control.mx >= button[i].position.x && control.mx < button[i].position.x + button[i].position.width && control.my >= button[i].position.y && control.my <= button[i].position.y + button[i].position.width) {
+				if (Control.mx >= button[i].position.x && Control.mx < button[i].position.x + button[i].position.width && Control.my >= button[i].position.y && Control.my <= button[i].position.y + button[i].position.width) {
 					button[i].pressed = 2;
-					if (control.currentbox > -1) {
-						control.musicbox[control.currentbox].start--;
-						if (control.musicbox[control.currentbox].start < 0) {
-							control.musicbox[control.currentbox].start = 0;
+					if (Control.currentbox > -1) {
+						Control.musicbox[Control.currentbox].start--;
+						if (Control.musicbox[Control.currentbox].start < 0) {
+							Control.musicbox[Control.currentbox].start = 0;
 						}
 					}
 				}
@@ -1454,239 +1451,231 @@ package ;
 			button[i].press();
 			
 			if (currentbutton == "newsong") {
-				control.newsong();
+				Control.newsong();
 			  button[i].press();
 			}else if (currentbutton == "logo") {
-				if (!control.musicplaying) {
+				if (!Control.musicplaying) {
 					button[i].pressed = 0;
 				}
 			}else if (currentbutton == "play") {
-			  if (!control.musicplaying) {
-					control.startmusic();
+			  if (!Control.musicplaying) {
+					Control.startmusic();
 				}
 			}else if (currentbutton == "pause") {
-			  if (control.musicplaying) {
-					control.pausemusic();
+			  if (Control.musicplaying) {
+					Control.pausemusic();
 				}
 			}else if (currentbutton == "stop") {
-			  if (control.musicplaying) {
-					control.stopmusic();
+			  if (Control.musicplaying) {
+					Control.stopmusic();
 				}
 			}else if (currentbutton == "exportlist") {
-				CONFIG::desktop {
-					tx = (gfx.screenwidth - 768) / 4;
-					control.filllist(control.LIST_EXPORTS);
-					control.list.init(gfx.screenwidth - 170 - tx, (gfx.linespacing * 4) - 14);
-				}
+					tx = (Gfx.screenwidth - 768) / 4;
+					Control.filllist(Control.LIST_EXPORTS);
+					Control.list.init(Gfx.screenwidth - 170 - tx, (Gfx.linespacing * 4) - 14);
 				
-				CONFIG::web {
-				  control.exportwav();
-				}
 			}else if (currentbutton == "loadceol") {
-				CONFIG::desktop {
-					control.loadceol();
-				}
+					Control.loadceol();
 			}else if (currentbutton == "saveceol") {
-				CONFIG::desktop {
-				  control.saveceol();
-				}
+				  Control.saveceol();
 			}else if (currentbutton == "filetab") {
-				control.changetab(control.MENUTAB_FILE);
+				Control.changetab(Control.MENUTAB_FILE);
 			}else if (currentbutton == "arrangementstab") {
-				control.changetab(control.MENUTAB_ARRANGEMENTS);
+				Control.changetab(Control.MENUTAB_ARRANGEMENTS);
 			}else if (currentbutton == "instrumentstab") {
-				control.changetab(control.MENUTAB_INSTRUMENTS);
+				Control.changetab(Control.MENUTAB_INSTRUMENTS);
 			}else if (currentbutton == "advancedtab") {
-				control.changetab(control.MENUTAB_ADVANCED);
+				Control.changetab(Control.MENUTAB_ADVANCED);
 			}else if (currentbutton == "creditstab") {
-				control.changetab(control.MENUTAB_CREDITS);
+				Control.changetab(Control.MENUTAB_CREDITS);
 			}else if (currentbutton == "helptab") {
 				
-				control.changetab(control.MENUTAB_HELP);
+				Control.changetab(Control.MENUTAB_HELP);
 			}else if (currentbutton == "barcountdown") {
-				control.barcount--;
-				if (control.barcount < 1) control.barcount = 1;
+				Control.barcount--;
+				if (Control.barcount < 1) Control.barcount = 1;
 			}else if (currentbutton == "barcountup") {
-				control.barcount++;
-				if (control.barcount > 32) control.barcount = 32;
+				Control.barcount++;
+				if (Control.barcount > 32) Control.barcount = 32;
 			}else if (currentbutton == "boxcountdown") {
-				control.boxcount--;
-				if (control.boxcount < 1) control.boxcount = 1;
-				control.doublesize = control.boxcount > 16;
-				gfx.updateboxsize();
-				changetab(control.currenttab);
+				Control.boxcount--;
+				if (Control.boxcount < 1) Control.boxcount = 1;
+				Control.doublesize = Control.boxcount > 16;
+				Gfx.updateboxsize();
+				changetab(Control.currenttab);
 			}else if (currentbutton == "boxcountup") {
-				control.boxcount++;
-				if (control.boxcount > 32) control.boxcount = 32;
-				control.doublesize = control.boxcount > 16;
-				gfx.updateboxsize();
-				changetab(control.currenttab);
+				Control.boxcount++;
+				if (Control.boxcount > 32) Control.boxcount = 32;
+				Control.doublesize = Control.boxcount > 16;
+				Gfx.updateboxsize();
+				changetab(Control.currenttab);
 			}else if (currentbutton == "bpmdown") {
-				control.bpm -= 5;
-				if (control.bpm < 10) control.bpm = 10;
-				control._driver.bpm = control.bpm;
+				Control.bpm -= 5;
+				if (Control.bpm < 10) Control.bpm = 10;
+				Control._driver.bpm = Control.bpm;
 			}else if (currentbutton == "bpmup") {
-				control.bpm += 5;
-				if (control.bpm > 220) control.bpm = 220;
-				control._driver.bpm = control.bpm;
+				Control.bpm += 5;
+				if (Control.bpm > 220) Control.bpm = 220;
+				Control._driver.bpm = Control.bpm;
 			}else if (currentbutton == "bufferlist") {
-				control.filllist(control.LIST_BUFFERSIZE);
-				control.list.init(210, (gfx.linespacing * 4) + 4);
+				Control.filllist(Control.LIST_BUFFERSIZE);
+				Control.list.init(210, (Gfx.linespacing * 4) + 4);
 			}else if (currentbutton == "swingup") {
-				control.swing ++;
-				if (control.swing > 10) control.swing = 10;
+				Control.swing ++;
+				if (Control.swing > 10) Control.swing = 10;
 			}else if (currentbutton == "swingdown") {
-				control.swing --;
-				if (control.swing < -10) control.swing = -10;
+				Control.swing --;
+				if (Control.swing < -10) Control.swing = -10;
 			}else if (currentbutton == "effectslist") {
-				tx = (gfx.screenwidth - 768) / 4;
-				control.filllist(control.LIST_EFFECTS);
-				control.list.init(gfx.screenwidth - 280 - tx, (gfx.linespacing * 4) - 3);
+				tx = (Gfx.screenwidth - 768) / 4;
+				Control.filllist(Control.LIST_EFFECTS);
+				Control.list.init(Gfx.screenwidth - 280 - tx, (Gfx.linespacing * 4) - 3);
 			}else if (currentbutton == "addnewinstrument") {
-				if (control.numinstrument < 16) {
-					control.numinstrument++;
-					control.instrumentmanagerview = control.numinstrument - 6;
-					if (control.instrumentmanagerview < 0) control.instrumentmanagerview = 0;
-					control.currentinstrument = control.numinstrument - 1;
+				if (Control.numinstrument < 16) {
+					Control.numinstrument++;
+					Control.instrumentmanagerview = Control.numinstrument - 6;
+					if (Control.instrumentmanagerview < 0) Control.instrumentmanagerview = 0;
+					Control.currentinstrument = Control.numinstrument - 1;
 					
 					helpcondition_set = "addnew_instrument";  
 				}
 			}else if (currentbutton == "addnewpattern") {
-				control.addmusicbox();
-				control.patternmanagerview = control.numboxes - 6;
-				if (control.patternmanagerview < 0) control.patternmanagerview = 0;
+				Control.addmusicbox();
+				Control.patternmanagerview = Control.numboxes - 6;
+				if (Control.patternmanagerview < 0) Control.patternmanagerview = 0;
 				helpcondition_set = "addnew_pattern";  
 			}else if (currentbutton == "footer_instrumentlist") {
-				control.filllist(control.LIST_SELECTINSTRUMENT);
-				control.list.init(20, (gfx.screenheight - gfx.linesize) - (control.list.numitems * gfx.linesize));
+				Control.filllist(Control.LIST_SELECTINSTRUMENT);
+				Control.list.init(20, (Gfx.screenheight - Gfx.linesize) - (Control.list.numitems * Gfx.linesize));
 			}else if (currentbutton == "footer_scalelist") {
-				control.filllist(control.LIST_SCALE);
-				control.list.init(gfx.screenwidth - 360, (gfx.screenheight - gfx.linesize) - (control.list.numitems * gfx.linesize));
+				Control.filllist(Control.LIST_SCALE);
+				Control.list.init(Gfx.screenwidth - 360, (Gfx.screenheight - Gfx.linesize) - (Control.list.numitems * Gfx.linesize));
 			}else if (currentbutton == "footer_keylist") {
-				control.filllist(control.LIST_KEY);
-				control.list.init(gfx.screenwidth - 60, (gfx.screenheight - gfx.linesize) - (control.list.numitems * gfx.linesize));
+				Control.filllist(Control.LIST_KEY);
+				Control.list.init(Gfx.screenwidth - 60, (Gfx.screenheight - Gfx.linesize) - (Control.list.numitems * Gfx.linesize));
 			}else if (currentbutton == "transposeup") {
-				control.musicbox[control.currentbox].transpose(1);
+				Control.musicbox[Control.currentbox].transpose(1);
 			}else if (currentbutton == "transposedown") {
-				control.musicbox[control.currentbox].transpose(-1);
+				Control.musicbox[Control.currentbox].transpose(-1);
 			}else if (currentbutton == "nextinstrument") {
-				control.nextinstrument();
+				Control.nextinstrument();
 			}else if (currentbutton == "previousinstrument") {
-				control.previousinstrument();
+				Control.previousinstrument();
 			}else if (currentbutton == "loadmidi") {
 			  button[i].press();
-				CONFIG::desktop {
-					midicontrol.openfile();
-				}
+					midiControl.openfile();
 			}else if (currentbutton == "changescale") {
 			  button[i].press();
-				gfx.changescalemode(1 - gfx.scalemode);
-				changetab(control.MENUTAB_ADVANCED);
+				Gfx.changescalemode(1 - Gfx.scalemode);
+				changetab(Control.MENUTAB_ADVANCED);
 			}else if (currentbutton == "closewindow") {
 				changewindow("nothing");
-				control.changetab(control.currenttab);
-				control.clicklist = true;
+				Control.changetab(Control.currenttab);
+				Control.clicklist = true;
 			}else if (currentbutton == "help1") {
-				if (control.currentbox == -1) {
-					control.currentbox = 0;
-					control.newsong();
+				if (Control.currentbox == -1) {
+					Control.currentbox = 0;
+					Control.newsong();
 				}
 				
-				control.currenttab = control.MENUTAB_FILE;
+				Control.currenttab = Control.MENUTAB_FILE;
 				changewindow("help1");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help2") {
 				changewindow("help2");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help3") {
 				changewindow("help3");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help4") {
 				changewindow("help4");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help5") {
 				changewindow("help5");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help6") {
 				changewindow("help6");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help7") {
 				changewindow("help7");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help8") {
 				changewindow("help8");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help9") {
 				changewindow("help9");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help10") {
 				changewindow("help10");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help11") {
 				changewindow("help11");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help12") {
 				changewindow("help12");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help13") {
 				changewindow("help13");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help14") {
 				changewindow("help14");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help15") {
 				changewindow("help15");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help16") {
 				changewindow("help16");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help17") {
 				changewindow("help17");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "help18") {
 				changewindow("help18");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "endhelp") {
 				changewindow("nothing");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp1") {
-				control.currenttab = control.MENUTAB_FILE;
+				Control.currenttab = Control.MENUTAB_FILE;
 				
 				changewindow("advancedhelp1");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp2") {
 				changewindow("advancedhelp2");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp3") {
 				changewindow("advancedhelp3");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp4") {
 				changewindow("advancedhelp4");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp5") {
 				changewindow("advancedhelp5");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp6") {
 				changewindow("advancedhelp6");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp7") {
 				changewindow("advancedhelp7");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp8") {
 				changewindow("advancedhelp8");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}else if (currentbutton == "advancedhelp9") {
 				changewindow("advancedhelp9");
-				control.changetab(control.currenttab); control.clicklist = true;
+				Control.changetab(Control.currenttab); Control.clicklist = true;
 			}
 		}
 		
-		public static var button: Array<guibutton> = new Array<guibutton>;
+		public static var button: Array<Guibutton> = new Array<Guibutton>();
 		public static var numbuttons:Int;
 		public static var maxbuttons:Int;
 		
-		public static var tx:Int, ty:Int, timage:Int;
-		public static var tw:Int, th:Int;
+		public static var tx:Int;
+		public static var ty:Int;
+		public static var timage:Int;
+		public static var tw:Int;
+		public static var th:Int;
 		public static var currentbutton:String;
 		public static var lastbutton:Int;
 		public static var highlightflash:Int;
@@ -1694,10 +1683,14 @@ package ;
 		public static var windowcheck:Bool;
 		public static var windowdrag:Bool = false;
 		public static var overwindow:Bool = false;
-		public static var windowddx:Int, windowddy:Int;
-		public static var windowdx:Int, windowdy:Int;
-		public static var windowx:Int, windowy:Int;
-		public static var windowwidth:Int, windowheight:Int;
+		public static var windowddx:Int;
+		public static var windowddy:Int;
+		public static var windowdx:Int;
+		public static var windowdy:Int;
+		public static var windowx:Int;
+		public static var windowy:Int;
+		public static var windowwidth:Int;
+		public static var windowheight:Int;
 		public static var windowline:Int;
 		public static var windowxoffset:Int;
 		public static var windowyoffset:Int;

@@ -1,5 +1,4 @@
 package ;
-  import cpp.Void;
   import org.si.sion.SiONDriver;
 	import org.si.sion.SiONData;
 	import org.si.sion.utils.SiONPresetVoice;
@@ -426,9 +425,9 @@ package ;
 			}
     }
 		
-		public static function loadscreensettings(gfx:Graphicsclass):Void {
+		public static function loadscreensettings():Void {
 			fullscreen = false;
-			gfx.changewindowsize(2);
+			Gfx.changewindowsize(Gfx.windowwidth,Gfx.windowheight);
 			
 			
 			//TODO: port to haxe settings load
@@ -468,7 +467,7 @@ package ;
 			
 		}
 		
-		public static function savescreensettings(gfx:Graphicsclass):Void {
+		public static function savescreensettings():Void {
 			
 			//TODO: port to haxe settings save
 			/*programsettings = SharedObject.getLocal("boscaceoil_settings");		
@@ -510,13 +509,13 @@ package ;
 				//Midi drumkit
 				var voicenum:String = "";
 				var afterdot:Bool = false;
-				for (i in 0..voice.length) {
+				for (i in 0...voice.length) {
 					if (afterdot) {
 						voicenum = voicenum + voice.charAt(i);
 					}
 					if (i >= 8) afterdot = true;
 				}
-				drumkit[t].midivoice.push(Std.int(voicenum));
+				drumkit[t].midivoice.push(Std.parseInt(voicenum));
 			}
 	  
 			drumkit[t].size++;
@@ -666,7 +665,7 @@ package ;
 			//Delete notes not in scale
 			i = 0;
 			while( i < musicbox[currentbox].numnotes){
-				if (invertpianoroll[musicbox[currentbox].notes[i].x] == -1) {
+				if (invertpianoroll[Std.int(musicbox[currentbox].notes[i].x)] == -1) {
 					musicbox[currentbox].deletenote(i);
 					i--;
 				}
@@ -1006,7 +1005,7 @@ package ;
 					//Midi list
 					list.type = LIST_MIDIINSTRUMENT;
 					secondlist.type = t;
-					for (i in 0..8) {
+					for (i in 0...8) {
 						secondlist.item[i] = voicelist.name[i + ((t - 10) * 8)];
 					}
 					secondlist.numitems = 8;
@@ -1158,7 +1157,7 @@ package ;
 			
 			//set instrument to grand piano
 			instrument[0] = new Instrumentclass();
-			instrument[0].voice = _presets["midi.piano1"];
+			instrument[0].voice = _presets.voices["midi.piano1"];
 			instrument[0].updatefilter();
 			
 			
@@ -1509,7 +1508,7 @@ package ;
 				
 				var result:String = Dialogs.saveFile(
 				"Export XM module file"
-				, "Export XM module file"
+				, "Export XM module file",Sys.getCwd()
 				, xmFilter
 				);	
 				
@@ -1525,7 +1524,7 @@ package ;
 			fixmouseclicks = true;
 		}
 
-		private static function onexportxm(filename:String):void {
+		private static function onexportxm(filename:String):Void {
 
 			if (!fileHasExtension(filename, "xm")) {
 				addExtensionToFile(filename, "xm");
@@ -1546,7 +1545,7 @@ package ;
 			showmessage("SONG EXPORTED AS XM");
 		}
 
-		public static function exportmml():void {
+		public static function exportmml():Void {
 			stopmusic();
 			
 			#if cpp
@@ -1554,7 +1553,7 @@ package ;
 				
 				var result:String = Dialogs.saveFile(
 				"Export MML music text"
-				, "Export MML music text"
+				, "Export MML music text",Sys.getCwd()
 				, mmlFilter
 				);	
 				
@@ -1569,7 +1568,7 @@ package ;
 			fixmouseclicks = true;
 		}
 
-		private static function onexportmml(filename:String):void {
+		private static function onexportmml(filename:String):Void {
 
 			if (!fileHasExtension(filename, "mml")) {
 				addExtensionToFile(filename, "mml");
@@ -1693,7 +1692,7 @@ package ;
 			fixmouseclicks = true;
 		}
 		
-		private function onsavewav(filename:String):Void {    
+		private static function onsavewav(filename:String):Void {    
 			
 			if (!fileHasExtension(filename, "wav")) {
 				addExtensionToFile(filename, "wav");
@@ -1727,110 +1726,130 @@ package ;
 				currenttab = newtab;
 				Guiclass.changetab(newtab);
 			}
+		}
 		
 		//public var file:FileInput;
-		public var filestring:String;
-		public var fi:Int;
-		public var filestream:Array<Dynamic>;
+		public static var filestring:String;
+		public static var fi:Int;
+		public static var filestream:Array<Dynamic>;
 		
 		#if cpp
 			#if (!android && !emscripten)
-				var ceolFilter: FILEFILTERS =
+		private static var ceolFilter: FILEFILTERS =
 					{ count: 1
 					, descriptions: ["Ceol files"]
 					, extensions: ["*.ceol"]	
 					};	
 					
-				var wavFilter:FILEFILTERS = 
+		private static var wavFilter:FILEFILTERS = 
 				{
 					count: 1,
 					descriptions: ["Wav file"],
 					extensions: ["*.wav"]
 				};
 				
-				var xmFilter:FILEFILTERS = 
+		private static var xmFilter:FILEFILTERS = 
 				{
 					count: 1,
-					description: ["XM file"],
+					descriptions: ["XM file"],
 					extensions: ["*.xm"]
 				};
 				
-				var mmlFilter:FILEFILTERS = 
+		private static var mmlFilter:FILEFILTERS = 
 				{
 					count: 1,
-					description: ["MML file"],
+					descriptions: ["MML file"],
 					extensions: ["*.mml"]
 				};
 			#end
 		#end
 		
 		
-		public static var i:Int, j:Int, k:Int;
+		public static var i:Int;
+		public static var j:Int;
+		public static var k:Int;
 		
 		public static var fullscreen:Bool;
 		
 		public static var fullscreentoggleheld:Bool = false;
 		
-		public static var press_up:Bool, press_down:Bool, press_left:Bool, press_right:Bool, press_space:Bool, press_enter:Bool;
+		public static var press_up:Bool;
+		public static var press_down:Bool;
+		public static var press_left:Bool;
+		public static var press_right:Bool;
+		public static var press_space:Bool;
+		public static var press_enter:Bool;
 		public static var keypriority:Int = 0;
-		public static var keyheld:Bool = false;;
+		public static var keyheld:Bool = false;
 		public static var clicklist:Bool;
 		public static var clicksecondlist:Bool;
 		public static var copykeyheld:Bool = false;
 		
-		public static var keydelay:Int, keyboardpressed:Int = 0;
+		public static var keydelay:Int;
+		public static var keyboardpressed:Int = 0;
 		public static var fixmouseclicks:Bool = false;
 		
-		public static var mx:Int, my:Int;
-		public static var test:Bool, teststring:String;
+		public static var mx:Int;
+		public static var my:Int;
+		public static var test:Bool;
+		public static var teststring:String;
 		
 		public static var _driver:SiONDriver;
 		public static var _presets:SiONPresetVoice;
-		public static var voicelist:voicelistclass;
+		public static var voicelist:Voicelistclass;
 		
-		public static var instrument: Array<instrumentclass> = new Array<instrumentclass>;
+		public static var instrument: Array<Instrumentclass> = new Array<Instrumentclass>();
 		public static var numinstrument:Int;
 		public static var instrumentmanagerview:Int;
 		
-		public static var musicbox: Array<musicphraseclass> = new Array<musicphraseclass>;
+		public static var musicbox: Array<Musicphraseclass> = new Array<Musicphraseclass>();
 		public static var numboxes:Int;
 		public static var looptime:Int;
 		public static var currentbox:Int;
 		public static var currentnote:Int;
 		public static var currentinstrument:Int;
-		public static var boxsize:Int, boxcount:Int;
-		public static var barsize:Int, barcount:Int;
+		public static var boxsize:Int;
+		public static var boxcount:Int;
+		public static var barsize:Int;
+		public static var barcount:Int;
 		public static var notelength:Int;
 		public static var doublesize:Bool;
 		public static var arrangescrolldelay:Int = 0;
 		
 		public static var barposition:Float = 0;
-		public static var drawnoteposition:Int, drawnotelength:Int;
+		public static var drawnoteposition:Int;
+		public static var drawnotelength:Int;
 		
-		public static var cursorx:Int, cursory:Int;
-		public static var arrangecurx:Int, arrangecury:Int;
-		public static var patterncury:Int, timelinecurx:Int;
+		public static var cursorx:Int;
+		public static var cursory:Int;
+		public static var arrangecurx:Int;
+		public static var arrangecury:Int;
+		public static var patterncury:Int;
+		public static var timelinecurx:Int;
 		public static var instrumentcury:Int;
 		public static var notey:Int;
 		
-		public static var notename: Array<String> = new Array<String>;
-		public static var scalename: Array<String> = new Array<String>;
+		public static var notename: Array<String> = new Array<String>();
+		public static var scalename: Array<String> = new Array<String>();
 		
 		public static var currentscale:Int = 0;
-		public static var scale: Array<Int> = new Array<Int>;
+		public static var scale: Array<Int> = new Array<Int>();
 		public static var key:Int;
 		public static var scalesize:Int;
 		
-		public static var pianoroll: Array<Int> = new Array<Int>;
-		public static var invertpianoroll: Array<Int> = new Array<Int>;
+		public static var pianoroll: Array<Int> = new Array<Int>();
+		public static var invertpianoroll: Array<Int> = new Array<Int>();
 		public static var pianorollsize:Int;
 		
 		public static var arrange:Arrangementclass = new Arrangementclass();
-		public static var drumkit: Array<Drumkitclass> = new Array<Drumkitclass>;
+		public static var drumkit: Array<Drumkitclass> = new Array<Drumkitclass>();
 		
 		public static var currenttab:Int;
 		
-		public static var dragaction:Int, dragx:Int, dragy:Int, dragpattern:Int;
+		public static var dragaction:Int;
+		public static var dragx:Int;
+		public static var dragy:Int;
+		public static var dragpattern:Int;
 		public static var patternmanagerview:Int;
 		
 		public static var trashbutton:Int;
@@ -1850,20 +1869,22 @@ package ;
 		public static var doubleclickcheck:Int;
 		
 		public static var programsettings:SharedObject;
-		public static var buffersize:Int, currentbuffersize:Int;
+		public static var buffersize:Int;
+		public static var currentbuffersize:Int;
 		
 		private static var _data:ByteArray;
 		private static var _wav:ByteArray;
 		
 		public static var message:String;
 		public static var messagedelay:Int = 0;
-		public static var startup:Int = 0, invokefile:String = "null";
+		public static var startup:Int = 0;
+		public static var invokefile:String = "null";
 		public static var ctrl:String;
 		
 		
 		public static var effecttype:Int;
 		public static var effectvalue:Int;
-		public static var effectname: Array<String> = new Array<String>;
+		public static var effectname: Array<String> = new Array<String>();
 		
 		public static var versionnumber:String;
 		public static var savescreencountdown:Int;

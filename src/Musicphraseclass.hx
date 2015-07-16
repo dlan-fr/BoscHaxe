@@ -72,10 +72,10 @@ package ;
 		}
 		
 		public function transpose(amount:Int):Void{
-			for (i in 0..numnotes) {
+			for (i in 0...numnotes) {
 				if (notes[i].x != -1) {
-					if (control.invertpianoroll[notes[i].x] + amount != -1) {
-						notes[i].x = control.pianoroll[control.invertpianoroll[notes[i].x] + amount];
+					if (Control.invertpianoroll[Std.int(notes[i].x)] + amount != -1) {
+						notes[i].x = Control.pianoroll[Control.invertpianoroll[Std.int(notes[i].x)] + amount];
 					}
 				}
 				if (notes[i].x < 0) notes[i].x = 0;

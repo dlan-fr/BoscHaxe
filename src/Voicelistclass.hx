@@ -11,7 +11,7 @@ package ;
 	while( i < 256){
 				subname.push("");
 				subvoice.push("");
-				subpalette.push("");
+				subpalette.push(0);
 			 i++;
 }
 			init();
@@ -402,8 +402,8 @@ package ;
 			
 		var i:Int = 0;
 	while( i < listsize){
-				while (gfx.len(name[i]) > 190) {
-					name[i] = help.Left(name[i], name[i].length - 1)					
+				while (Gfx.len(name[i]) > 190) {
+					name[i] = Help.Left(name[i], name[i].length - 1);					
 				}
 			 i++;
 }
@@ -494,15 +494,15 @@ package ;
 			return getlast(category[current]);
 		}
 		
-		public var category: Array<String> = new Array<String>;
-		public var name: Array<String> = new Array<String>;
-		public var voice: Array<String> = new Array<String>;
-		public var palette: Array<Int> = new Array<Int>;
-		public var midimap: Array<Int> = new Array<Int>;
+		public var category: Array<String> = new Array<String>();
+		public var name: Array<String> = new Array<String>();
+		public var voice: Array<String> = new Array<String>();
+		public var palette: Array<Int> = new Array<Int>();
+		public var midimap: Array<Int> = new Array<Int>();
 		
-		public var subname: Array<String> = new Array<String>;
-		public var subvoice: Array<String> = new Array<String>;
-		public var subpalette: Array<Int> = new Array<Int>;
+		public var subname: Array<String> = new Array<String>();
+		public var subvoice: Array<String> = new Array<String>();
+		public var subpalette: Array<Int> = new Array<Int>();
 		public var sublistsize:Int;
 		
 		public var listsize:Int;
