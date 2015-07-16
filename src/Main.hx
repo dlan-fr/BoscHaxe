@@ -57,14 +57,16 @@ import flash.display.StageAlign;
 import flash.display.StageScaleMode;
 import flash.events.TimerEvent;
 import flash.display.StageDisplayState;
-import lime.audio.AudioManager;
+
 
 import includes.Input;
 import includes.Logic;
 import includes.Render;
 
+#if emscripten
+import lime.audio.AudioManager;
 import lime.audio.openal.AL;
-
+#end
 /*
 import Input;
 import Logic;
@@ -171,7 +173,11 @@ class Main extends Sprite
 					if (key.hasmiddleclicked) key.middleclick = false;
 				}
 				_render();
+				
+				#if emscripten
 				Logic.doOpenal(control);
+				#end
+				
 				e.updateAfterEvent();
 			}
 		}

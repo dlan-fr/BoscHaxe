@@ -3,10 +3,12 @@ package includes;
 
 import bigroom.input.KeyPoll;
 import haxe.io.BytesBuffer;
+#if emscripten
 import lime.utils.ByteArray;
 import openfl.events.SampleDataEvent;
 import lime.audio.AudioManager;
 import lime.audio.openal.*;
+#end
 
 class Logic
 {
