@@ -21,22 +21,22 @@ package ;
 			selection = -1;
 		}
 		
-		public function init(gfx:Graphicsclass, xp:Int, yp:Int):Void {
+		public function init(xp:Int, yp:Int):Void {
 			x = xp; y = yp; active = true;
-			getwidth(gfx);
-			h = numitems * gfx.linesize;
+			getwidth();
+			h = numitems * Gfx.linesize;
 		}
 		
 		public function close():Void {
 			active = false;
 		}
 		
-		public function getwidth(gfx:Graphicsclass):Void {
+		public function getwidth():Void {
 			w = 0;
 			var temp:Int;
 		var i:Int = 0;
 	while( i < numitems){
-				temp = gfx.len(item[i]);
+				temp = Gfx.len(item[i]);
 				if (w < temp) w = temp;
 			 i++;
 }

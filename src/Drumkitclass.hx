@@ -34,6 +34,7 @@ package ;
 		public var voicelist: Array<SiONVoice> = new Array<SiONVoice>();
 		public var voicename: Array<String> = new Array<String>();
 		public var voicenote: Array<Int> = new Array<Int>();
+		public var midivoice:Array<Int> = new Array<Int>();
 		public var kitname:String;
 		public var size:Int;
 	}

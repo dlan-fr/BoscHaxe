@@ -82,12 +82,10 @@ class Main extends Sprite
 	var inited:Bool;
 
 	/* ENTRY POINT */
-	public var gfx:Graphicsclass;
-		public var control:Controlclass;
 		public var key:KeyPoll;
 		
 		// Timer information (a shout out to ChevyRay for the implementation)
-		inline public static var TARGET_FPS:Float = 60; // the fixed-FPS we want the control to run at
+		inline public static var TARGET_FPS:Float = 30; // the fixed-FPS we want the control to run at
 		private var	_rate:Float = 1000 / TARGET_FPS; // how long (in seconds) each frame is
 		private var	_skip:Float; // this tells us to allow a maximum of 10 frame skips
 		private var	_last:Float = -1;
@@ -101,8 +99,50 @@ class Main extends Sprite
 	
 	function resize(e) 
 	{
-		if (!inited) init();
-		// else (resize or orientation change)
+		if (!inited) 
+		{
+			init();
+		}
+		else
+		{
+			// adjust the gui to fit the new device resolution
+			var tempwidth:Int, tempheight:Int;
+			if (e != null) {
+				tempwidth = Lib.current.stage.stageWidth;
+				tempheight = Lib.current.stage.stageHeight;
+			}else {
+				tempwidth = Gfx.windowwidth;
+				tempheight = Gfx.windowheight;
+			}
+			
+			Control.savescreencountdown = 30; //Half a second after a resize, save the settings
+			Control.minresizecountdown = 5; //Force a minimum screensize
+			Gfx.changewindowsize(tempwidth, tempheight);
+			
+			Gfx.patternmanagerx = Gfx.screenwidth - 116;
+			Gfx.patterneditorheight = (Gfx.windowheight - (Gfx.pianorollposition - (Gfx.linesize + 2))) / 12;
+			Gfx.notesonscreen = ((Gfx.screenheight - Gfx.pianorollposition - Gfx.linesize) / Gfx.linesize) + 1;
+			Gfx.tf_1.width = Gfx.windowwidth;
+			Gfx.updateboxsize();
+			
+			Guiclass.changetab(Control.currenttab);
+			
+			var temp:BitmapData = new BitmapData(Gfx.windowwidth, Gfx.windowheight, false, 0x000000);
+			Gfx.updatebackground = 5;
+			Gfx.backbuffercache = new BitmapData(Gfx.windowwidth, Gfx.windowheight, false, 0x000000);
+			temp.copyPixels(Gfx.backbuffer, Gfx.backbuffer.rect, Gfx.tl);
+			Gfx.backbuffer = temp;
+			//gfx.screen.bitmapData.dispose();
+			Gfx.screen.bitmapData = Gfx.backbuffer;
+			if (Gfx.scalemode == 1) {
+				Gfx.screen.scaleX = 1.5;
+				Gfx.screen.scaleY = 1.5;
+			}else {
+				Gfx.screen.scaleX = 1;
+				Gfx.screen.scaleY = 1;
+			}
+		}
+			
 	}
 	
 	function init() 
@@ -110,26 +150,56 @@ class Main extends Sprite
 		if (inited) return;
 		inited = true;
 		
+		Control.version = "v2.0";
+		Control.version = 3;
+		Control.ctrl = "Ctrl";//Set this to Cmd on Mac so that the tutorial is correct
+		
 		_skip = _rate * 10;
 		
-		gfx = new Graphicsclass();
 		
 		key = new KeyPoll(Lib.current.stage);
-		control = new Controlclass();
+		Control.init();
 		
-		gfx.init();
+		//Working toward resolution independence
+		Gfx.init();
+		
 		var tempbmp:Bitmap;
 		tempbmp = new Bitmap(Assets.getBitmapData("graphics/icons.png"));
-		gfx.buffer = tempbmp.bitmapData;	
-		gfx.makeiconarray();
-		gfx.buffer = new BitmapData(gfx.screenwidth, gfx.screenheight, false, 0x000000);
-		control.voicelist.fixlengths(gfx);
+		Gfx.buffer = tempbmp.bitmapData;	
+		Gfx.makeiconarray();
+		
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/logo_blue.png"));	Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/logo_purple.png")); Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/logo_red.png"));	Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/logo_orange.png")); Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/logo_green.png")); Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/logo_cyan.png")); Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/logo_gray.png")); Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/logo_shadow.png"));	Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/tutorial_longnote.png"));	Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/tutorial_drag.png"));	Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/tutorial_timelinedrag.png"));	Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/tutorial_patterndrag.png"));	Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		tempbmp =  new Bitmap(Assets.getBitmapData("graphics/tutorial_secret.png"));	Gfx.buffer = tempbmp.bitmapData;	Gfx.addimage();
+		
+		
+		Gfx.buffer = new BitmapData(Gfx.screenwidth, Gfx.screenheight, false, 0x000000);
+		
+		Control.voicelist.fixlength();
 		
 		//Lib.current.stage.fullScreenSourceRect = new Rectangle(0, 0, 768, 480);
-		addChild(gfx);
+		addChild(Gfx.screen);
 		
-		control.loadscreensettings(gfx);
-		updategraphicsmode(control);
+		Control.loadscreensettings();
+		updategraphicsmode();
+		
+		Gfx.changescalemode();
+		
+		if (Guiclass.firstrun) {
+			Guiclass.changewindow("firstrun");
+			Control.changetab(Control.currenttab); Control.clicklist = true;
+		}
 		
 		#if emscripten
 			Logic.initopenal();
@@ -140,20 +210,32 @@ class Main extends Sprite
 	}
 	
 	public function _input():Void {
-			control.mx = Std.int(mouseX / gfx.screenscale);
-			control.my = Std.int(mouseY / gfx.screenscale);
-			Input.input(key, gfx, control,updategraphicsmode);
+			if (Gfx.scalemode == 1) {
+				Control.mx = mouseX / 1.5;
+				Control.my = mouseY / 1.5;
+			}
+			else
+			{
+				Control.mx = mouseX;
+				Control.my = mouseY;
+			}
 			
+			Input.input(key,updategraphicsmode);
 		}
 		
     public function _logic():Void {
-			Logic.logic(key, gfx, control);
+			Logic.logic(key);
 			Help.updateglow();
+			
+			if (Control.forceresize) {
+				Control.forceresize = false;
+				resize(null);
+			}
 		}
 		
 		public function _render():Void {
-			gfx.backbuffer.lock();
-			Render.render(key, gfx, control);
+			Gfx.backbuffer.lock();
+			Render.render(key);
 			
 		}
 		
@@ -175,34 +257,34 @@ class Main extends Sprite
 				_render();
 				
 				#if emscripten
-				Logic.doOpenal(control);
+				Logic.doOpenal();
 				#end
 				
 				e.updateAfterEvent();
 			}
 		}
 		
-		public function updategraphicsmode(control:Controlclass):Void{
-		 	if (control.fullscreen) {
+		public function updategraphicsmode():Void{
+		 	if (Control.fullscreen) {
 				stage.displayState = StageDisplayState.FULL_SCREEN_INTERACTIVE;
 			}else {
 				stage.displayState = StageDisplayState.NORMAL;
 			}
 			
-			control.savescreensettings(gfx);
+			Control.savescreensettings();
 		}
 		
-		/*public function onInvokeEvent(event:InvokeEvent):Void{
-			if (event.arguments.length > 0) {
-				if (control.startup == 0) {
-					//Loading a song at startup, wait until the sound is initilised
-					control.invokefile = event.arguments[0];
-				}else {
-					//Program is up and running, just load now
-					control.invokeceol(event.arguments[0]);
+		/*public function onInvokeEvent(event:InvokeEvent):void{
+				if (event.arguments.length > 0) {
+					if (control.startup == 0) {
+						//Loading a song at startup, wait until the sound is initilised
+						control.invokefile = event.arguments[0];
+					}else {
+						//Program is up and running, just load now
+						control.invokeceol(event.arguments[0]);
+					}
 				}
-			}
-		}*/
+			}*/
 
 	/* SETUP */
 	

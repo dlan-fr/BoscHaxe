@@ -112,7 +112,7 @@ class Logic
 			}
 		}
 		
-		public static function doOpenal(control:Controlclass):Void
+		public static function doOpenal(control:Control):Void
 		{
 			//custom emscripten sound handling, hopefully it will go away with future version of Openfl
 			var bufferProcessed:Int =  AL.getSourcei(dyn_source, AL.BUFFERS_PROCESSED);
@@ -139,10 +139,10 @@ class Logic
 			
 			//just call directly the streaming function
 			var e:SampleDataEvent = new SampleDataEvent(SampleDataEvent.SAMPLE_DATA);
-			control._driver._streaming(e);
+			Control._driver._streaming(e);
 			
 			
-			AL.bufferData(c_buffer, AL.FORMAT_STEREO8, e.data, e.data.length, Std.int(control._driver.sampleRate));
+			AL.bufferData(c_buffer, AL.FORMAT_STEREO8, e.data, e.data.length, Std.int(Control._driver.sampleRate));
 			
 			var openal_error = AL.getError();
 			
@@ -152,7 +152,7 @@ class Logic
 				trace(AL.getErrorString());
 			}
 			
-			//trace("enqueue buffer of " + e.data.length +" length, rate : " + control._driver.sampleRate);
+			//trace("enqueue buffer of " + e.data.length +" length, rate : " + Control._driver.sampleRate);
 			
 			AL.sourceQueueBuffer(dyn_source, c_buffer);
 			
@@ -177,26 +177,55 @@ class Logic
 	
 
 	
-	public static function logic(key:KeyPoll, gfx:Graphicsclass, control:Controlclass):Void {
+	public static function logic(key:KeyPoll):Void {
 		var i:Int, j:Int, k:Int;
 		
-		if (control.messagedelay > 0) control.messagedelay--;
-	  if (control.doubleclickcheck > 0) control.doubleclickcheck--;
-		if (gfx.buttonpress > 0) gfx.buttonpress--;
-		
-		if (control.dragaction == 2) {
-			control.trashbutton++;
-			if (control.trashbutton > 10) control.trashbutton = 10;
-		}else {
-			if (control.trashbutton > 0) control.trashbutton--;
+		if (Control.arrangescrolldelay > 0) {
+			Control.arrangescrolldelay--;
 		}
 		
-		if (control.followmode) {
-			if (control.arrange.currentbar < control.arrange.viewstart) {
-				control.arrange.viewstart = control.arrange.currentbar;
+		if (Control.messagedelay > 0) {
+			Control.messagedelay -= 2;
+			if (Control.messagedelay < 0) Control.messagedelay = 0;
+		}
+	  if (Control.doubleclickcheck > 0) {
+			Control.doubleclickcheck -= 2;
+			if (Control.doubleclickcheck < 0) Control.doubleclickcheck = 0;
+		}
+		if (Gfx.buttonpress > 0) {
+			Gfx.buttonpress -= 2;
+			if (Gfx.buttonpress < 0) Gfx.buttonpress = 0;
+		}
+		
+		if (Control.minresizecountdown > 0) {
+			Control.minresizecountdown -= 2;
+			if (Control.minresizecountdown <= 0) {
+				Control.minresizecountdown = 0;
+				Gfx.forceminimumsize();
 			}
-			if (control.arrange.currentbar > control.arrange.viewstart+5) {
-				control.arrange.viewstart = control.arrange.currentbar;
+		}
+		
+		if (Control.savescreencountdown > 0) {
+			Control.savescreencountdown -= 2;
+			if (Control.savescreencountdown <= 0) {
+				Control.savescreencountdown = 0;
+				Control.savescreensettings();
+			}
+		}
+		
+		if (Control.dragaction == 2) {
+			Control.trashbutton+=2;
+			if (Control.trashbutton > 10) Control.trashbutton = 10;
+		}else {
+			if (Control.trashbutton > 0) Control.trashbutton--;
+		}
+		
+		if (Control.followmode) {
+			if (Control.arrange.currentbar < Control.arrange.viewstart) {
+				Control.arrange.viewstart = Control.arrange.currentbar;
+			}
+			if (Control.arrange.currentbar > Control.arrange.viewstart+5) {
+				Control.arrange.viewstart = Control.arrange.currentbar;
 			}
 		}
 	}
