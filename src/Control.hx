@@ -72,16 +72,16 @@ package ;
 		inline static var CHORD_SUS4:Int = 21;
 		inline static var CHORD_SUS2:Int = 22;
 		
-		inline static var LIST_KEY:Int = 0;
-		inline static var LIST_SCALE:Int = 1;
-		inline static var LIST_INSTRUMENT:Int = 2;
-		inline static var LIST_CATEGORY:Int = 3;
-		inline static var LIST_SELECTINSTRUMENT:Int = 4;
-		inline static var LIST_BUFFERSIZE:Int = 5;
-		inline static var LIST_MOREEXPORTS:Int = 6;
-		inline static var LIST_EFFECTS:Int = 7;
-		inline static var LIST_EXPORTS:Int = 8;
-		inline static var LIST_MIDIINSTRUMENT:Int = 9;
+		public inline static var LIST_KEY:Int = 0;
+		public inline static var LIST_SCALE:Int = 1;
+		public inline static var LIST_INSTRUMENT:Int = 2;
+		public inline static var LIST_CATEGORY:Int = 3;
+		public inline static var LIST_SELECTINSTRUMENT:Int = 4;
+		public inline static var LIST_BUFFERSIZE:Int = 5;
+		public inline static var LIST_MOREEXPORTS:Int = 6;
+		public inline static var LIST_EFFECTS:Int = 7;
+		public inline static var LIST_EXPORTS:Int = 8;
+		public inline static var LIST_MIDIINSTRUMENT:Int = 9;
 		inline static var LIST_MIDI_0_PIANO:Int = 10;
 		inline static var LIST_MIDI_1_BELLS:Int = 11;
 		inline static var LIST_MIDI_2_ORGAN:Int = 12;
@@ -99,12 +99,12 @@ package ;
 		inline static var LIST_MIDI_14_PERCUSSIVE:Int = 24;
 		inline static var LIST_MIDI_15_SOUNDEFFECTS:Int = 25;
 		
-		inline static var MENUTAB_FILE:Int = 0;
-		inline static var MENUTAB_ARRANGEMENTS:Int = 1;
-		inline static var MENUTAB_INSTRUMENTS:Int = 2;
-		inline static var MENUTAB_ADVANCED:Int = 3;
-		inline static var MENUTAB_CREDITS:Int = 4;
-		inline static var MENUTAB_HELP:Int = 5;
+		public static var MENUTAB_FILE:Int = 0;
+		public static var MENUTAB_ARRANGEMENTS:Int = 1;
+		public static var MENUTAB_INSTRUMENTS:Int = 2;
+		public static var MENUTAB_ADVANCED:Int = 3;
+		public static var MENUTAB_CREDITS:Int = 4;
+		public static var MENUTAB_HELP:Int = 5;
 		
 		public function new():Void {
 			version = 3;

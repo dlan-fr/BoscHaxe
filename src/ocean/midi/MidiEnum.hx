@@ -14,48 +14,48 @@ package ocean.midi ;
 		public static var CHANNEL_PRESSURE:Int   		=	0xD0;		
 		public static var PITCH_BEND:Int   			=	0xE0;		
 		
-		public static const	META:Int   			=	0xFF;		
-		public static const	SEQ_NUM:Int   		=	0x00;		
-		public static const	TEXT:Int   			=	0x01;		
-		public static const	COPY_RIGHT:Int   	=	0x02;		
-		public static const	SEQ_TRK_NAME:Int  	= 	0x03;		
-		public static const	INSTRUMENT_NAME:Int =	0x04;		
-		public static const	LYRIC_TXT:Int   	=	0x05;		
-		public static const	MARKER_TXT:Int   	=	0x06;		
-		public static const	CUE_POINT :Int   	=	0x07;		
-		public static const	PROGRAM_NAME:Int  	= 	0x08;		
-		public static const	DEVICE_NAME:Int  	= 	0x09;		
-		public static const	CHANNEL_PREFIX:Int  = 	0x20;		
-		public static const	END_OF_TRK:Int   	=	0x2F;		
-		public static const	SET_TEMPO:Int   	=	0x51;		
-		public static const	SMPTE_OFFSET:Int  	= 	0x54;		
-		public static const	TIME_SIGN:Int   	=	0x58;		
-		public static const	KEY_SIGN:Int   		=	0x59;		
-		public static const	SEQ_SPEC:Int   		=	0x7F;		
+		public static inline var	META:Int   			=	0xFF;		
+		public static inline var SEQ_NUM:Int   		=	0x00;		
+		public static inline var TEXT:Int   			=	0x01;		
+		public static inline var COPY_RIGHT:Int   	=	0x02;		
+		public static inline var SEQ_TRK_NAME:Int  	= 	0x03;		
+		public static inline var INSTRUMENT_NAME:Int =	0x04;		
+		public static inline var LYRIC_TXT:Int   	=	0x05;		
+		public static inline var MARKER_TXT:Int   	=	0x06;		
+		public static inline var CUE_POINT :Int   	=	0x07;		
+		public static inline var PROGRAM_NAME:Int  	= 	0x08;		
+		public static inline var DEVICE_NAME:Int  	= 	0x09;		
+		public static inline var CHANNEL_PREFIX:Int  = 	0x20;		
+		public static inline var END_OF_TRK:Int   	=	0x2F;		
+		public static inline var SET_TEMPO:Int   	=	0x51;		
+		public static inline var SMPTE_OFFSET:Int  	= 	0x54;		
+		public static inline var TIME_SIGN:Int   	=	0x58;		
+		public static inline var KEY_SIGN:Int   		=	0x59;		
+		public static inline var SEQ_SPEC:Int   		=	0x7F;		
 		
-		public static const	TIMING_CLOCK:Int  		= 	0xF8;		
-		public static const	RESERVED_0xF9:Int  		= 	0xF9;		
+		public static inline var TIMING_CLOCK:Int  		= 	0xF8;		
+		public static inline var RESERVED_0xF9:Int  		= 	0xF9;		
 		public static var SYS_START:Int  			=	0xFA;		
-		public static const	SYS_CONTINUE:Int  		= 	0xFB;		
+		public static inline var SYS_CONTINUE:Int  		= 	0xFB;		
 		public static var SYS_STOP:Int  			=	0xFC;		
-		public static const	RESERVED_0xFD:Int  		= 	0xFD;		
-		public static const	ACTIVE_SENDING:Int  	= 	0xFE;		
+		public static inline var RESERVED_0xFD:Int  		= 	0xFD;		
+		public static inline var ACTIVE_SENDING:Int  	= 	0xFE;		
 		
 		
 		public static var SYSTEM_EXCLUSIVE:Int	=	0xF0;		
 		public static var MIDI_TIME_CODE:Int  	= 	0xF1;		
 		public static var SONG_POSITION:Int  		= 	0xF2;		
 		public static var SONG_SELECT:Int  		=	0xF3;		
-		public static const	RESERVED_0xF4:Int  		= 	0xF4;		
+		public static inline var RESERVED_0xF4:Int  		= 	0xF4;		
 		public static var RESERVED_0xF5:Int  		=	0xF5;		
 		public static var TUNE_REQUEST:Int  		= 	0xF6;		
-		public static const	END_OF_SYS_EX:Int  		= 	0xF7;		
+		public static inline var END_OF_SYS_EX:Int  		= 	0xF7;		
 		
 		public static var NOTE:Int				=	0x00;		
 		
 		private static var _message:Dictionary = new Dictionary(true);
 		
-		
+		public static function init():Void
 		{
 			_message[NOTE_OFF]="NOTE_OFF";
 			_message[NOTE_ON]="NOTE_ON";
@@ -104,14 +104,6 @@ package ocean.midi ;
 			
 			_message[NOTE]="NOTE";
 			
-			
-			
-			
-			
-		}
-		
-		public function new():Void{
-			undefined;
 		}
 		
 		

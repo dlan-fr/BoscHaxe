@@ -34,12 +34,12 @@ package ocean.midi ;
 		public var _trackArray:Array<Dynamic>;
 		
 		
-		public function format():Int{
+		public function get_format():Int{
 			return _format&0xFFFF;
 		}
 		
 		
-		public function format(f:Int):Void{
+		public function set_format(f:Int):Void{
 			if( 0==f || 1==f || 2==f ){
 				_format = f ;
 			}
@@ -54,19 +54,19 @@ package ocean.midi ;
 		}
 		
 		
-		public function division():Int{
+		public function get_division():Int{
 			return _division&0xFFFF;
 		}
 		
 		
-		public function division(d:Int):Void{
+		public function set_division(d:Int):Void{
 			_division = d&0xFFFF;
 		}
 		
 		
 		public function new(file:ByteArray=null):Void{
 			_trackArray = new Array<Dynamic>();
-			if( file ){
+			if( file != null ){
 				input(file);
 			}
 			else{
@@ -80,12 +80,12 @@ package ocean.midi ;
 		public function input( fileStream:ByteArray , separate:Bool=true ):Void{
 			
 			if( fileStream.readInt() != MThd ){
-				throw new InvalidMidiError("Midi header Std.is(tag,incorrect, loads file error!"));
+				throw new InvalidMidiError("Midi header tag is incorrect, loads file error!");
 			}
 			
 			
 			if( fileStream.readInt() != HDRSIZE ){
-				throw new InvalidMidiError("Midi header Std.is(size,incorrect, loads file error!"));
+				throw new InvalidMidiError("Midi header size is incorrect, loads file error!");
 			}
 			
 			
@@ -111,7 +111,9 @@ package ocean.midi ;
 				var tempArray:Array<Dynamic> = new Array<Dynamic>();
 				var channels:Array<Dynamic> = new Array<Dynamic>();
 				
-				for each( var item:MessageItem in _trackArray[0].msgList ){
+				var msglst:MessageList =  cast _trackArray[0].msgList;
+				
+				for (item in  msglst){
 					if( Std.is(item,NoteItem )){
 						if( channels.indexOf((cast(item,NoteItem)).channel)<0 ){
 							_tracks++;

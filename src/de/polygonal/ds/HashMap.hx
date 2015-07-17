@@ -1,55 +1,53 @@
 package de.polygonal.ds;
 
-	import flash.utils.Dictionary;
 	import de.polygonal.ds.Collection;
 	import de.polygonal.ds.Iterator;
 	
 	class HashMap implements Collection
 	{
-		private var _keyMap:Dictionary;
-		private var _objMap:Dictionary;
+		private var _keyMap:haxe.ds.HashMap<Dynamic,Dynamic>;
+		private var _objMap:haxe.ds.HashMap<Dynamic,Dynamic>;
 		private var _size:Int;
 		
 		
 		public function new()
 		{
-			_keyMap = new Dictionary(true);
-			_objMap = new Dictionary(true);
+			_keyMap = new haxe.ds.HashMap<Dynamic,Dynamic>();
+			_objMap = new haxe.ds.HashMap<Dynamic,Dynamic>();
 			_size = 0;
 		}
 		
 		
 		public function insert(key:Dynamic, obj:Dynamic):Bool
 		{
-			if (_keyMap[key]) return false;
+			if (_keyMap.exists(key)) return false;
 			++_size;
-			_objMap[obj] = key;
-			_keyMap[key] = obj;
+			_objMap.set(obj, key);
+			_keyMap.set(key, obj);
 			return true;
 		}
 		
 		
 		public function find(key:Dynamic):Dynamic
 		{
-			return _keyMap[key] || null;
+			return _keyMap.get(key) || null;
 		}
 		
 		
 		public function findKey(val:Dynamic):Dynamic
 		{
-			return _objMap[val] || null;
+			return _objMap.get(val) || null;
 		}
 		
 		
 		public function remove(key:Dynamic):Dynamic
 		{
-			var obj:Dynamic = _keyMap[key];
-			
-			if (obj)
+			if (_keyMap.exists(key))
 			{
+				var obj:Dynamic = _keyMap.get(key);
 				--_size;
-				_keyMap[key] = null;
-				_objMap[obj] = null;
+				_keyMap.remove(key);
+				_objMap.remove(obj);
 				return obj;
 			}
 			return null;
@@ -58,13 +56,13 @@ package de.polygonal.ds;
 		
 		public function contains(obj:Dynamic):Bool
 		{
-			return _objMap[obj] ? true : false;
+			return _objMap.exists(obj);
 		}
 		
 		
 		public function containsKey(key:Dynamic):Bool
 		{
-			return _keyMap[key] ? true : false;
+			return _keyMap.exists(key);
 		}
 		
 		
@@ -82,8 +80,8 @@ package de.polygonal.ds;
 		
 		public function clear():Void
 		{
-			_keyMap = new Dictionary(true);
-			_objMap = new Dictionary(true);
+			_keyMap = new haxe.ds.HashMap<Dynamic,Dynamic>();
+			_objMap = new haxe.ds.HashMap<Dynamic,Dynamic>();
 			_size = 0;
 		}
 		
@@ -102,7 +100,7 @@ package de.polygonal.ds;
 		
 		public function toArray():Array<Dynamic>
 		{
-			var a:Array<Dynamic> = new Array<Dynamic>(_size), j:Int = 0;
+			var a:Array<Dynamic> = new Array<Dynamic>(), j:Int = 0;
 			for (i in _keyMap)
 			{
 				a[j++] = i;
@@ -113,7 +111,7 @@ package de.polygonal.ds;
 		
 		public function getKeySet():Array<Dynamic>
 		{
-			var a:Array<Dynamic> = new Array<Dynamic>(_size), j:Int = 0;
+			var a:Array<Dynamic> = new Array<Dynamic>(), j:Int = 0;
 			for (i in _objMap)
 			{
 				a[j++] = i;
@@ -132,7 +130,7 @@ package de.polygonal.ds;
 		{
 			var s:String = "HashMap:\n";
 			for (i in _objMap)
-				s += "[key: " + i + " val:" + _keyMap[i] + "]\n";
+				s += "[key: " + i + " val:" + _keyMap.get(i) + "]\n";
 			return s;
 		}
 	}
@@ -146,20 +144,20 @@ class HashMapValueIterator implements Iterator
 	private var _cursor:Int;
 	private var _size:Int;
 	
-	public function HashMapValueIterator(h:HashMap)
+	public function new(h:HashMap)
 	{
 		_h = h;
 		_values = h.toArray();
 		_cursor = 0;
-		_size = _h.size; 
+		_size = _h.size(); 
 	}
 	
-	public function data():Dynamic
+	public function get_data():Dynamic
 	{
 		return _values[_cursor];
 	}
 	
-	public function data(obj:Dynamic):Void
+	public function set_data(obj:Dynamic):Void
 	{
 		var key:Dynamic = _h.findKey(_values[_cursor]);
 		_h.remove(key);
@@ -189,20 +187,20 @@ class HashMapKeyIterator implements Iterator
 	private var _cursor:Int;
 	private var _size:Int;
 	
-	public function HashMapKeyIterator(h:HashMap)
+	public function new(h:HashMap)
 	{
 		_h = h;
 		_keys = h.getKeySet();
 		_cursor = 0;
-		_size = _h.size; 
+		_size = _h.size(); 
 	}
 	
-	public function data():Dynamic
+	public function get_data():Dynamic
 	{
 		return _keys[_cursor];
 	}
 	
-	public function data(obj:Dynamic):Void
+	public function set_data(obj:Dynamic):Void
 	{
 		var key:Dynamic = _keys[_cursor];
 		var val:Dynamic = _h.find(key);

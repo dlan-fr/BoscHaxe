@@ -12,6 +12,7 @@ package ocean.midi ;
 	import ocean.utils.GreedyUINT;
 	import ocean.midi.MidiEnum;
 	import ocean.midi.model.SysxItem;
+	import flash.errors.Error;
 
 	
 	class MidiTrack {
@@ -25,21 +26,25 @@ package ocean.midi ;
 		
 		public var _msgList:MessageList;
 		
+		@:isVar public var msgList(get, set):MessageList;
 		
-		public function msgList():MessageList{
+		
+		public function get_msgList():MessageList{
 			return _msgList;
 		}
 		
 		
-		public function msgList(ml:MessageList):Void{
+		public function set_msgList(ml:MessageList):MessageList{
 			_msgList = ml;
-			for each( var item:Dynamic in _msgList ){
+			for(item in _msgList ){
 				if( (Std.is(item,ChannelItem)) && (item.command == MidiEnum.PROGRAM_CHANGE) ){
 					_trackChannel = item.channel;
 					_trackPatch = item.data1;
 					break;
 				}
 			}
+			
+			return _msgList;
 		}
 		
 		
@@ -48,7 +53,7 @@ package ocean.midi ;
 				_msgList = new MessageList();
 				_size = 0;
 			}
-			else if( stream.bytesAvailable ){
+			else if( stream.bytesAvailable != 0 ){
 				_msgList = createList( stream );
 			}
 		}
@@ -84,7 +89,7 @@ package ocean.midi ;
 			var index:Int=0;
 
 			
-			for each( var item:Dynamic in _msgList ){
+			for( item in _msgList ){
 				
 				if( !item.mark ){
 					continue;
@@ -137,7 +142,7 @@ package ocean.midi ;
 				else{
 
 					
-					if( item.data2==undefined ){
+					if( item.data2==null ){
 						rawItem = new RawItem();
 						rawItem.timeline = item.timeline;
 						rawItem.raw.writeByte( item.command | item.channel );
@@ -167,7 +172,7 @@ package ocean.midi ;
 
 		 var i:Int=0 ;
 	while( i< rawArray.length ){
-				guint.value = rawArray[i].timeline - guint.value;
+				guint.value = Std.int(rawArray[i].timeline - guint.value);
 				
 				
 				stream.writeBytes(guint.rawBytes);
@@ -211,7 +216,7 @@ package ocean.midi ;
 		public function createList(stream:ByteArray ):MessageList{
 			
 			if( stream.readInt() != MTrk ){
-				throw new InvalidMidiError("MTrk header Std.is(tag,incorrect, loads file error!"));
+				throw new InvalidMidiError("MTrk header tag is incorrect, loads file error!");
 			}
 			
 			
@@ -319,7 +324,7 @@ package ocean.midi ;
 					noteItem.velocity = stream.readByte()&0xff;
 					if( command == MidiEnum.NOTE_ON ){
 						if( noteItem.velocity == 0){
-						 i=0 ;
+						 var i:Int=0 ;
 	while( i<queue.length ){
 								if( queue[i].pitch == noteItem.pitch && queue[i].channel == noteItem.channel ){
 									queue[i].duration = noteItem.timeline - queue[i].timeline ;
@@ -360,7 +365,7 @@ package ocean.midi ;
 					noteItem.pitch = stream.readByte()&0xff;	
 					noteItem.velocity = stream.readByte()&0xff;
 					
-				 i=0 ;
+				 var i:Int=0 ;
 	while( i<queue.length ){
 						if( queue[i].pitch == noteItem.pitch && queue[i].channel == noteItem.channel ){
 							queue[i].duration = noteItem.timeline - queue[i].timeline ;
@@ -413,26 +418,26 @@ package ocean.midi ;
 		}
 		
 		
-		public function trackChannel():Int{
+		public function get_trackChannel():Int{
 			return _trackChannel;
 		}
 		
 		
-		public function trackPatch():Int{
+		public function get_trackPatch():Int{
 			return _trackPatch;
 		}
 		
 		
-		public function trackChannel(ch:Int):Void{
-			for each( var item:Dynamic in _msgList ){
+		public function set_trackChannel(ch:Int):Void{
+			for ( item in _msgList ){
 				if( (Std.is(item,ChannelItem)) || (Std.is(item,NoteItem)) ){
 					item.channel = ch;
 				}
 			}
 		}
 		
-		public function trackPatch(ph:Int):Void{
-			for each( var item:Dynamic in _msgList ){
+		public function set_trackPatch(ph:Int):Void{
+			for( item in _msgList ){
 				if( (Std.is(item,ChannelItem)) && (item.command == MidiEnum.PROGRAM_CHANGE) ){
 					item.data1 = ph;
 					break;

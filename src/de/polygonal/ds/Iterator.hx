@@ -13,8 +13,8 @@ package de.polygonal.ds;
 		function start():Void;
 		
 		
-		function data():Dynamic;
-		function data(obj:Dynamic):Void;
+		function get_data():Dynamic;
+		function set_data(obj:Dynamic):Void;
 	}
 
 

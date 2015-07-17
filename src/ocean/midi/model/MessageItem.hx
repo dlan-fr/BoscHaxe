@@ -13,20 +13,26 @@ package ocean.midi.model ;
 			mark = true;
 		}
 		
-		public function kind(k:Int):Void{
-			_kind = k;
-		}
+		@:isVar public var kind(get, set):Int;
 		
-		public function kind():Int{
+		public function set_kind(k:Int):Int{
+			_kind = k;
 			return _kind;
 		}
 		
-		public function timeline():Int{
+		public function get_kind():Int{
+			return _kind;
+		}
+		
+		@:isVar public var timeline(get, set):Int;
+		
+		public function get_timeline():Int{
 			return _timeline;
 		}
 		
-		public function timeline(t:Int):Void{
+		public function set_timeline(t:Int):Int{
 			_timeline = t;
+			return _timeline;
 		}
 			
 		public function clone():MessageItem{

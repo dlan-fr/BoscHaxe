@@ -17,29 +17,35 @@ package ocean.midi.model ;
 			_type = MidiEnum.END_OF_TRK;
 			this.kind = MidiEnum.META;
 		}
-		public function text():ByteArray{
+		
+		@:isVar public var text(get, set):ByteArray;
+		
+		public function get_text():ByteArray{
 			_text.position = 0;
 			return _text;
 		}
 		
-		public function text(t:ByteArray):Void{
+		public function set_text(t:ByteArray):ByteArray{
 			_text.position = 0;
-			_text.length = 0;
 			_text.writeBytes(t);
+			return _text;
 		}
 		
-		public function type():Int{
+		@:isVar public var type(get, set):Int;
+		
+		public function get_type():Int{
 			return _type;
 		}
 		
-		public function type(t:Int):Void{
+		public function set_type(t:Int):Int{
 			_type = t;
+			return _type;
 		}
 		public function metaName():String{
 			return MidiEnum.getMessageName(type);
 		}
 		public function size():Int{
-			if( _text )
+			if( _text != null )
 				return _text.length;
 			else
 				return 0;

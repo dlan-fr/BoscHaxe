@@ -67,6 +67,8 @@ import includes.Render;
 import lime.audio.AudioManager;
 import lime.audio.openal.AL;
 #end
+
+import ocean.midi.MidiEnum;
 /*
 import Input;
 import Logic;
@@ -151,6 +153,8 @@ class Main extends Sprite
 	{
 		if (inited) return;
 		inited = true;
+		
+		MidiEnum.init();
 		
 		Control.version = "v2.0";
 		Control.version = 3;

@@ -300,10 +300,10 @@ class Gfx extends Sprite {
 			
 		j = 0;
 	while( j < Control.musicbox[Control.currentbox].numnotes){
-				i = Control.musicbox[Control.currentbox].notes[j].width;
+				i = Std.int(Control.musicbox[Control.currentbox].notes[j].width);
 				if (i < Control.boxcount) {
-					Control.drawnoteposition = Control.invertpianoroll[Control.musicbox[Control.currentbox].notes[j].x] + 1;
-					Control.drawnotelength = Control.musicbox[Control.currentbox].notes[j].y * Control.boxsize;
+					Control.drawnoteposition = Control.invertpianoroll[Std.int(Control.musicbox[Control.currentbox].notes[j].x)] + 1;
+					Control.drawnotelength = Std.int(Control.musicbox[Control.currentbox].notes[j].y * Control.boxsize);
 					if (Control.drawnoteposition > -1) {			
 						Control.drawnoteposition -= Control.musicbox[Control.currentbox].start;
 						if (Control.drawnoteposition <= 0) {
@@ -343,8 +343,8 @@ class Gfx extends Sprite {
 			Control.seekposition(Control.boxsize * Control.looptime);
 			if (Control.musicbox[Control.currentbox].isplayed) {
 				
-				fillrect(40 + Control.barposition, pianorollposition + linesize, 4, linesize * patterneditorheight, 10);
-				fillrect(40 + Control.barposition + 4, pianorollposition + linesize, 4, linesize * patterneditorheight, 11);
+				fillrect(40 + Std.int(Control.barposition), pianorollposition + linesize, 4, linesize * patterneditorheight, 10);
+				fillrect(40 + Std.int(Control.barposition) + 4, pianorollposition + linesize, 4, linesize * patterneditorheight, 11);
 			}
 			
 			
@@ -387,7 +387,7 @@ class Gfx extends Sprite {
 				}else {
 				i = 0;
 	while( i < Control.list.numitems){
-						if (help.Left(Control.list.item[i], 1) == ">" || help.Left(Control.list.item[i], 1) == "<") {
+						if (Help.Left(Control.list.item[i], 1) == ">" || Help.Left(Control.list.item[i], 1) == "<") {
 							fillrect(Control.list.x, Control.list.y + (i * linesize), Control.list.w, linesize, 0);
 						}
 					 i++;
@@ -406,7 +406,7 @@ class Gfx extends Sprite {
 				
 			i = 0;
 	while( i < Control.list.numitems){
-					if (help.Left(Control.list.item[i], 1) == ">" || help.Left(Control.list.item[i], 1) == "<") {
+					if (Help.Left(Control.list.item[i], 1) == ">" || Help.Left(Control.list.item[i], 1) == "<") {
 						print(Control.list.x + 2, Control.list.y + (i * linesize), Control.list.item[i], 14);
 					}else {
 						print(Control.list.x + 2, Control.list.y + (i * linesize), Control.list.item[i], 0);
@@ -421,7 +421,7 @@ class Gfx extends Sprite {
 				fillrect(Control.secondlist.x, Control.secondlist.y, Control.secondlist.w, Control.secondlist.h, 11);
 			i = 0;
 	while( i < Control.secondlist.numitems){
-					if (help.Left(Control.secondlist.item[i], 1) == ">" || help.Left(Control.secondlist.item[i], 1) == "<") {
+					if (Help.Left(Control.secondlist.item[i], 1) == ">" || Help.Left(Control.secondlist.item[i], 1) == "<") {
 						fillrect(Control.secondlist.x, Control.secondlist.y + (i * linesize), Control.secondlist.w, linesize, 0);
 					}
 				 i++;
@@ -432,7 +432,7 @@ class Gfx extends Sprite {
 				
 			i = 0;
 	while( i < Control.secondlist.numitems){
-					if (help.Left(Control.secondlist.item[i], 1) == ">" || help.Left(Control.secondlist.item[i], 1) == "<") {
+					if (Help.Left(Control.secondlist.item[i], 1) == ">" || Help.Left(Control.secondlist.item[i], 1) == "<") {
 						print(Control.secondlist.x + 2, Control.secondlist.y + (i * linesize), Control.secondlist.item[i], 14);
 					}else {
 						print(Control.secondlist.x + 2, Control.secondlist.y + (i * linesize), Control.secondlist.item[i], 0);
@@ -469,22 +469,22 @@ class Gfx extends Sprite {
 				fillrect(xp + 44, yp + 2, temppatternwidth - 46, 20, 101 + (temppal * 10));
 			mbj = 0;
 	while( mbj < Control.musicbox[t].numnotes){
-					mbi = Control.musicbox[t].notes[mbj].width;
-					Control.drawnoteposition = Control.musicbox[t].notes[mbj].x;
+					mbi = Std.int(Control.musicbox[t].notes[mbj].width);
+					Control.drawnoteposition = Std.int(Control.musicbox[t].notes[mbj].x);
 					Control.drawnotelength = Math.ceil(Control.musicbox[t].notes[mbj].y * zoomoffset);
 					if (mbi + Control.musicbox[t].notes[mbj].y > Control.boxcount) {
 						
-						Control.drawnotelength = (temppatternwidth/2) - (21 + Std.int(mbi * zoomoffset));
-						Control.drawnotelength += ((temppatternwidth/2) * (Control.musicbox[t].notes[mbj].y - (Control.boxcount - mbi)) / Control.boxcount);
+						Control.drawnotelength = Std.int((temppatternwidth/2) - (21 + Std.int(mbi * zoomoffset)));
+						Control.drawnotelength += Std.int(((temppatternwidth/2) * (Control.musicbox[t].notes[mbj].y - (Control.boxcount - mbi)) / Control.boxcount));
 					}
 					if (Control.drawnoteposition > -1) {			
 						Control.drawnoteposition -= Control.musicbox[t].bottomnote;
 						if (Control.musicbox[t].notespan > 10) {
-							Control.drawnoteposition = ((Control.drawnoteposition * 8) / Control.musicbox[t].notespan) + 2;
+							Control.drawnoteposition = Std.int(((Control.drawnoteposition * 8) / Control.musicbox[t].notespan) + 2);
 						}else {
 							Control.drawnoteposition++;
 							if (Control.musicbox[t].notespan < 6) {
-								Control.drawnoteposition += 6 - Control.musicbox[t].notespan;
+								Control.drawnoteposition += Std.int(6 - Control.musicbox[t].notespan);
 							}
 						}
 						if (Control.drawnoteposition >= 1 && Control.drawnoteposition < 11) {
@@ -554,7 +554,7 @@ class Gfx extends Sprite {
 		
 		public static function drawarrangementcursor():Void {
 			
-			i = ((Control.looptime * patternwidth) / Control.boxcount) + ((Control.arrange.currentbar - Control.arrange.viewstart) * patternwidth);
+			i = Std.int(((Control.looptime * patternwidth) / Control.boxcount) + ((Control.arrange.currentbar - Control.arrange.viewstart) * patternwidth));
 			if (i < patternmanagerx) {
 				fillrect(i, linesize, 4, pianorollposition, 10);
 				fillrect(i + 4, linesize, 4, pianorollposition, 11);
@@ -568,7 +568,7 @@ class Gfx extends Sprite {
 				
 				fillrect(-20 + arrangementscrollleft, linesize, 20, pianorollposition, 12);
 				fillrect(-20 + 2 + arrangementscrollleft, linesize + 2, 16, pianorollposition - 4, 5);
-				drawicon(-20 + 4 + arrangementscrollleft, linesize + (pianorollposition / 2) - 12, 12);
+				drawicon(-20 + 4 + arrangementscrollleft, Std.int(linesize + (pianorollposition / 2) - 12), 12);
 			}else if (Control.mx > patternmanagerx - 20 && Control.mx < patternmanagerx && Control.my > linesize && Control.my < linesize + pianorollposition) {
 				if (arrangementscrollright < 20) {
 					arrangementscrollright += 4;
@@ -577,7 +577,7 @@ class Gfx extends Sprite {
 				
 				fillrect(patternmanagerx - arrangementscrollright, linesize, 20, pianorollposition, 12);
 				fillrect(patternmanagerx - arrangementscrollright + 2, linesize + 2, 16, pianorollposition - 4, 5);
-				drawicon(patternmanagerx - arrangementscrollright + 5, linesize + (pianorollposition / 2) - 12, 13);
+				drawicon(patternmanagerx - arrangementscrollright + 5, Std.int(linesize + (pianorollposition / 2) - 12), 13);
 			}else {
 				
 				if (Control.arrangecurx > -1 && Control.arrangecury > -1) {
@@ -594,7 +594,7 @@ class Gfx extends Sprite {
 					
 					fillrect(-20 + arrangementscrollleft, linesize, 20, pianorollposition, 12);
 					fillrect(-20 + 2 + arrangementscrollleft, linesize + 2, 16, pianorollposition - 4, 5);
-					drawicon(-20 + 4 + arrangementscrollleft, linesize + (pianorollposition / 2) - 12, 12);
+					drawicon(-20 + 4 + arrangementscrollleft, Std.int(linesize + (pianorollposition / 2) - 12), 12);
 				}
 				if (arrangementscrollright > 0) {
 					arrangementscrollright -= 4;
@@ -602,7 +602,7 @@ class Gfx extends Sprite {
 					
 					fillrect(patternmanagerx - arrangementscrollright, linesize, 20, pianorollposition, 12);
 					fillrect(patternmanagerx - arrangementscrollright + 2, linesize + 2, 16, pianorollposition - 4, 5);
-					drawicon(patternmanagerx - arrangementscrollright + 5, linesize + (pianorollposition / 2) - 12, 13);
+					drawicon(patternmanagerx - arrangementscrollright + 5, Std.int(linesize + (pianorollposition / 2) - 12), 13);
 					drawpatternmanager();
 				}
 			}
@@ -758,7 +758,7 @@ class Gfx extends Sprite {
 				 i++;
 }
 				
-				print(286 + ((screenwidth - 348)/2) - (len("! RECORDING FOR PATTERN " + Std.string(Control.currentbox + 1) + "!") / 2), (linesize * 4) + 114, "! RECORDING FOR PATTERN " + Std.string(Control.currentbox + 1) + "!", 15, false, true);
+				print(Std.int(286 + ((screenwidth - 348)/2) - (len("! RECORDING FOR PATTERN " + Std.string(Control.currentbox + 1) + "!") / 2)), (linesize * 4) + 114, "! RECORDING FOR PATTERN " + Std.string(Control.currentbox + 1) + "!", 15, false, true);
 				
 				
 				j = Std.int(((256-Control.musicbox[Control.currentbox].volumegraph[Control.looptime%Control.boxcount]) * 90) / 256);
@@ -782,7 +782,7 @@ class Gfx extends Sprite {
 				 i++;
 }
 				
-				print(286 + ((screenwidth - 348)/2) - (len("LOW PASS FILTER PAD") / 2), (linesize * 4) + 114, "LOW PASS FILTER PAD", 103 + (Control.instrument[Control.currentinstrument].palette * 10));
+				print(Std.int(286 + Std.int((screenwidth - 348)/2) - (len("LOW PASS FILTER PAD") / 2)), (linesize * 4) + 114, "LOW PASS FILTER PAD", 103 + (Control.instrument[Control.currentinstrument].palette * 10));
 				print(screenwidth - 52, (linesize * 4) + 114, "VOL", 103 + (Control.instrument[Control.currentinstrument].palette * 10));				
 				
 				
@@ -1061,7 +1061,7 @@ class Gfx extends Sprite {
 			
 			tf_1.textColor = RGB(pal[col].r, pal[col].g, pal[col].b);
 			tf_1.text = t;
-			if (cen) x = screenwidthmid - (tf_1.textWidth / 2) + x;
+			if (cen) x = Std.int(screenwidthmid - (tf_1.textWidth / 2) + x);
 			
 			if (shadow) {
 				shapematrix.translate(x + 1, y + 1);
@@ -1134,7 +1134,7 @@ class Gfx extends Sprite {
 			
 			if (sc == 2) {
 				tf_2.text = t;
-				if (cen) x = screenwidthmid - (tf_2.textWidth / 2);
+				if (cen) x = Std.int(screenwidthmid - (tf_2.textWidth / 2));
 				
 				shapematrix.translate(x, y);
 				tf_2.textColor = RGB(r, g, b);
@@ -1143,7 +1143,7 @@ class Gfx extends Sprite {
 				shapematrix.translate(-x, -y);
 			}else if (sc == 3) {
 				tf_3.text = t;
-				if (cen) x = screenwidthmid - (tf_3.textWidth / 2);
+				if (cen) x = Std.int(screenwidthmid - (tf_3.textWidth / 2));
 				
 				shapematrix.translate(x, y);
 				tf_3.textColor = RGB(r, g, b);
@@ -1152,7 +1152,7 @@ class Gfx extends Sprite {
 				shapematrix.translate(-x, -y);
 			}else if (sc == 4) {
 				tf_4.text = t;
-				if (cen) x = screenwidthmid - (tf_4.textWidth / 2);
+				if (cen) x = Std.int(screenwidthmid - (tf_4.textWidth / 2));
 				
 				shapematrix.translate(x, y);
 				tf_4.textColor = RGB(r, g, b);
@@ -1162,7 +1162,7 @@ class Gfx extends Sprite {
 			}else if (sc == 5) {
 				tf_5.textColor = RGB(r, g, b);
 				tf_5.text = t;
-				if (cen) x = screenwidthmid - (tf_5.textWidth / 2);
+				if (cen) x = Std.int(screenwidthmid - (tf_5.textWidth / 2));
 				
 				shapematrix.translate(x, y);
 				backbuffer.draw(tf_5, shapematrix);

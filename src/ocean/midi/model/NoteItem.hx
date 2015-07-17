@@ -20,42 +20,56 @@ package ocean.midi.model ;
 			_timeline = t;
 		}
 		
-		public function channel():Int{
+		@:isVar public var channel(get, set):Int;
+		
+		public function get_channel():Int{
 			return _channel;
 		}
 		
-		public function channel(c:Int):Void{
+		public function set_channel(c:Int):Int{
 			_channel = c;
+			return _channel;
 		}
 		
-		public function pitch():Int{
+		@:isVar public var pitch(get, set):Int;
+		
+		public function get_pitch():Int{
 			return _pitch;
 		}
 		
-		public function pitchName():String{
-			var level:Int = (_pitch/12>>0);
-			var str:String = _pitchName[_pitch%12] + (level?level:"");
+		@:isVar public var pitchName(get, never):String;
+		
+		public function get_pitchName():String{
+			var level:Int = (Std.int(_pitch/12)>>0);
+			var str:String = _pitchName[_pitch%12] + (level != 0 ? Std.string(level):"");
 			return str;
 		}
 		
-		public function pitch(p:Int):Void{
+		public function set_pitch(p:Int):Int{
 			_pitch = p;
+			return _pitch;
 		}
 		
-		public function duration():Int{
+		@:isVar public var duration(get, set):Int;
+		
+		public function get_duration():Int{
 			return _duration;
 		}
 		
-		public function duration(d:Int):Void{
+		public function set_duration(d:Int):Int{
 			_duration = d;
+			return _duration;
 		}
 		
-		public function velocity():Int{
+		@:isVar public var velocity(get, set):Int;
+		
+		public function get_velocity():Int{
 			return _velocity;
 		}
 		
-		public function velocity(v:Int):Void{
+		public function set_velocity(v:Int):Int{
 			_velocity = v;
+			return _velocity;
 		}
 		
 		override public function clone():MessageItem{

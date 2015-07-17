@@ -2,18 +2,24 @@
 
 package ocean.utils ;
 	import flash.utils.ByteArray;
+	import flash.errors.Error;
 	import flash.errors.EOFError;
 	class GreedyUINT {
 	
 	
+		private static inline var INT_MAX_VALUE = 2147483647;
+		
 		private var _rawBytes:ByteArray;
 	
 		
+		@:isVar public var value(get, set):Int;
+		@isVar public var rawBytes(get, set):ByteArray;
 		
-		public function value():Int{
+		
+		public function get_value():Int{
 			_rawBytes.position = 0;
 			if(0==_rawBytes.length){
-				throw new Error(Std.is("value,not defined"));
+				throw new Error("value is not defined");
 			}
 			
 			var n:Int;
@@ -23,14 +29,14 @@ package ocean.utils ;
 				n += ( _rawBytes.readByte()&0x7F )<<(7*e);
 			 e-- ;
 }
-			if( n==Infinity || n==-Infinity ){
-				throw new Error(Std.is("value,beyond uint infinity"));
-			}
+			/*if( n==INT_MAX_VALUE || n==-INT_MAX_VALUE ){
+				throw new Error("value is beyond uint infinity");
+			}*/
 			return n;
 		}
 		
 		
-		public function value(n:Int):Void{
+		public function set_value(n:Int):Int{
 			_rawBytes.position = 0;
 			var e:Int ;
 			var t:Int ;
@@ -42,7 +48,7 @@ package ocean.utils ;
 					
 					
 					
-					temp[e] = e?( t&(128-1) | 0x80 ): n&(128-1);
+					temp[e] = (e != 0)?( t&(128-1) | 0x80 ): n&(128-1);
 					
 					
 					t = n>>(7*(++e));
@@ -50,29 +56,33 @@ package ocean.utils ;
 			}else{
 				temp[0]=0;
 			}
-		 _rawBytes.length = e = temp.length ;
+		 //_rawBytes.length = e = temp.length ;
 	while( e>0 ){
 				_rawBytes.writeByte(temp[e-1]);
 			 e-- ;
 }
 			
+			return 0;
+
 		}
 		
 		
-		public function rawBytes():ByteArray{
+		public function get_rawBytes():ByteArray{
 			_rawBytes.position = 0;
 			return _rawBytes;
 		}
 		
-		public function rawBytes(raw:ByteArray):Void{
+		public function set_rawBytes(raw:ByteArray):ByteArray{
 			_rawBytes.position = 0;
-			_rawBytes.length = 0;
+			//_rawBytes.length = 0;
 			if( check(raw) ){
 				_rawBytes.writeBytes(raw);
 				_rawBytes.position = 0;
 			}else{
-				throw new Error("input Std.is(byteArrary,not a valid GreedyUINT"));
+				throw new Error("input byteArrary is not a valid GreedyUINT");
 			}
+			
+			return _rawBytes;
 		}
 	
 	
@@ -86,7 +96,7 @@ package ocean.utils ;
 				_rawBytes.writeBytes(raw);
 			}
 			else{
-				throw new Error("input Std.is(byteArrary,not a valid GreedyUINT"));
+				throw new Error("input byteArrary is not a valid GreedyUINT");
 			}
 		}
 		
@@ -115,8 +125,10 @@ package ocean.utils ;
 		
 		
 		public function stream(raw:ByteArray):Void{
+			
+			_rawBytes = new ByteArray();
 			_rawBytes.position = 0;
-			_rawBytes.length = 0 ;
+			
 			var temp:Int;
 			
 			do{
@@ -131,7 +143,7 @@ package ocean.utils ;
 				
 			}while( (temp&0x80)!=0x00 && _rawBytes.length<=5);
 			if( _rawBytes.length == 6 ){
-				throw new Error("can't deal with uint value beyond 4294967295. This Std.is(stream,not countable ."));
+				throw new Error("can't deal with uint value beyond 4294967295. This stream is not countable .");
 			}
 
 		}

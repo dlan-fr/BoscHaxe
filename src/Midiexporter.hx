@@ -16,7 +16,7 @@ package ;
 		
 		
 		public function new() {
-			midifile = new MidiFile;
+			midifile = new MidiFile();
 		}
 		
 		public function addnewtrack():Void {

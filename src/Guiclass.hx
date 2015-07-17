@@ -35,7 +35,7 @@ package ;
 				case "firstrun":
 					if (initalise) {
 						windowwidth = 700; windowheight = (Gfx.linesize * 6) + 35;
-						windowx = Gfx.screenwidthmid - (windowwidth / 2); windowy = Gfx.screenheightmid - (windowheight / 2);
+						windowx = Gfx.screenwidthmid - Std.int(windowwidth / 2); windowy = Gfx.screenheightmid - Std.int(windowheight / 2);
 						windowtext = "Welcome!";
 					}
 					
@@ -45,11 +45,10 @@ package ;
 					addcentertextlabel(windowx, windowy + 30, windowwidth, "Looks like it this your first time using Bosca Ceoil!", 0, true);
 					addcentertextlabel(windowx, windowy + 30 + Gfx.linesize, windowwidth, "Would you like a quick introduction?", 0, true);
 					
-					addbutton(windowx + (windowwidth / 3) - 75, windowy + 30 + (Gfx.linesize * 3), 150, "YES", "help1", 0, true);
-					addbutton(windowx + (2*windowwidth/3) - 75, windowy + 30 + (Gfx.linesize *3), 150, "NO", "closewindow", 0, true);
+					addbutton(windowx + Std.int(windowwidth / 3) - 75, windowy + 30 + (Gfx.linesize * 3), 150, "YES", "help1", 0, true);
+					addbutton(windowx + Std.int(2*windowwidth/3) - 75, windowy + 30 + (Gfx.linesize *3), 150, "NO", "closewindow", 0, true);
 					
-					addcentertextlabel(windowx, windowy + 30 + (Gfx.linesize * 5), windowwidth, "(You can access this tour later by clicking HELP.)", 2, true);
-				break;
+					addcentertextlabel(windowx, windowy + 30 + (Gfx.linesize * 5), windowwidth, "(You can access this tour later by clicking Help.)", 2, true);
 				case "help1":
 					if (initalise) {
 						windowwidth = 400; windowheight = (Gfx.linesize * 5) + (Gfx.linesize * 2) + 35;
@@ -69,7 +68,6 @@ package ;
 					addline("editor below to place a note.");
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help2", 0, true);
-				break;
 				case "help2":
 					if (initalise) {
 						windowwidth = 400; windowheight =  (Gfx.linesize * 2) + (Gfx.linesize * 2) + 35;
@@ -88,7 +86,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help3", 0, true);
 					addbutton(windowx + 15, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help1", 0, true);
-				break;
 				case "help3":
 					if (initalise) {
 						windowwidth = 360; windowheight =  (Gfx.linesize * 3) + (Gfx.linesize * 2) + 35;
@@ -112,7 +109,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help4", 0, true);
 					addbutton(windowx + 15, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help2", 0, true);
-				break;
 				case "help4":
 					if (initalise) {
 						windowwidth = 700; windowheight =  (Gfx.linesize * 5) + (Gfx.linesize * 2) + 35;
@@ -138,17 +134,16 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help5", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help3", 0, true);
-				break;
 				case "help5":
 					if (initalise) {
 						windowwidth = 450; windowheight =  (Gfx.linesize * 1) + (Gfx.linesize * 2) + 35;
-						windowx = (Gfx.screenwidth - 40) / 4;	windowy = Gfx.linesize+10;
+						windowx = Std.int((Gfx.screenwidth - 40) / 4);	windowy = Gfx.linesize+10;
 						
 						windowtext = "HELP - Arrangements";
 					}
 					
 					helpcondition_check = "changetab_arrangement";
-					addhighlight((Gfx.screenwidth - 40) / 4, 0, (Gfx.screenwidth - 40) / 4, Gfx.linesize, 18, "");
+					addhighlight(Std.int((Gfx.screenwidth - 40) / 4), 0, Std.int((Gfx.screenwidth - 40) / 4), Gfx.linesize, 18, "");
 					
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
@@ -157,7 +152,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help6", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help4", 0, true);
-				break;
 				case "help6":
 					if (initalise) {
 						windowwidth = 450; windowheight =  (Gfx.linesize * 5) + (Gfx.linesize * 2) + 35;
@@ -181,7 +175,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help7", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help5", 0, true);
-				break;
 				case "help7":
 					if (initalise) {
 						windowwidth = 600; windowheight = (Gfx.linesize * 6) + (Gfx.linesize * 2) + 35;
@@ -198,7 +191,7 @@ package ;
 					
 					windowxoffset = Gfx.tutorialimagewidth(1) + 5;
 					windowyoffset = 0;
-					addtutorialimage(windowx + 5, windowy + 30 + (Gfx.linesize / 2), 1, true);
+					addtutorialimage(windowx + 5, windowy + 30 + Std.int(Gfx.linesize / 2), 1, true);
 					
 					windowline = 0;
 					addline("DRAG your new pattern from the", "DRAG");
@@ -210,7 +203,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help8", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help6", 0, true);
-				break;
 				case "help8":
 					if (initalise) {
 						windowwidth = 450; windowheight = (Gfx.linesize * 7) + (Gfx.linesize * 2) + 35;
@@ -227,7 +219,7 @@ package ;
 					Control.arrange.viewstart = 0;
 					windowxoffset = 0;
 					windowyoffset = Gfx.tutorialimageheight(3) + 15;
-					addtutorialimage(windowx + 25, windowy + 30 + (Gfx.linesize / 2), 3, true);
+					addtutorialimage(windowx + 25, windowy + 30 + Std.int(Gfx.linesize / 2), 3, true);
 					
 					windowline = 0;
 					addline("You can copy patterns by DRAGGING them,", "DRAGGING");
@@ -235,7 +227,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help9", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help7", 0, true);
-				break;
 				case "help9":
 					if (initalise) {
 						windowwidth = 500; windowheight = (Gfx.linesize * 1) + (Gfx.linesize * 2) + 35;
@@ -254,7 +245,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help10", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help8", 0, true);
-				break;
 				case "help10":
 					if (initalise) {
 						windowwidth = 460; windowheight = (Gfx.linesize * 2) + (Gfx.linesize * 2) + 35;
@@ -274,7 +264,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help11", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help9", 0, true);
-				break;
 				case "help11":
 					if (initalise) {
 						windowwidth = 550; windowheight = (Gfx.linesize * 9) + (Gfx.linesize * 2) + 35;
@@ -290,14 +279,13 @@ package ;
 					Control.arrange.viewstart = 0;
 					windowxoffset = 0;
 					windowyoffset = Gfx.tutorialimageheight(2) + 15;
-					addtutorialimage(windowx + 25, windowy + 30 + (Gfx.linesize / 2), 2, true);
+					addtutorialimage(windowx + 25, windowy + 30 + Std.int(Gfx.linesize / 2), 2, true);
 					
 					windowline = 0;
 					addline("DRAG over multiple sections to play them all!", "DRAG");
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help12", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help10", 0, true);
-				break;
 				case "help12":
 					if (initalise) {
 						windowwidth = 520; windowheight = (Gfx.linesize * 2) + (Gfx.linesize * 2) + 35;
@@ -318,17 +306,16 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help13", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help11", 0, true);
-				break;
 				case "help13":
 					if (initalise) {
 						windowwidth = 400; windowheight =  (Gfx.linesize * 1) + (Gfx.linesize * 2) + 35;
-						windowx = ((Gfx.screenwidth - 40) / 4)*2;	windowy = Gfx.linesize+10;
+						windowx = Std.int((Gfx.screenwidth - 40) / 4)*2;	windowy = Gfx.linesize+10;
 						
 						windowtext = "HELP - Instruments";
 					}
 					
 					helpcondition_check = "changetab_instrument";
-					addhighlight(((Gfx.screenwidth - 40) / 4)*2, 0, (Gfx.screenwidth - 40) / 4, Gfx.linesize, 18, "");
+					addhighlight(Std.int((Gfx.screenwidth - 40) / 4)*2, 0, Std.int((Gfx.screenwidth - 40) / 4), Gfx.linesize, 18, "");
 					
 					addwindow(windowx, windowy, windowwidth, windowheight, helpwindow);
 					
@@ -337,11 +324,10 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help14", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help12", 0, true);
-				break;
 				case "help14":
 					if (initalise) {
 						windowwidth = 450; windowheight =  (Gfx.linesize * 3) + (Gfx.linesize * 2) + 35;
-						windowx = 300;	windowy = Gfx.linespacing + Gfx.pianorollposition - 28 - 5 - (Gfx.linesize * 1.5);
+						windowx = 300;	windowy = Gfx.linespacing + Gfx.pianorollposition - 28 - 5 - Std.int(Gfx.linesize * 1.5);
 						
 						windowtext = "HELP - Instruments";
 					}
@@ -358,7 +344,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help15", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help13", 0, true);
-				break;
 				case "help15":
 					if (initalise) {
 						windowwidth = 240; windowheight = (Gfx.linesize * 3) + (Gfx.linesize * 2) + 35;
@@ -378,7 +363,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help16", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 30, "<<", "help14", 0, true);
-				break;
 				case "help16":
 					if (initalise) {
 						windowwidth = 400; windowheight =  (Gfx.linesize * 3) + (Gfx.linesize * 2) + 35;
@@ -398,7 +382,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help17", 0, true);
 					addbutton(windowx + 15, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help15", 0, true);
-				break;
 				case "help17":
 					if (initalise) {
 						windowwidth = 530; windowheight =  (Gfx.linesize * 7) + (Gfx.linesize * 2) + 35;
@@ -423,11 +406,10 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "help18", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help16", 0, true);
-				break;
 				case "help18":
 					if (initalise) {
 						windowwidth = 430; windowheight =  (Gfx.linesize * 5) + (Gfx.linesize * 2) + 35;
-						windowx = Gfx.screenwidthmid - (windowwidth / 2);	windowy = Gfx.pianorollposition + (Gfx.linesize * 2) - 5;
+						windowx = Gfx.screenwidthmid - Std.int(windowwidth / 2);	windowy = Gfx.pianorollposition + (Gfx.linesize * 2) - 5;
 						
 						windowtext = "HELP - Tutorial Complete";
 					}
@@ -443,11 +425,10 @@ package ;
 					
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "help17", 0, true);
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "FINISH", "endhelp", 0, true);
-				break;
 				case "advancedhelp1":
 					if (initalise) {
 						windowwidth = 530; windowheight =  (Gfx.linesize * 5) + (Gfx.linesize * 2) + 35;
-						windowx = Gfx.screenwidthmid - (windowwidth / 2);	windowy = Gfx.pianorollposition + (Gfx.linesize * 2) - 5;
+						windowx = Gfx.screenwidthmid - Std.int(windowwidth / 2);	windowy = Gfx.pianorollposition + (Gfx.linesize * 2) - 5;
 						
 						windowtext = "HELP - Tips and Tricks";
 					}
@@ -466,7 +447,6 @@ package ;
 					addline("LEFT/RIGHT", "LEFT", "RIGHT");
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp2", 0, true);
-				break;
 				case "advancedhelp2":
 					if (initalise) {
 						windowwidth = 385; windowheight = (Gfx.linesize * 3) + (Gfx.linesize * 2) + 35;
@@ -486,7 +466,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp3", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "advancedhelp1", 0, true);
-				break;
 				case "advancedhelp3":
 					if (initalise) {
 						windowwidth = 420; windowheight = (Gfx.linesize * 8) + (Gfx.linesize * 2) + 35;
@@ -511,7 +490,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp4", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "advancedhelp2", 0, true);
-				break;
 				case "advancedhelp4":
 					if (initalise) {
 						windowwidth = 385; windowheight = (Gfx.linesize * 5) + (Gfx.linesize * 2) + 35;
@@ -535,7 +513,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp5", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "advancedhelp3", 0, true);
-				break;
 				case "advancedhelp5":
 					if (initalise) {
 						windowwidth = 465; windowheight = (Gfx.linesize * 9) + (Gfx.linesize * 2) + 35;
@@ -563,7 +540,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp6", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "advancedhelp4", 0, true);
-				break;
 				case "advancedhelp6":
 					if (initalise) {
 						windowwidth = 450; windowheight = (Gfx.linesize * 3) + (Gfx.linesize * 2) + 35;
@@ -584,7 +560,6 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp7", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "advancedhelp5", 0, true);
-				break;
 				case "advancedhelp7":
 					if (initalise) {
 						windowwidth = 430; windowheight =  (Gfx.linesize * 3) + (Gfx.linesize * 2) + 35;
@@ -604,11 +579,10 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp8", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "advancedhelp6", 0, true);
-				break;
 				case "advancedhelp8":
 					if (initalise) {
 						windowwidth = 500; windowheight =  (Gfx.linesize * 13) + (Gfx.linesize * 2) + 35;
-						windowx = Gfx.screenwidthmid - (windowwidth / 2);	windowy = (Gfx.linesize * 3) - 5;
+						windowx = Gfx.screenwidthmid - Std.int(windowwidth / 2);	windowy = (Gfx.linesize * 3) - 5;
 						
 						windowtext = "HELP - Tips and Tricks";
 					}
@@ -617,7 +591,7 @@ package ;
 					
 					windowxoffset = 0;
 					windowyoffset = Gfx.tutorialimageheight(4) + 15;
-					addtutorialimage(windowx + 35, windowy + 30 + (Gfx.linesize / 2), 4, true);
+					addtutorialimage(windowx + 35, windowy + 30 + Std.int(Gfx.linesize / 2), 4, true);
 					
 					windowline = 0;
 					addline("Alright, last one, but this one's really fancy!");
@@ -632,11 +606,10 @@ package ;
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "NEXT", "advancedhelp9", 0, true);
 					addbutton(windowx + 15 + windowxoffset, windowy + windowheight - Gfx.linesize - 15, 150, "PREVIOUS", "advancedhelp7", 0, true);
-				break;
 				case "advancedhelp9":
 					if (initalise) {
 						windowwidth = 430; windowheight =  (Gfx.linesize * 2) + (Gfx.linesize * 2) + 35;
-						windowx = Gfx.screenwidthmid - (windowwidth / 2);	windowy = Gfx.pianorollposition + (Gfx.linesize * 2) - 5;
+						windowx = Gfx.screenwidthmid - Std.int(windowwidth / 2);	windowy = Gfx.pianorollposition + (Gfx.linesize * 2) - 5;
 						
 						windowtext = "HELP - Tips and Tricks";
 					}
@@ -649,10 +622,8 @@ package ;
 					addline("using Bosca Ceoil!");
 					
 					addbutton(windowx + windowwidth - 150 - 15, windowy + windowheight - Gfx.linesize - 15, 150, "FINISH", "endhelp", 0, true);
-				break;
 				default:
 				  helpwindow = "nothing";
-				break;
 			}
 		}
 		
@@ -661,12 +632,12 @@ package ;
 				addtextlabel(windowx + 10 + windowxoffset, windowy + 30 + windowyoffset + (Gfx.linesize * windowline), line, 0, true);
 				if (high != "") {
 					tx = line.indexOf(high);
-					tx = Gfx.len(help.Left(line, tx));
+					tx = Gfx.len(Help.Left(line, tx));
 					addtextlabel(windowx + 10 + tx + windowxoffset, windowy + 30 + windowyoffset + (Gfx.linesize * windowline), high, 18, true);
 				}
 				if (high2 != "") {
 					tx = line.indexOf(high2);
-					tx = Gfx.len(help.Left(line, tx));
+					tx = Gfx.len(Help.Left(line, tx));
 					addtextlabel(windowx + 10 + tx + windowxoffset, windowy + 30 + windowyoffset + (Gfx.linesize * windowline), high2, 18, true);
 				}
 			}
@@ -700,7 +671,7 @@ package ;
 		}
 		
 		public static function addcentertextlabel(x:Int, y:Int, w:Int, text:String, col:Int = 2, towindow:Bool = false):Void {
-			addguipart(x + ((w / 2) - (Gfx.len(text) / 2)), y, col, 0, text, "", "textlabel");
+			addguipart(Std.int(x + ((w / 2) - (Gfx.len(text) / 2))), y, col, 0, text, "", "textlabel");
 			if (towindow) button[lastbutton].onwindow = true;
 		}
 		
@@ -907,14 +878,14 @@ package ;
 	while( i < numbuttons){
 				if (button[i].active && button[i].visable) {
 					if (button[i].action == "window") {
-						if (help.inboxw(Control.mx, Control.my, button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height)) {
+						if (Help.inboxw(Control.mx, Control.my, Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), Std.int(button[i].position.height))) {
 							button[i].mouseover = true;
 							overwindow = true;
 						}
 						
 						if (key.press && !Control.clicklist) {
 							if (button[i].moveable) {
-								if (help.inboxw(Control.mx, Control.my, button[i].position.x - 20, button[i].position.y - 20, button[i].position.width + 40, button[i].position.height + 40)) {
+								if (Help.inboxw(Control.mx, Control.my, Std.int(button[i].position.x) - 20, Std.int(button[i].position.y) - 20, Std.int(button[i].position.width) + 40, Std.int(button[i].position.height) + 40)) {
 									dobuttonmoveaction(i);
 								}
 							}
@@ -928,7 +899,7 @@ package ;
 	while( i < numbuttons){
 				if (button[i].active && button[i].visable) {
 					if (!overwindow || button[i].onwindow) {
-						if (help.inboxw(Control.mx, Control.my, button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height)) {
+						if (Help.inboxw(Control.mx, Control.my, Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), Std.int(button[i].position.height))) {
 							button[i].mouseover = true;
 						}else {
 							button[i].mouseover = false;
@@ -947,11 +918,11 @@ package ;
 							if (button[i].position.x > Gfx.screenwidth - button[i].position.width) button[i].position.x = Gfx.screenwidth - button[i].position.width;
 							if (button[i].position.y > Gfx.screenheight - button[i].position.height) button[i].position.y = Gfx.screenheight - button[i].position.height;
 							
-							windowddx = windowx - button[i].position.x;
-							windowddy = windowy - button[i].position.y;
+							windowddx = windowx - Std.int(button[i].position.x);
+							windowddy = windowy - Std.int(button[i].position.y);
 							
-							windowx = button[i].position.x;
-							windowy = button[i].position.y;
+							windowx = Std.int(button[i].position.x);
+							windowy = Std.int(button[i].position.y);
 							
 						var j:Int = 0;
 	while( j < numbuttons){
@@ -968,7 +939,7 @@ package ;
 						if (!overwindow || button[i].onwindow) {
 							if (key.press && !Control.clicklist) {
 								if (button[i].moveable) {
-									if (help.inboxw(Control.mx, Control.my, button[i].position.x - 20, button[i].position.y - 20, button[i].position.width + 40, button[i].position.height + 40)) {
+									if (Help.inboxw(Control.mx, Control.my, Std.int(button[i].position.x) - 20, Std.int(button[i].position.y) - 20, Std.int(button[i].position.width) + 40, Std.int(button[i].position.height) + 40)) {
 										dobuttonmoveaction(i);
 									}
 								}
@@ -999,7 +970,7 @@ package ;
 	while( i < numbuttons){
 				if (button[i].active && button[i].visable) {
 					if (button[i].style == "normal") {
-						Gfx.fillrect(button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height, 12);
+						Gfx.fillrect(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), Std.int(button[i].position.height), 12);
 						if (button[i].pressed > 0) {
 							button[i].pressed--;
 							if (button[i].pressed < 2) {
@@ -1011,14 +982,14 @@ package ;
 							timage = 2;
 						}
 						if (button[i].mouseover) {
-							Gfx.fillrect(button[i].position.x - timage, button[i].position.y - timage, button[i].position.width, button[i].position.height, 20);
+							Gfx.fillrect(Std.int(button[i].position.x) - timage, Std.int(button[i].position.y - timage), Std.int(button[i].position.width), Std.int(button[i].position.height), 20);
 						}else {
-							Gfx.fillrect(button[i].position.x - timage, button[i].position.y - timage, button[i].position.width, button[i].position.height, 1);
+							Gfx.fillrect(Std.int(button[i].position.x) - timage, Std.int(button[i].position.y - timage), Std.int(button[i].position.width), Std.int(button[i].position.height), 1);
 						}
 						
 						
-						tx = button[i].position.x + (button[i].position.width / 2) - (Gfx.len(button[i].text) / 2) + button[i].textoffset - timage;
-						ty = button[i].position.y + 2 - timage;
+						tx = Std.int(button[i].position.x + Std.int(button[i].position.width / 2)) - Std.int(Gfx.len(button[i].text) / 2) + button[i].textoffset - timage;
+						ty = Std.int(button[i].position.y) + 2 - timage;
 						
 						Gfx.print(tx, ty, button[i].text, 0, false, true);
 					}else if (button[i].style == "blackout") {
@@ -1030,10 +1001,10 @@ package ;
 						 j++;
 }
 					}else if (button[i].style == "window") {
-						tx = button[i].position.x;
-						ty = button[i].position.y;
-						tw = button[i].position.width;
-						th = button[i].position.height;
+						tx = Std.int(button[i].position.x);
+						ty = Std.int(button[i].position.y);
+						tw = Std.int(button[i].position.width);
+						th = Std.int(button[i].position.height);
 						Gfx.fillrect(tx - 5 + 15, ty - 5 + 15, tw + 10, th + 10, 12);
 						Gfx.fillrect(tx - 5, ty - 5, tw + 10, th + 10, 12);
 						Gfx.fillrect(tx, ty, tw, th, 4);
@@ -1143,7 +1114,7 @@ package ;
 						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.buffersize), button[i].position.width, false, true);
 						}else if (button[i].action == "buffersizealert") {
 							if (Control.buffersize != Control.currentbuffersize) {
-								if (help.slowsine >= 32) {
+								if (Help.slowsine >= 32) {
 									Gfx.print(button[i].position.x, button[i].position.y, "REQUIRES RESTART", 0);
 								}else {
 									Gfx.print(button[i].position.x, button[i].position.y, "REQUIRES RESTART", 15);
@@ -1200,8 +1171,9 @@ package ;
 		}
 		
 		public static function deleteall(t:String = ""):Void {
-			if (t == "") {
 			var i:Int = 0;
+			
+			if (t == "") {
 	while( i < numbuttons){ button[i].active = false; i++;
 }
 				numbuttons = 0;
@@ -1305,7 +1277,8 @@ package ;
 			
 		  switch(t) {
 				case Control.MENUTAB_FILE:
-					tx = (Gfx.screenwidth - 768) / 4;
+					tx = Std.int((Gfx.screenwidth - 768) * 0.25) ;
+					// 4;
 					addlogo(24 + tx, (Gfx.linespacing * 2));
 					addtextlabel(330 + tx, (Gfx.linespacing * 5), Control.versionnumber);
 					
@@ -1327,10 +1300,9 @@ package ;
 					addplayarrow(300 + tx, (Gfx.linespacing * 9) - 2, "play");
 					addpausebutton(330 + tx, (Gfx.linespacing * 9) - 2, "pause");
 					addstopbutton(360 + tx, (Gfx.linespacing * 9) - 2, "stop");
-				break;
 				case Control.MENUTAB_CREDITS:
-					tx = (Gfx.screenwidth - 768) / 4;
-				  addtextlabel(tx + 20, (Gfx.linespacing * 1)+10, "SiON softsynth library by Kei Mesuda, Haxe port by Brian Gunn", 0);
+					tx = Std.int((Gfx.screenwidth - 768) * 0.25);
+				  addtextlabel(tx + 20, Std.int(Gfx.linespacing * 1)+10, "SiON softsynth library by Kei Mesuda, Haxe port by Brian Gunn", 0);
 					addtextlabel(tx + 20, (Gfx.linespacing * 2)+10, "sites.google.com/site/sioncenter/");
 					
 					addrighttextlabel(Gfx.screenwidth - 20 - tx, (Gfx.linespacing * 1)+10, "Midias library by Efishocean", 0);
@@ -1351,9 +1323,8 @@ package ;
 				  addrighttextlabel(Gfx.screenwidth - 20 - tx, (Gfx.linespacing * 8) - 10, "dy-dx.com/");
 					
 					addbutton(Gfx.screenwidth - 164 - tx, (Gfx.linespacing * 9) + 8, 150, "BACK", "filetab");
-				break;
 				case Control.MENUTAB_HELP:
-					tx = (Gfx.screenwidth - 768) / 2;
+					tx = Std.int((Gfx.screenwidth - 768) * 0.5);
 					addcentertextlabel(tx,  (Gfx.linespacing * 2), 768, "Learn the basics of how to make a song in Bosca Ceoil:", 0);
 					addbutton(Gfx.screenwidthmid - 126, (Gfx.linespacing * 3)+10, 250, "BASIC GUIDE", "help1");
 					
@@ -1361,17 +1332,14 @@ package ;
 					addbutton(Gfx.screenwidthmid - 125, (Gfx.linespacing * 7)+10, 250, "TIPS AND TRICKS", "advancedhelp1");
 					
 					addbutton(Gfx.screenwidth - 164 - tx, (Gfx.linespacing * 9) + 8, 150, "BACK", "filetab");
-				break;
 			  case Control.MENUTAB_ARRANGEMENTS:
 				  addbutton(Gfx.patternmanagerx + 10, Gfx.linespacing + Gfx.pianorollposition - 28, Gfx.screenwidth - (Gfx.patternmanagerx) - 16, "ADD NEW", "addnewpattern");
-			  break;
 			  case Control.MENUTAB_INSTRUMENTS:
 				  addbutton(10, Gfx.linespacing + Gfx.pianorollposition - 28, 264, "ADD NEW INSTRUMENT", "addnewinstrument");
 					addminusbutton(706, (Gfx.linespacing * 2) + 6, "previousinstrument");
 					addplusbutton(726, (Gfx.linespacing * 2) + 6, "nextinstrument");
-				break;
 				case Control.MENUTAB_ADVANCED:
-					tx = (Gfx.screenwidth - 768) / 4;
+					tx = Std.int((Gfx.screenwidth - 768) * 0.5);
 				  addcontrol(40 + tx, (Gfx.linespacing * 3) + 4, "changesoundbuffer");
 					addcontrol(40 + tx, (Gfx.linespacing * 7) + 4, "swingControl.");
 					addcontrol(Gfx.screenwidth - 210 - tx,  (Gfx.linespacing * 3) + 4, "globaleffects");
@@ -1383,7 +1351,6 @@ package ;
 					}
 
 					addbutton(Gfx.screenwidth - 170 - tx, Gfx.linespacing * 7, 150, "IMPORT .mid", "loadmidi");
-				break;
 			}
 			
 			if (windowx >= Gfx.screenwidth || windowy >= Gfx.screenheight) {
@@ -1409,15 +1376,15 @@ package ;
 							Control.clicklist = true;
 						}else{
 							windowdrag = true;
-							windowdx = Control.mx - button[i].position.x; windowdy = Control.my - button[i].position.y;
+							windowdx = Control.mx - Std.int(button[i].position.x); windowdy = Control.my - Std.int(button[i].position.y);
 						}
 					}
 				}
 			}else	if (currentbutton == "currenteffect") {
 				if (Control.mx >= button[i].position.x - 5  - 20 && Control.mx < button[i].position.x + button[i].position.width + 20 && Control.my >= button[i].position.y - 4 - 20 && Control.my <= button[i].position.y + Gfx.buttonheight + 4 + 20) {
-					var barposition:Int = Control.mx - (button[i].position.x + 5);
+					var barposition:Int = Control.mx - Std.int(button[i].position.x + 5);
 					if (barposition < 0) barposition = 0; 
-					if (barposition > button[i].position.width) barposition = button[i].position.width;
+					if (barposition > button[i].position.width) barposition = Std.int(button[i].position.width);
 					
 					Control.effectvalue = barposition;
 					Control.updateeffects();
@@ -1470,7 +1437,7 @@ package ;
 					Control.stopmusic();
 				}
 			}else if (currentbutton == "exportlist") {
-					tx = (Gfx.screenwidth - 768) / 4;
+					tx = Std.int((Gfx.screenwidth - 768) / 4);
 					Control.filllist(Control.LIST_EXPORTS);
 					Control.list.init(Gfx.screenwidth - 170 - tx, (Gfx.linespacing * 4) - 14);
 				
@@ -1527,7 +1494,7 @@ package ;
 				Control.swing --;
 				if (Control.swing < -10) Control.swing = -10;
 			}else if (currentbutton == "effectslist") {
-				tx = (Gfx.screenwidth - 768) / 4;
+				tx = Std.int((Gfx.screenwidth - 768) / 4);
 				Control.filllist(Control.LIST_EFFECTS);
 				Control.list.init(Gfx.screenwidth - 280 - tx, (Gfx.linespacing * 4) - 3);
 			}else if (currentbutton == "addnewinstrument") {
@@ -1563,7 +1530,7 @@ package ;
 				Control.previousinstrument();
 			}else if (currentbutton == "loadmidi") {
 			  button[i].press();
-					midiControl.openfile();
+					Midicontrol.openfile();
 			}else if (currentbutton == "changescale") {
 			  button[i].press();
 				Gfx.changescalemode(1 - Gfx.scalemode);

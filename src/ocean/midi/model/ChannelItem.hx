@@ -13,39 +13,49 @@ package ocean.midi.model ;
 			super();
 		}
 		
-		public function channel():Int{
+		@:isVar public var channel(get, set):Int;
+		
+		public function get_channel():Int{
 			return _channel;
 		}
 		
-		public function channel(c:Int):Void{
-			_channel = c&0x0F;
+		public function set_channel(c:Int):Int{
+			_channel = c & 0x0F;
+			return _channel;
 		}
 		
-		public function command():Int{
+		@:isVar public var command(get, set):Int;
+		
+		public function get_command():Int{
 			return _command;
 		}
 		
-		public function command(c:Int):Void{
+		public function set_command(c:Int):Int{
 			_command = c&0xF0;
 			kind = _command;
+			_command;
 		}
 		
-
+		@:isVar public var data1(get, set):Int;
 		
-		public function data1():Int{
+		public function get_data1():Int{
 			return _data1;
 		}
 		
-		public function data1(d:Int):Void{
+		public function set_data1(d:Int):Int{
 			_data1 = d;
+			return _data1;
 		}
 		
-		public function data2():Dynamic{
+		@:isVar public var data2(get, set):Dynamic;
+		
+		public function get_data2():Dynamic{
 			return _data2;
 		}
 		
-		public function data2(d:Dynamic):Void{
+		public function set_data2(d:Dynamic):Dynamic{
 			_data2 = d;
+			return _data2;
 		}
 		
 		override public function clone():MessageItem{
