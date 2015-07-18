@@ -31,20 +31,20 @@ package ;
 		public function writetimesig():Void {
 			currenttrack._msgList.push(new MetaItem());
 			var t:Int = currenttrack._msgList.length - 1;
-			currenttrack._msgList[t].type = 0x58; 
+			currenttrack._msgList.get(t).type = 0x58; 
 			var myba:ByteArray = new ByteArray();
 			myba.writeByte(0x04);
 			myba.writeByte(0x02);
 			myba.writeByte(0x18);
 			myba.writeByte(0x08);
-			currenttrack._msgList[t].text = myba;
+			currenttrack._msgList.get(t).text = myba;
 		}
 		
 		public function writetempo(tempo:Int):Void {
 			currenttrack._msgList.push(new MetaItem());
 			var t:Int = currenttrack._msgList.length - 1;
-			currenttrack._msgList[t].type = 0x51; 
-			var tempoinmidiformat:Int = 60000000 / tempo;
+			currenttrack._msgList.get(t).type = 0x51; 
+			var tempoinmidiformat:Int = Std.int(60000000 / tempo);
 			
 			var byte1:Int = (tempoinmidiformat >> 16) & 0xFF;
 			var byte2:Int = (tempoinmidiformat >> 8) & 0xFF;
@@ -54,20 +54,20 @@ package ;
 			myba.writeByte(byte1);
 			myba.writeByte(byte2);
 			myba.writeByte(byte3);
-			currenttrack._msgList[t].text = myba;
+			currenttrack._msgList.get(t).text = myba;
 		}
 		
 		
 		public function writeinstrument(instr:Int, channel:Int):Void {
 			currenttrack._msgList.push(new ChannelItem());
 			var t:Int = currenttrack._msgList.length - 1;
-			currenttrack._msgList[t]._kind = 0xC0; 
-			currenttrack._msgList[t]._command = 192 + channel;
-			currenttrack._msgList[t]._data1 = instr;
+			currenttrack._msgList.get(t)._kind = 0xC0; 
+			currenttrack._msgList.get(t)._command = 192 + channel;
+			currenttrack._msgList.get(t)._data1 = instr;
 		}
 		
 		public function writenote(channel:Int, pitch:Int, time:Int, length:Int, volume:Int):Void {
-			volume = volume / 2;
+			volume = Std.int(volume / 2);
 			if (volume > 127) volume = 127;
 			
 			currenttrack._msgList.push(new NoteItem(channel, pitch, volume, length, time)); 

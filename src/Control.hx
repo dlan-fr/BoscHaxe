@@ -47,7 +47,7 @@ package ;
   import haxe.io.Input;
 
 		
-	class Control extends Sprite{
+	class Control{
 		inline static var SCALE_NORMAL:Int = 0;
 		inline static var SCALE_MAJOR:Int = 1;
 		inline static var SCALE_MINOR:Int = 2;
@@ -82,22 +82,22 @@ package ;
 		public inline static var LIST_EFFECTS:Int = 7;
 		public inline static var LIST_EXPORTS:Int = 8;
 		public inline static var LIST_MIDIINSTRUMENT:Int = 9;
-		inline static var LIST_MIDI_0_PIANO:Int = 10;
-		inline static var LIST_MIDI_1_BELLS:Int = 11;
-		inline static var LIST_MIDI_2_ORGAN:Int = 12;
-		inline static var LIST_MIDI_3_GUITAR:Int = 13;
-		inline static var LIST_MIDI_4_BASS:Int = 14;
-		inline static var LIST_MIDI_5_STRINGS:Int = 15;
-		inline static var LIST_MIDI_6_ENSEMBLE:Int = 16;
-		inline static var LIST_MIDI_7_BRASS:Int = 17;
-		inline static var LIST_MIDI_8_REED:Int = 18;
-		inline static var LIST_MIDI_9_PIPE:Int = 19;
-		inline static var LIST_MIDI_10_SYNTHLEAD:Int = 20;
-		inline static var LIST_MIDI_11_SYNTHPAD:Int = 21;
-		inline static var LIST_MIDI_12_SYNTHEFFECTS:Int = 22;
-		inline static var LIST_MIDI_13_WORLD:Int = 23;
-		inline static var LIST_MIDI_14_PERCUSSIVE:Int = 24;
-		inline static var LIST_MIDI_15_SOUNDEFFECTS:Int = 25;
+		public inline static var LIST_MIDI_0_PIANO:Int = 10;
+		public inline static var LIST_MIDI_1_BELLS:Int = 11;
+		public inline static var LIST_MIDI_2_ORGAN:Int = 12;
+		public inline static var LIST_MIDI_3_GUITAR:Int = 13;
+		public inline static var LIST_MIDI_4_BASS:Int = 14;
+		public inline static var LIST_MIDI_5_STRINGS:Int = 15;
+		public inline static var LIST_MIDI_6_ENSEMBLE:Int = 16;
+		public inline static var LIST_MIDI_7_BRASS:Int = 17;
+		public inline static var LIST_MIDI_8_REED:Int = 18;
+		public inline static var LIST_MIDI_9_PIPE:Int = 19;
+		public inline static var LIST_MIDI_10_SYNTHLEAD:Int = 20;
+		public inline static var LIST_MIDI_11_SYNTHPAD:Int = 21;
+		public inline static var LIST_MIDI_12_SYNTHEFFECTS:Int = 22;
+		public inline static var LIST_MIDI_13_WORLD:Int = 23;
+		public inline static var LIST_MIDI_14_PERCUSSIVE:Int = 24;
+		public inline static var LIST_MIDI_15_SOUNDEFFECTS:Int = 25;
 		
 		public static var MENUTAB_FILE:Int = 0;
 		public static var MENUTAB_ARRANGEMENTS:Int = 1;
@@ -106,7 +106,7 @@ package ;
 		public static var MENUTAB_CREDITS:Int = 4;
 		public static var MENUTAB_HELP:Int = 5;
 		
-		public function new():Void {
+		public static function init():Void {
 			version = 3;
 			clicklist = false;
 			clicksecondlist = false;
@@ -285,7 +285,7 @@ package ;
 				invokefile = "null";
 			}
 			
-			super();
+			//super();
 		}
 		
 		public static function notecut():Void {
@@ -1643,7 +1643,7 @@ package ;
 		
 		
 		
-		public function exportwav():Void {
+		public static function exportwav():Void {
 			changetab(MENUTAB_ARRANGEMENTS); clicklist = true;
 			arrange.loopstart = 0; arrange.loopend = arrange.lastbar;
 			musicplaying = true;

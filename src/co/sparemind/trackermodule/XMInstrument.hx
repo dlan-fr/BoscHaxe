@@ -1,12 +1,16 @@
 package co.sparemind.trackermodule ;
+	
+	import flash.utils.ByteArray;
+    import flash.utils.Endian;
+	
 	class XMInstrument {
-		import flash.utils.ByteArray;
-		import flash.utils.Endian;
+		
+		
 
 		var _name:ByteArray;
 		public var volume:Int = 40;
 		public var samples: Array<XMSample> = new Array<XMSample>();
-		public var keymapAssignments: Array<Int> = Array<Int>([
+		public var keymapAssignments: Array<Int> = [
 				0,0,0,0,0,0,0,0,0,0,0,0,
 				0,0,0,0,0,0,0,0,0,0,0,0,
 				0,0,0,0,0,0,0,0,0,0,0,0,
@@ -15,7 +19,7 @@ package co.sparemind.trackermodule ;
 				0,0,0,0,0,0,0,0,0,0,0,0,
 				0,0,0,0,0,0,0,0,0,0,0,0,
 				0,0,0,0,0,0,0,0,0,0,0,0
-				]);
+				];
 
 		public function new() {
 			_name = new ByteArray();
@@ -32,17 +36,22 @@ package co.sparemind.trackermodule ;
 			samples = samples.concat(extraSamples).slice(0,16);
 		}
 
-		public function name():String {
+		
+		@:isVar public var name(get, set):String;
+		
+		public function get_name():String {
 			return _name.toString();
 		}
-		public function name(unpadded:String):Void {
+		public function set_name(unpadded:String):String {
 			_name.clear();
-			_name.writeMultiByte(unpadded.slice(0,22), 'us-ascii');
+			_name.writeMultiByte(unpadded.substring(0,22), 'us-ascii');
 		var i:Int = _name.length;
 	while( i < 22){
 				_name.writeByte(0x20); 
 			 i++;
 }
+			return _name.toString();
+
 		}
 	}
 

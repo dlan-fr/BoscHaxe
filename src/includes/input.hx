@@ -7,7 +7,7 @@ import openfl.system.System;
 class Input
 {
 
-	public static function input(key:KeyPoll,updategraphicsmode:Control->Void):Void {
+	public static function input(key:KeyPoll,updategraphicsmode:Void->Void):Void {
 		var i:Int, j:Int, k:Int;
 		
 		generickeypoll(key,updategraphicsmode);
@@ -54,13 +54,13 @@ class Input
 			if(Control.secondlist.active){
 				if(Control.mx > Control.secondlist.x && Control.mx < Control.secondlist.x + Control.secondlist.w && Control.my > Control.secondlist.y && Control.my < Control.secondlist.y + Control.secondlist.h) {
 					Control.secondlist.selection = Control.my - Control.secondlist.y;
-					Control.secondlist.selection = (Control.secondlist.selection - (Control.secondlist.selection % Gfx.linesize)) / Gfx.linesize;
+					Control.secondlist.selection = Std.int((Control.secondlist.selection - (Control.secondlist.selection % Gfx.linesize)) / Gfx.linesize);
 				}
 			}
 			if (Control.list.active){
 				if(Control.mx > Control.list.x && Control.mx < Control.list.x + Control.list.w && Control.my > Control.list.y && Control.my < Control.list.y + Control.list.h) {
 					Control.list.selection = Control.my - Control.list.y;
-					Control.list.selection = (Control.list.selection - (Control.list.selection % Gfx.linesize)) / Gfx.linesize;
+					Control.list.selection = Std.int((Control.list.selection - (Control.list.selection % Gfx.linesize)) / Gfx.linesize);
 				}
 			}
 		}else {
@@ -68,17 +68,17 @@ class Input
 				if (Control.mx > 40 && Control.mx < Gfx.screenwidth - 24) {
 					if (Control.my > Gfx.pianorollposition + Gfx.linesize && Control.my < Gfx.pianorollposition + (Gfx.linesize * (Gfx.patterneditorheight + 1))) {
 						Control.cursorx = (Control.mx - 40);
-						Control.cursorx = (Control.cursorx - (Control.cursorx % Control.boxsize)) / Control.boxsize;
+						Control.cursorx = Std.int((Control.cursorx - (Control.cursorx % Control.boxsize)) / Control.boxsize);
 						
 						Control.cursory = (Gfx.screenheight - Gfx.linesize) - Control.my;
-						Control.cursory = 1+ ((Control.cursory - (Control.cursory % Gfx.linesize)) / Gfx.linesize);
+						Control.cursory = Std.int(1+ ((Control.cursory - (Control.cursory % Gfx.linesize)) / Gfx.linesize));
 						if (Control.cursorx >= Control.boxcount) Control.cursorx = Control.boxcount - 1;
 						if (Control.my >= Gfx.screenheight - (Gfx.linesize)) Control.cursory = -1;
 					}
 				}else if (Control.mx <= 40) {
 					if (Control.my > Gfx.pianorollposition + Gfx.linesize && Control.my < Gfx.pianorollposition + (Gfx.linesize * (Gfx.patterneditorheight + 1))) {
 						Control.notey = (Gfx.screenheight - Gfx.linesize) - Control.my;
-						Control.notey = 1+ ((Control.notey - (Control.notey % Gfx.linesize)) / Gfx.linesize);
+						Control.notey = Std.int(1+ ((Control.notey - (Control.notey % Gfx.linesize)) / Gfx.linesize));
 						if (Control.my >= Gfx.screenheight - (Gfx.linesize)) Control.notey = -1;
 					}
 				}
@@ -89,24 +89,24 @@ class Input
 						if (Control.mx > Gfx.patternmanagerx) {
 							
 							Control.patterncury = Control.my - Gfx.linesize - 4;
-							Control.patterncury = (Control.patterncury - (Control.patterncury % Gfx.patternheight)) / Gfx.patternheight;
+							Control.patterncury = Std.int((Control.patterncury - (Control.patterncury % Gfx.patternheight)) / Gfx.patternheight);
 							if (Control.patterncury > 6) Control.patterncury = -1;
 						}else if (Control.my >= Gfx.pianorollposition + 8 || Control.dragaction == 3) {
 							
 							Control.timelinecurx = Control.mx;
-							Control.timelinecurx = (Control.timelinecurx - (Control.timelinecurx % Gfx.patternwidth)) / Gfx.patternwidth;
+							Control.timelinecurx = Std.int((Control.timelinecurx - (Control.timelinecurx % Gfx.patternwidth)) / Gfx.patternwidth);
 						}else{
 							
 							Control.arrangecurx = Control.mx;
-							Control.arrangecurx = (Control.arrangecurx - (Control.arrangecurx % Gfx.patternwidth)) / Gfx.patternwidth;
+							Control.arrangecurx = Std.int((Control.arrangecurx - (Control.arrangecurx % Gfx.patternwidth)) / Gfx.patternwidth);
 							Control.arrangecury = (Control.my - Gfx.linesize);
-							Control.arrangecury = (Control.arrangecury - (Control.arrangecury % Gfx.patternheight)) / Gfx.patternheight;
+							Control.arrangecury = Std.int((Control.arrangecury - (Control.arrangecury % Gfx.patternheight)) / Gfx.patternheight);
 							if (Control.arrangecury > 7) Control.arrangecury = 7;
 						}
 					}else if (Control.currenttab == Control.MENUTAB_INSTRUMENTS) {
 						if (Control.mx < 280) {
 							Control.instrumentcury = Control.my - Gfx.linesize;
-							Control.instrumentcury = (Control.instrumentcury - (Control.instrumentcury % Gfx.patternheight)) / Gfx.patternheight;
+							Control.instrumentcury = Std.int((Control.instrumentcury - (Control.instrumentcury % Gfx.patternheight)) / Gfx.patternheight);
 							if (Control.instrumentcury > 6) Control.instrumentcury = -1;
 						}
 					}
@@ -215,12 +215,12 @@ class Input
 							}
 						}
 						if (Control.list.type == Control.LIST_INSTRUMENT) {
-							if (help.Left(Control.list.item[Control.list.selection], 2) == "<<") {
+							if (Help.Left(Control.list.item[Control.list.selection], 2) == "<<") {
 								Control.voicelist.pagenum = 0;
 								Control.list.close();
 								Control.filllist(Control.LIST_INSTRUMENT);
 								Control.list.init(470, (Gfx.linesize * 3) + 6);
-							}else if (help.Left(Control.list.item[Control.list.selection], 2) == ">>") {
+							}else if (Help.Left(Control.list.item[Control.list.selection], 2) == ">>") {
 								Control.voicelist.pagenum++;
 								if (Control.voicelist.pagenum == 15) Control.voicelist.pagenum = 0;
 								Control.list.close();
@@ -272,10 +272,10 @@ class Input
 							if (Control.list.selection == 0) {
 								Control.exportwav();
 							}else if (Control.list.selection == 1) {
-								midiControl.savemidi();
+								Midicontrol.savemidi();
 							}else if (Control.list.selection == 2) {
 								Control.filllist(Control.LIST_MOREEXPORTS);
-								Control.list.init(Gfx.screenwidth - 170 - ((Gfx.screenwidth - 768) / 4), (Gfx.linespacing * 4) - 14);
+								Control.list.init(Gfx.screenwidth - 170 - Std.int((Gfx.screenwidth - 768) / 4), (Gfx.linespacing * 4) - 14);
 							}
 						}
 					}else {
@@ -459,14 +459,14 @@ class Input
 								if (Control.musicbox[Control.currentbox].recordfilter == 1) k = 1;
 							}
 							if (k == 1) {
-								Control.musicbox[Control.currentbox].cutoffgraph[Control.looptime%Control.boxcount] = (i * 128) / (Gfx.screenwidth - 368);
-								Control.musicbox[Control.currentbox].resonancegraph[Control.looptime%Control.boxcount] = (j * 9) / 90;
+								Control.musicbox[Control.currentbox].cutoffgraph[Control.looptime%Control.boxcount] = Std.int((i * 128) / (Gfx.screenwidth - 368));
+								Control.musicbox[Control.currentbox].resonancegraph[Control.looptime%Control.boxcount] = Std.int((j * 9) / 90);
 								Control.instrument[Control.currentinstrument].changefilterto(Control.musicbox[Control.currentbox].cutoffgraph[Control.looptime%Control.boxcount],Control.musicbox[Control.currentbox].resonancegraph[Control.looptime%Control.boxcount], Control.musicbox[Control.currentbox].volumegraph[Control.looptime%Control.boxcount]);
 								if (Control.instrument[Control.currentinstrument].type > 0) {
 									Control.drumkit[Control.instrument[Control.currentinstrument].type-1].updatefilter(Control.instrument[Control.currentinstrument].cutoff, Control.instrument[Control.currentinstrument].resonance);
 								}
 							}else{
-								Control.instrument[Control.currentinstrument].setfilter((i * 128) / (Gfx.screenwidth - 368), (j * 9) / 90);
+								Control.instrument[Control.currentinstrument].setfilter(Std.int((i * 128) / (Gfx.screenwidth - 368)), Std.int((j * 9) / 90));
 								Control.instrument[Control.currentinstrument].updatefilter();
 								if (Control.instrument[Control.currentinstrument].type > 0) {
 									Control.drumkit[Control.instrument[Control.currentinstrument].type-1].updatefilter(Control.instrument[Control.currentinstrument].cutoff, Control.instrument[Control.currentinstrument].resonance);
@@ -485,16 +485,16 @@ class Input
 								}
 							}
 							if (k == 1) {
-								Control.musicbox[Control.currentbox].volumegraph[Control.looptime%Control.boxcount] = (j * 256) / 90;
-								Control.instrument[Control.currentinstrument].changevolumeto((j * 256) / 90);
+								Control.musicbox[Control.currentbox].volumegraph[Control.looptime%Control.boxcount] = Std.int((j * 256) / 90);
+								Control.instrument[Control.currentinstrument].changevolumeto(Std.int((j * 256) / 90));
 								if (Control.instrument[Control.currentinstrument].type > 0) {
-									Control.drumkit[Control.instrument[Control.currentinstrument].type-1].updatevolume((j * 256) / 90);
+									Control.drumkit[Control.instrument[Control.currentinstrument].type-1].updatevolume(Std.int((j * 256) / 90));
 								}
 							}else{
-								Control.instrument[Control.currentinstrument].setvolume((j * 256) / 90);
+								Control.instrument[Control.currentinstrument].setvolume(Std.int((j * 256) / 90));
 								Control.instrument[Control.currentinstrument].updatefilter();
 								if (Control.instrument[Control.currentinstrument].type > 0) {
-									Control.drumkit[Control.instrument[Control.currentinstrument].type-1].updatevolume((j * 256) / 90);
+									Control.drumkit[Control.instrument[Control.currentinstrument].type-1].updatevolume(Std.int((j * 256) / 90));
 								}
 							}
 						}
@@ -716,7 +716,7 @@ class Input
 		}
 	}
 	
-	public static function generickeypoll(key:KeyPoll,updategraphicsmode:Control->Void):Void {
+	public static function generickeypoll(key:KeyPoll,updategraphicsmode:Void->Void):Void {
 		Control.press_up = false; Control.press_down = false; 
 	  Control.press_left = false; Control.press_right = false; 
 		Control.press_space = false; Control.press_enter = false;
@@ -738,7 +738,7 @@ class Input
 			Control.fullscreentoggleheld = true;
 			if (Control.fullscreen) {Control.fullscreen = false;
 			}else { Control.fullscreen = true; }
-			updategraphicsmode(control);
+			updategraphicsmode();
 		}
 		
 		if (Control.fullscreentoggleheld) {

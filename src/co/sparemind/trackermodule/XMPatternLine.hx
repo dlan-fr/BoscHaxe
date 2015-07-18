@@ -3,7 +3,7 @@ package co.sparemind.trackermodule ;
 		public var cellOnTrack: Array<XMPatternCell>;
 
 		public function new(numtracks:Int) {
-			cellOnTrack = new Array<XMPatternCell>(numtracks, true);
+			cellOnTrack = new Array<XMPatternCell>();
 		var i:Int = 0;
 	while( i < numtracks){
 				cellOnTrack[i] = new XMPatternCell();

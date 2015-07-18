@@ -6,7 +6,7 @@ package co.sparemind.trackermodule ;
 		public var effect:Int = 0;
 		public var effectParam:Int = 0;
 		public function new(config:Dynamic = null) {
-			if (config === null) { return; }
+			if (config == null) { return; }
 
 			note = config.note;
 			instrument = config.instrument;
@@ -15,11 +15,11 @@ package co.sparemind.trackermodule ;
 			effectParam = config.effectParam;
 		}
 		public function isEmpty():Bool {
-			return (note === 0 &&
-					instrument === 0 &&
-					volume === 0 &&
-					effect === 0 &&
-					effectParam === 0
+			return (note == 0 &&
+					instrument == 0 &&
+					volume == 0 &&
+					effect == 0 &&
+					effectParam == 0
 					);
 		}
 	}

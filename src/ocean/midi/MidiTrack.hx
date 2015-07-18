@@ -142,7 +142,7 @@ package ocean.midi ;
 				else{
 
 					
-					if( item.data2==null ){
+					if( item.data2==0 ){
 						rawItem = new RawItem();
 						rawItem.timeline = item.timeline;
 						rawItem.raw.writeByte( item.command | item.channel );
@@ -235,8 +235,8 @@ package ocean.midi ;
 			var timeline:Int = 0;
 			var byte:Int;								
 			var char:Int;								
-			var channel:Int;
-			var command:Int;
+			var channel:Int = 0;
+			var command:Int = 0;
 			
 			while( stream.position < end ){
 				

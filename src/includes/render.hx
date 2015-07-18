@@ -15,11 +15,11 @@ class Render
 			
 			
 			#if desktop
-				j = (Gfx.screenwidth - 40) / 4;
+				j = Std.int((Gfx.screenwidth - 40) / 4);
 			#end
 			
 			#if web
-				j = (Gfx.screenwidth) / 4;
+				j = Std.int((Gfx.screenwidth) / 4);
 			#end
 			
 			if (Control.currenttab == Control.MENUTAB_HELP) {
@@ -48,22 +48,22 @@ class Render
 					Guiclass.tx = Std.int(Gfx.screenwidth / 64) + 1;
 				i = -1;
 		while( i < Guiclass.tx){
-						Gfx.fillrect((i * 64) + help.slowsine, Gfx.pianorollposition + Gfx.linesize, 32,  Gfx.screenheight - (Gfx.pianorollposition + Gfx.linesize), 1);
+						Gfx.fillrect((i * 64) + Help.slowsine, Gfx.pianorollposition + Gfx.linesize, 32,  Gfx.screenheight - (Gfx.pianorollposition + Gfx.linesize), 1);
 					 i++;
 	}
 				}else {
 					Guiclass.tx = Std.int(Gfx.screenheight - (Gfx.pianorollposition + Gfx.linesize) / 64) + 1;
 				i = 0;
 		while( i < Guiclass.tx){
-						Gfx.fillrect(0, Gfx.pianorollposition + Gfx.linesize + (i * 64) + help.slowsine, Gfx.screenwidth, 32, 1);
+						Gfx.fillrect(0, Gfx.pianorollposition + Gfx.linesize + (i * 64) + Help.slowsine, Gfx.screenwidth, 32, 1);
 					 i++;
 	}
-					if (help.slowsine >= 32) {
-						Gfx.fillrect(0, Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth, help.slowsine-32, 1);
+					if (Help.slowsine >= 32) {
+						Gfx.fillrect(0, Gfx.pianorollposition + Gfx.linesize, Gfx.screenwidth, Help.slowsine-32, 1);
 					}
 				}
-				if (help.slowsine < 32) {
-					Gfx.print(Gfx.screenwidthmid - (Gfx.len("NOW EXPORTING AS WAV, PLEASE WAIT") / 2), (Gfx.pianorollposition + Gfx.linesize)+ (Gfx.screenheight - Gfx.hig("WAV") - (Gfx.pianorollposition + Gfx.linesize))/2, "NOW EXPORTING AS WAV, PLEASE WAIT", 0, false, true);
+				if (Help.slowsine < 32) {
+					Gfx.print(Std.int(Gfx.screenwidthmid - Gfx.len("NOW EXPORTING AS WAV, PLEASE WAIT") / 2), Std.int((Gfx.pianorollposition + Gfx.linesize)+ (Gfx.screenheight - Gfx.hig("WAV") - (Gfx.pianorollposition + Gfx.linesize))/2), "NOW EXPORTING AS WAV, PLEASE WAIT", 0, false, true);
 				}
 			}else if(Control.currentbox>-1){
 				Gfx.drawpatterneditor();
@@ -83,45 +83,39 @@ class Render
 			
 			switch(Control.currenttab) {
 				case Control.MENUTAB_FILE:
-					Guiclass.tx = (Gfx.screenwidth - 768) / 4;
+					Guiclass.tx = Std.int((Gfx.screenwidth - 768) / 4);
 					Gfx.fillrect(Guiclass.tx, Gfx.linesize, 408, Gfx.linesize * 10, 5);
 					Gfx.fillrect(Gfx.screenwidth - Guiclass.tx - 408+24, Gfx.linesize, 408, Gfx.linesize * 10, 5);
-				break;
 				case Control.MENUTAB_CREDITS:
-					Guiclass.tx = (Gfx.screenwidth - 768) / 4;
+					Guiclass.tx = Std.int((Gfx.screenwidth - 768) / 4);
 					Gfx.fillrect(Guiclass.tx, Gfx.linesize, 408, Gfx.linesize * 10, 5);
 					Gfx.fillrect(Gfx.screenwidth - Guiclass.tx - 408+24, Gfx.linesize, 408, Gfx.linesize * 10, 5);
-				break;
 				case Control.MENUTAB_HELP:
-					Guiclass.tx = (Gfx.screenwidth - 768) / 2;
+					Guiclass.tx = Std.int((Gfx.screenwidth - 768) / 2);
 					Gfx.fillrect(Guiclass.tx, Gfx.linesize, 768, Gfx.linesize * 10, 5);
-				break;
 				case Control.MENUTAB_ARRANGEMENTS:
 					Gfx.drawarrangementeditor();
 					Gfx.drawtimeline();
 					Gfx.drawpatternmanager();
-				break;
 				case Control.MENUTAB_INSTRUMENTS:
 					Gfx.drawinstrumentlist();
 					Gfx.drawinstrument();
-				break;
 				case Control.MENUTAB_ADVANCED:
-					Guiclass.tx = (Gfx.screenwidth - 768) / 4;
+					Guiclass.tx = Std.int((Gfx.screenwidth - 768) / 4);
 					Gfx.fillrect(Guiclass.tx, Gfx.linesize, 408, Gfx.linesize * 10, 5);
 					Gfx.fillrect(Gfx.screenwidth - Guiclass.tx - 408+24, Gfx.linesize, 408, Gfx.linesize * 10, 5);
-				break;
 			}
 			
 			
 			Gfx.updatebackground--;
 			if (Gfx.updatebackground == 0) {
-				Gfx.settrect(Gfx.backbuffer.rect.x, Gfx.backbuffer.rect.y, Gfx.backbuffer.rect.width, Gfx.backbuffer.rect.height);
+				Gfx.settrect(Std.int(Gfx.backbuffer.rect.x), Std.int(Gfx.backbuffer.rect.y), Std.int(Gfx.backbuffer.rect.width), Std.int(Gfx.backbuffer.rect.height));
 				Gfx.backbuffercache.copyPixels(Gfx.backbuffer, Gfx.trect, Gfx.tl);
 			}
 		}else {
 			if(!Control.musicplaying) Gfx.changeframerate(15); 
 			
-			Gfx.settrect(Gfx.backbuffercache.rect.x, Gfx.backbuffercache.rect.y, Gfx.backbuffercache.rect.width, Gfx.backbuffercache.rect.height);
+			Gfx.settrect(Std.int(Gfx.backbuffercache.rect.x), Std.int(Gfx.backbuffercache.rect.y),Std.int(Gfx.backbuffercache.rect.width), Std.int(Gfx.backbuffercache.rect.height));
 			Gfx.backbuffer.copyPixels(Gfx.backbuffercache, Gfx.trect, Gfx.tl);
 		}
 		
@@ -145,7 +139,7 @@ class Render
 		if (Control.messagedelay > 0) {
 			i = Control.messagedelay > 10?10:Control.messagedelay;
 			Gfx.fillrect(0, Gfx.screenheight - (i * 2), Gfx.screenwidth, 20, 16);
-			Gfx.print(Gfx.screenwidthmid - (Gfx.len(Control.message) / 2), Gfx.screenheight - (i * 2), Control.message, 0, false, true);
+			Gfx.print(Gfx.screenwidthmid - Std.int(Gfx.len(Control.message) / 2), Gfx.screenheight - (i * 2), Control.message, 0, false, true);
 		}
 		
 		

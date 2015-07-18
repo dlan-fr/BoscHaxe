@@ -33,7 +33,7 @@ package ocean.midi.model ;
 		public function set_command(c:Int):Int{
 			_command = c&0xF0;
 			kind = _command;
-			_command;
+			return _command;
 		}
 		
 		@:isVar public var data1(get, set):Int;

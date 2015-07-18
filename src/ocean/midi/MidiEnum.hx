@@ -53,7 +53,7 @@ package ocean.midi ;
 		
 		public static var NOTE:Int				=	0x00;		
 		
-		private static var _message:Dictionary = new Dictionary(true);
+		private static var _message:Map<Int,String> = new Map<Int,String>();
 		
 		public static function init():Void
 		{

@@ -224,7 +224,7 @@ package ;
 		
 		public static function clone(source:ByteArray):ByteArray{ 
 			var myBA:ByteArray = new ByteArray(); 
-			var i:Int;
+			var i:Int = 0;
 			while (i < source.byteLength)
 			{
 				source.writeByte(source.get(i));
@@ -650,9 +650,9 @@ package ;
 						var k:Int = 0;
 	while( k < Control.musicbox[t].numnotes){
 								midiexporter.writenote(Control.musicbox[t].instr, 
-																			 Control.musicbox[t].notes[k].x, 
-																			 ((j * Control.boxcount) + Control.musicbox[t].notes[k].width) * 30, 
-																			 Control.musicbox[t].notes[k].y * 30, 255);
+																			 Std.int(Control.musicbox[t].notes[k].x), 
+																			 ((j * Control.boxcount) + Std.int(Control.musicbox[t].notes[k].width)) * 30, 
+																			 Std.int(Control.musicbox[t].notes[k].y) * 30, 255);
 							 k++;
 }
 						}
@@ -667,19 +667,19 @@ package ;
 			
 		j = 0;
 	while( j < Control.arrange.lastbar){
-			i = 0;
+			var i:Int = 0;
 	while( i < 8){
 					if (Control.arrange.bar[j].channel[i] != -1) {
-						t = Control.arrange.bar[j].channel[i];
+						var t:Int = Control.arrange.bar[j].channel[i];
 						var drumkit:Int = Control.musicbox[Control.arrange.bar[j].channel[i]].instr;
 						
-						if (help.Left(Control.voicelist.voice[Control.instrument[drumkit].index], 7) == "drumkit") {
-						k = 0;
+						if (Help.Left(Control.voicelist.voice[Control.instrument[drumkit].index], 7) == "drumkit") {
+						var k:Int = 0;
 	while( k < Control.musicbox[t].numnotes){
 								midiexporter.writenote(9, 
-																			 convertdrumtonote(Control.musicbox[t].notes[k].x, Control.instrument[drumkit].index), 
-																			 ((j * Control.boxcount) + Control.musicbox[t].notes[k].width) * 30, 
-																			 Control.musicbox[t].notes[k].y * 30, 255);
+																			 convertdrumtonote(Std.int(Control.musicbox[t].notes[k].x), Control.instrument[drumkit].index), 
+																			 ((j * Control.boxcount) + Std.int(Control.musicbox[t].notes[k].width)) * 30, 
+																			 Std.int(Control.musicbox[t].notes[k].y) * 30, 255);
 							 k++;
 }
 						}

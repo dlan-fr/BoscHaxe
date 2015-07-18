@@ -8,6 +8,18 @@ package ocean.midi.model ;
 				
 		private var _array:Array<Dynamic>;
 		
+		//@:arrayAccess doesn't seem to work in this case
+		public inline function get(key:Int):Dynamic
+		{
+			return _array[key];
+		}
+		
+		//@:arrayAccess doesn't seem to work in this case
+		public inline function set(key:Int, value:Dynamic)
+		{
+			_array[key] = value;
+		}
+		
 		
 		public function new():Void{
 			_array = new Array<Dynamic>();
@@ -23,31 +35,21 @@ package ocean.midi.model ;
 		
 		
 		public function input(mt:MidiTrack):Void{
-			for ( item in mt.msgList ){
-				this.push( item.clone() );
+			for ( item in mt.msgList ) {
+				this._array.push( item.clone());
 			}
 		}
 		
 		
 		public function clone():MessageList{
 			var msgList:MessageList = new MessageList();
-			for( item in this ){
-				msgList.push(item.clone());
+			for ( item in this ) {
+				msgList._array.push(item.clone());
 			}
 			return msgList;
 		}
 		
-		@:arrayAccess
-		public inline function get(key:Int)
-		{
-			return _array[key];
-		}
 		
-		@arrayAccess
-		public inline function set(key:Int, value:Dynamic)
-		{
-			_array[key] = value;
-		}
 		
 		public inline function iterator():Iterator<Dynamic>
 		{

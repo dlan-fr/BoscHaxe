@@ -1,6 +1,5 @@
 package;
 
-import de.polygonal.ds.HashMap;
 import flash.display.Sprite;
 import flash.display.BitmapData;
 import flash.geom.Point;
@@ -1007,7 +1006,7 @@ class Gfx extends Sprite {
 			print(x, y, t, col, false, shadow);
 		}
 		
-		public static var cachedtextindex:haxe.ds.HashMap<String,Int> = new haxe.ds.HashMap<String,Int>();
+		public static var cachedtextindex:Map<String,Int> = new Map<String,Int>();
 		public static var cachedtext: Array<BitmapData> = new Array<BitmapData>();
 		public static var cachedrect: Array<Rectangle> = new Array<Rectangle>();
 		public static var cacheindex:Int;

@@ -1015,133 +1015,133 @@ package ;
 					}else if (button[i].style == "scrollup") {
 						if (button[i].pressed > 0) {
 							button[i].pressed--;
-							Gfx.fillrect(button[i].position.x, button[i].position.y, button[i].position.width, 20, 12);
-							Gfx.fillrect(button[i].position.x + 2, button[i].position.y + 2, button[i].position.width - 4, 16, 6);
-							Gfx.drawicon(button[i].position.x + ((button[i].position.width - 16)/2), button[i].position.y + 4, 10);
+							Gfx.fillrect(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), 20, 12);
+							Gfx.fillrect(Std.int(button[i].position.x) + 2, Std.int(button[i].position.y) + 2, Std.int(button[i].position.width) - 4, 16, 6);
+							Gfx.drawicon(Std.int(button[i].position.x + ((button[i].position.width - 16)/2)), Std.int(button[i].position.y) + 4, 10);
 						}else {
-							Gfx.fillrect(button[i].position.x, button[i].position.y, button[i].position.width, 20, 12);
-							Gfx.fillrect(button[i].position.x + 2, button[i].position.y + 2, button[i].position.width - 4, 16, 5);
-							Gfx.drawicon(button[i].position.x + ((button[i].position.width - 16)/2), button[i].position.y + 4, 10);
+							Gfx.fillrect(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), 20, 12);
+							Gfx.fillrect(Std.int(button[i].position.x + 2), Std.int(button[i].position.y) + 2, Std.int(button[i].position.width) - 4, 16, 5);
+							Gfx.drawicon(Std.int(button[i].position.x + ((button[i].position.width - 16)/2)), Std.int(button[i].position.y) + 4, 10);
 						}
 					}else if (button[i].style == "scrolldown") {
 						if (button[i].pressed > 0) {
 							button[i].pressed--;
-							Gfx.fillrect(button[i].position.x, button[i].position.y, button[i].position.width, 20, 12);
-							Gfx.fillrect(button[i].position.x + 2, button[i].position.y + 2, button[i].position.width - 4, 16, 6);
-							Gfx.drawicon(button[i].position.x + ((button[i].position.width - 16)/2), button[i].position.y + 4, 11);
+							Gfx.fillrect(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), 20, 12);
+							Gfx.fillrect(Std.int(button[i].position.x) + 2, Std.int(button[i].position.y) + 2, Std.int(button[i].position.width) - 4, 16, 6);
+							Gfx.drawicon(Std.int(button[i].position.x + ((button[i].position.width - 16)/2)), Std.int(button[i].position.y) + 4, 11);
 						}else {
-							Gfx.fillrect(button[i].position.x, button[i].position.y, button[i].position.width, 20, 12);
-							Gfx.fillrect(button[i].position.x + 2, button[i].position.y + 2, button[i].position.width - 4, 16, 5);
-							Gfx.drawicon(button[i].position.x + ((button[i].position.width - 16)/2), button[i].position.y + 4, 11);
+							Gfx.fillrect(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), 20, 12);
+							Gfx.fillrect(Std.int(button[i].position.x) + 2, Std.int(button[i].position.y) + 2, Std.int(button[i].position.width) - 4, 16, 5);
+							Gfx.drawicon(Std.int(button[i].position.x + ((button[i].position.width - 16)/2)), Std.int(button[i].position.y) + 4, 11);
 						}
 					}else if (button[i].style == "tutorialimage") {
-						Gfx.drawimage(button[i].textoffset + 8, button[i].position.x, button[i].position.y);
+						Gfx.drawimage(button[i].textoffset + 8, Std.int(button[i].position.x), Std.int(button[i].position.y));
 					}else if (button[i].style == "textlabel") {
-						Gfx.print(button[i].position.x, button[i].position.y, button[i].text, button[i].position.width, false, true);
+						Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), button[i].text, Std.int(button[i].position.width), false, true);
 					}else if (button[i].style == "righttextlabel") {
-						Gfx.rprint(button[i].position.x, button[i].position.y, button[i].text, button[i].position.width, true);
+						Gfx.rprint(Std.int(button[i].position.x), Std.int(button[i].position.y), button[i].text, Std.int(button[i].position.width), true);
 					}else if (button[i].style == "fillrect") {
-						Gfx.fillrect(button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height, button[i].textoffset);
+						Gfx.fillrect(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), Std.int(button[i].position.height), button[i].textoffset);
 					}else if (button[i].style == "highlight") {
 						if (highlightflash % 8 < 4) {
-							Gfx.drawbox(button[i].position.x, button[i].position.y, button[i].position.width, button[i].position.height, button[i].textoffset);
-							Gfx.drawbox(button[i].position.x - 2, button[i].position.y - 2, button[i].position.width + 4, button[i].position.height + 4, 19);
+							Gfx.drawbox(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.int(button[i].position.width), Std.int(button[i].position.height), button[i].textoffset);
+							Gfx.drawbox(Std.int(button[i].position.x) - 2, Std.int(button[i].position.y) - 2, Std.int(button[i].position.width) + 4, Std.int(button[i].position.height) + 4, 19);
 						}
 					}else if (button[i].style == "leftarrow") {
-						Gfx.drawicon(button[i].position.x, button[i].position.y, 3);
+						Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 3);
 					}else if (button[i].style == "rightarrow") {
-						Gfx.drawicon(button[i].position.x, button[i].position.y, 2);
+						Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 2);
 					}else if (button[i].style == "playarrow") {
 						if (button[i].pressed > 0) {	
-							Gfx.drawicon(button[i].position.x, button[i].position.y + 1, 2);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y) + 1, 2);
 							button[i].pressed--;
 						}else{
-							Gfx.drawicon(button[i].position.x, button[i].position.y, 2);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 2);
 						}
 					}else if (button[i].style == "stop") {
 						if (button[i].pressed > 0) {	
-							Gfx.drawicon(button[i].position.x, button[i].position.y + 1, 6);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y) + 1, 6);
 							button[i].pressed--;
 						}else{
-							Gfx.drawicon(button[i].position.x, button[i].position.y, 6);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 6);
 						}
 					}else if (button[i].style == "pause") {
 						if (button[i].pressed > 0) {	
-							Gfx.drawicon(button[i].position.x, button[i].position.y + 1, 7);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y) + 1, 7);
 							button[i].pressed--;
 						}else{
-							Gfx.drawicon(button[i].position.x, button[i].position.y, 7);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 7);
 						}
 					}else if (button[i].style == "plus") {
 						if (button[i].pressed > 0) {	
-							Gfx.drawicon(button[i].position.x, button[i].position.y + 1, 8);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y) + 1, 8);
 							button[i].pressed--;
 						}else{
-							Gfx.drawicon(button[i].position.x, button[i].position.y, 8);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 8);
 						}
 					}else if (button[i].style == "minus") {
 						if (button[i].pressed > 0) {	
-							Gfx.drawicon(button[i].position.x, button[i].position.y + 1, 9);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y) + 1, 9);
 							button[i].pressed--;
 						}else{
-							Gfx.drawicon(button[i].position.x, button[i].position.y, 9);
+							Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 9);
 						}
 					}else if (button[i].style == "uparrow") {
-						Gfx.drawicon(button[i].position.x, button[i].position.y, 1);
+						Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 1);
 					}else if (button[i].style == "downarrow") {
-						Gfx.drawicon(button[i].position.x, button[i].position.y, 0);
+						Gfx.drawicon(Std.int(button[i].position.x), Std.int(button[i].position.y), 0);
 					}else if (button[i].style == "horizontalslider") {
 						if (button[i].action == "currenteffect") {
-							Gfx.fillrect(button[i].position.x, button[i].position.y, 20, 26, 6);
-							Gfx.fillrect(button[i].position.x + 2, button[i].position.y + 2, 16, 22, 5);
+							Gfx.fillrect(Std.int(button[i].position.x), Std.int(button[i].position.y), 20, 26, 6);
+							Gfx.fillrect(Std.int(button[i].position.x) + 2, Std.int(button[i].position.y) + 2, 16, 22, 5);
 							
 							tx = Std.int((Control.effectvalue));
-							Gfx.fillrect(button[i].position.x + tx, button[i].position.y, 20, 26, 4);
-							Gfx.fillrect(button[i].position.x + tx + 2, button[i].position.y + 2, 16, 22, 2);
+							Gfx.fillrect(Std.int(button[i].position.x) + tx, Std.int(button[i].position.y), 20, 26, 4);
+							Gfx.fillrect(Std.int(button[i].position.x) + tx + 2, Std.int(button[i].position.y) + 2, 16, 22, 2);
 							
-							Gfx.fillrect(button[i].position.x + tx + 4, button[i].position.y + 8, 12, 2, 4);
-							Gfx.fillrect(button[i].position.x + tx + 4, button[i].position.y + 12, 12, 2, 4);
-							Gfx.fillrect(button[i].position.x + tx + 4, button[i].position.y + 16, 12, 2, 4);
+							Gfx.fillrect(Std.int(button[i].position.x) + tx + 4, Std.int(button[i].position.y) + 8, 12, 2, 4);
+							Gfx.fillrect(Std.int(button[i].position.x) + tx + 4, Std.int(button[i].position.y) + 12, 12, 2, 4);
+							Gfx.fillrect(Std.int(button[i].position.x) + tx + 4, Std.int(button[i].position.y) + 16, 12, 2, 4);
 						}
 					}else if (button[i].style == "variable") {
 						if(button[i].action == "barcount"){
-						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.barcount), button[i].position.width, false, true);
+						  Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.string(Control.barcount), Std.int(button[i].position.width), false, true);
 						}else if(button[i].action == "boxcount"){
-						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.boxcount), button[i].position.width, false, true);
+						  Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.string(Control.boxcount), Std.int(button[i].position.width), false, true);
 						}else if(button[i].action == "bpm"){
-						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.bpm), button[i].position.width, false, true);
+						  Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.string(Control.bpm), Std.int(button[i].position.width), false, true);
 						}else if(button[i].action == "buffersize"){
-						  Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.buffersize), button[i].position.width, false, true);
+						  Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.string(Control.buffersize), Std.int(button[i].position.width), false, true);
 						}else if (button[i].action == "buffersizealert") {
 							if (Control.buffersize != Control.currentbuffersize) {
 								if (Help.slowsine >= 32) {
-									Gfx.print(button[i].position.x, button[i].position.y, "REQUIRES RESTART", 0);
+									Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), "REQUIRES RESTART", 0);
 								}else {
-									Gfx.print(button[i].position.x, button[i].position.y, "REQUIRES RESTART", 15);
+									Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), "REQUIRES RESTART", 15);
 								}
 							}
 						}else if (button[i].action == "swing") {
 							if(Control.swing==-10){
-								Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.swing), 0, false, true);
+								Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.string(Control.swing), 0, false, true);
 							}else if (Control.swing < 0 || Control.swing == 10 ) {
-								Gfx.print(button[i].position.x + 5, button[i].position.y, Std.string(Control.swing), 0, false, true);
+								Gfx.print(Std.int(button[i].position.x) + 5, Std.int(button[i].position.y), Std.string(Control.swing), 0, false, true);
 							}else{
-								Gfx.print(button[i].position.x + 10, button[i].position.y, Std.string(Control.swing), 0, false, true);
+								Gfx.print(Std.int(button[i].position.x) + 10, Std.int(button[i].position.y), Std.string(Control.swing), 0, false, true);
 							}
 						}else if (button[i].action == "currenteffect") {
-							Gfx.rprint(button[i].position.x, button[i].position.y, Control.effectname[Control.effecttype], button[i].position.width, true);
+							Gfx.rprint(Std.int(button[i].position.x), Std.int(button[i].position.y), Control.effectname[Control.effecttype], Std.int(button[i].position.width), true);
 						}else if (button[i].action == "currentinstrument") {
 							if (Control.currentbox > -1) {
-								Gfx.print(button[i].position.x, button[i].position.y, Std.string(Control.musicbox[Control.currentbox].instr + 1) + "  " + Control.instrument[Control.musicbox[Control.currentbox].instr].name, 0, false, true);
+								Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), Std.string(Control.musicbox[Control.currentbox].instr + 1) + "  " + Control.instrument[Control.musicbox[Control.currentbox].instr].name, 0, false, true);
 							}
 						}else if (button[i].action == "currentkey") {
-							Gfx.print(button[i].position.x, button[i].position.y, Control.notename[Control.key], 0, false, true);
+							Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), Control.notename[Control.key], 0, false, true);
 						}else if (button[i].action == "currentscale") {
-							Gfx.print(button[i].position.x, button[i].position.y, Control.scalename[Control.currentscale], 0, false, true);
+							Gfx.print(Std.int(button[i].position.x), Std.int(button[i].position.y), Control.scalename[Control.currentscale], 0, false, true);
 						}
 					}else if (button[i].style == "logo") {
-						tx = button[i].position.x;
-						ty = button[i].position.y;
+						tx = Std.int(button[i].position.x);
+						ty = Std.int(button[i].position.y);
 						if(Control.currentbox!=-1){
 						  timage = Control.musicbox[Control.currentbox].palette;
 							if (timage > 6) timage = 6;

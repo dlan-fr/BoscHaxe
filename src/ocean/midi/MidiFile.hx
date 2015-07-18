@@ -250,7 +250,7 @@ package ocean.midi ;
 			}
 			else{
 				_tracks++;
-				_trackArray.splice(t,0,track);
+				_trackArray.insert(t, track);
 				return _tracks;
 			}
 		}

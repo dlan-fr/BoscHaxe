@@ -1,7 +1,11 @@
 package co.sparemind.trackermodule ;
-	
-	class XMSong { import flash.utils.IDataOutput; import
-		flash.utils.ByteArray; import flash.utils.Endian;
+		
+	import flash.utils.IDataOutput;
+	import flash.utils.ByteArray; 
+	import flash.utils.Endian;
+	import sys.io.FileOutput;
+
+	class XMSong {  
 
 		
 		public function new() {
@@ -14,7 +18,7 @@ package co.sparemind.trackermodule ;
 		public var numChannels:Int = 8;
 		public var numPatterns:Int = 0;
 		public var numInstruments:Int;
-		public var instruments: Array<XMInstrument> = new Array<XMInstrument>;
+		public var instruments: Array<XMInstrument> = new Array<XMInstrument>();
 
 		
 		public var defaultTempo:Int;
@@ -49,27 +53,32 @@ package co.sparemind.trackermodule ;
 		private var sep:Int = 26; 
 		private var version:Int = 0x0104;
 
-		public var patterns: Array<XMPattern> = new Array<XMPattern>;
+		public var patterns: Array<XMPattern> = new Array<XMPattern>();
 
 		var _name:ByteArray = new ByteArray();
 
-		public function songname():String {
+		
+		@:isVar public var songname(get, set):String;
+		
+		public function get_songname():String {
 			return _name.toString();
 		}
 
-		public function songname(unpadded:String):Void {
+		public function set_songname(unpadded:String):String {
 			_name.clear();
-			_name.writeMultiByte(unpadded.slice(0,20), 'us-ascii');
+			_name.writeMultiByte(unpadded.substring(0,20), 'us-ascii');
 		var i:Int = _name.length;
 	while( i < 20){
 				_name.writeByte(0x20); 
 			 i++;
 }
+		return _name.toString();
+
 		}
 
-		public function writeToStream(stream:IDataOutput):Void {
+		public function writeToStream(stream:FileOutput):Void {
 			var xm:XMSong = this;
-			var headbuf:ByteArray = new ByteArray;
+			var headbuf:ByteArray = new ByteArray();
 			headbuf.endian = Endian.LITTLE_ENDIAN;
 
 			headbuf.writeMultiByte(xm.idText, 'us-ascii'); 
@@ -91,8 +100,8 @@ package co.sparemind.trackermodule ;
 				headbuf.writeByte(xm.patternOrderTable[i]);
 			 i++;
 }
-
-			stream.writeBytes(headbuf);
+			
+			stream.writeBytes(headbuf, 0, headbuf.byteLength);
 
 		i = 0;
 	while( i < xm.patterns.length){
@@ -127,8 +136,10 @@ package co.sparemind.trackermodule ;
 }
 
 				patbuf.writeShort(patBodyBuf.length); 
-				stream.writeBytes(patbuf);
-				stream.writeBytes(patBodyBuf);
+				
+				
+				stream.writeBytes(patbuf,0,patbuf.byteLength);
+				stream.writeBytes(patBodyBuf,0,patBodyBuf.byteLength);
 			 i++;
 }
 
@@ -143,7 +154,7 @@ package co.sparemind.trackermodule ;
 				instrheadbuf.writeByte(0); 
 				instrheadbuf.writeShort(inst.samples.length);
 				if (inst.samples.length < 1) {
-					stream.writeBytes(instrheadbuf);
+					stream.writeBytes(instrheadbuf,0,instrheadbuf.byteLength);
 				}
 				instrheadbuf.writeUnsignedInt(40); 
 			var kma:Int = 0;
@@ -191,7 +202,7 @@ package co.sparemind.trackermodule ;
 					instrheadbuf.writeByte(0x00);
 				 i++;
 }
-				stream.writeBytes(instrheadbuf);
+				stream.writeBytes(instrheadbuf,0,instrheadbuf.byteLength);
 			var s:Int = 0;
 	while( s < inst.samples.length){
 					var sample:XMSample = inst.samples[s];
@@ -209,13 +220,13 @@ package co.sparemind.trackermodule ;
 					sampleHeadBuf.writeByte(sample.relativeNoteNumber);
 					sampleHeadBuf.writeByte(0); 
 					sampleHeadBuf.writeMultiByte(sample.name, 'us-ascii');
-					stream.writeBytes(sampleHeadBuf);
+					stream.writeBytes(sampleHeadBuf,0,sampleHeadBuf.byteLength);
 				 s++;
 }
 			s = 0;
 	while( s < inst.samples.length){
-					sample = inst.samples[s];
-					stream.writeBytes(sample.data);
+					var sample:XMSample = inst.samples[s];
+					stream.writeBytes(sample.data,0,sample.data.byteLength);
 				 s++;
 }
 			 instno++;

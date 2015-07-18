@@ -124,8 +124,8 @@ class Main extends Sprite
 			Gfx.changewindowsize(tempwidth, tempheight);
 			
 			Gfx.patternmanagerx = Gfx.screenwidth - 116;
-			Gfx.patterneditorheight = (Gfx.windowheight - (Gfx.pianorollposition - (Gfx.linesize + 2))) / 12;
-			Gfx.notesonscreen = ((Gfx.screenheight - Gfx.pianorollposition - Gfx.linesize) / Gfx.linesize) + 1;
+			Gfx.patterneditorheight = Std.int((Gfx.windowheight - (Gfx.pianorollposition - (Gfx.linesize + 2))) / 12);
+			Gfx.notesonscreen = Std.int(((Gfx.screenheight - Gfx.pianorollposition - Gfx.linesize) / Gfx.linesize) + 1);
 			Gfx.tf_1.width = Gfx.windowwidth;
 			Gfx.updateboxsize();
 			
@@ -156,7 +156,7 @@ class Main extends Sprite
 		
 		MidiEnum.init();
 		
-		Control.version = "v2.0";
+		Control.versionnumber = "v2.0";
 		Control.version = 3;
 		Control.ctrl = "Ctrl";//Set this to Cmd on Mac so that the tutorial is correct
 		
@@ -167,7 +167,7 @@ class Main extends Sprite
 		Control.init();
 		
 		//Working toward resolution independence
-		Gfx.init();
+		Gfx.init(Lib.current.stage);
 		
 		var tempbmp:Bitmap;
 		tempbmp = new Bitmap(Assets.getBitmapData("graphics/icons.png"));
@@ -192,7 +192,7 @@ class Main extends Sprite
 		
 		Gfx.buffer = new BitmapData(Gfx.screenwidth, Gfx.screenheight, false, 0x000000);
 		
-		Control.voicelist.fixlength();
+		Control.voicelist.fixlengths();
 		
 		//Lib.current.stage.fullScreenSourceRect = new Rectangle(0, 0, 768, 480);
 		addChild(Gfx.screen);
@@ -200,7 +200,7 @@ class Main extends Sprite
 		Control.loadscreensettings();
 		updategraphicsmode();
 		
-		Gfx.changescalemode();
+		Gfx.changescalemode(2);
 		
 		if (Guiclass.firstrun) {
 			Guiclass.changewindow("firstrun");
@@ -217,13 +217,13 @@ class Main extends Sprite
 	
 	public function _input():Void {
 			if (Gfx.scalemode == 1) {
-				Control.mx = mouseX / 1.5;
-				Control.my = mouseY / 1.5;
+				Control.mx = Std.int(mouseX / 1.5);
+				Control.my = Std.int(mouseY / 1.5);
 			}
 			else
 			{
-				Control.mx = mouseX;
-				Control.my = mouseY;
+				Control.mx = Std.int(mouseX);
+				Control.my = Std.int(mouseY);
 			}
 			
 			Input.input(key,updategraphicsmode);

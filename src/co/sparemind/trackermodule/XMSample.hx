@@ -1,8 +1,11 @@
 package co.sparemind.trackermodule ;
-	class XMSample {
-		import flash.utils.ByteArray;
-		import flash.utils.Endian;
+	
+	import flash.utils.ByteArray;
+	import flash.utils.Endian;
 
+
+	class XMSample {
+		
 		public var volume:Int;
 		public var finuetune:Int = 0;
 		
@@ -21,17 +24,21 @@ package co.sparemind.trackermodule ;
 			_name.endian = Endian.LITTLE_ENDIAN;
 			this.name  = '                      ';
 		}
-		public function name():String {
+		
+		@:isVar public var name(get, set):String;
+		
+		public function get_name():String {
 			return _name.toString();
 		}
-		public function name(unpadded:String):Void {
+		public function set_name(unpadded:String):String {
 			_name.clear();
-			_name.writeMultiByte(unpadded.slice(0,22), 'us-ascii');
+			_name.writeMultiByte(unpadded.substring(0,22), 'us-ascii');
 		var i:Int = _name.length;
 	while( i < 22){
 				_name.writeByte(0x20); 
 			 i++;
 }
+			return _name.toString();
 		}
 	}
 

@@ -22,7 +22,7 @@ package ocean.utils ;
 				throw new Error("value is not defined");
 			}
 			
-			var n:Int;
+			var n:Int = 0;
 			
 		 var e:Int = _rawBytes.length-1;
 	while( e>=0){
@@ -38,7 +38,7 @@ package ocean.utils ;
 		
 		public function set_value(n:Int):Int{
 			_rawBytes.position = 0;
-			var e:Int ;
+			var e:Int = 0;
 			var t:Int ;
 			var temp:Array<Dynamic>=new Array<Dynamic>();
 			
