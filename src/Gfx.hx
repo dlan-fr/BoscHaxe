@@ -829,8 +829,9 @@ class Gfx extends Sprite {
 			ct = new ColorTransform(0, 0, 0, 1, 255, 255, 255, 1); 
 			tempicon = new BitmapData(32, 32, false, 0x000000);
 			
-			backbuffer = new BitmapData(1, 1, false, 0x000000);
-			backbuffercache = new BitmapData(1, 1, false, 0x000000);
+			backbuffer = new BitmapData(Gfx.min_windowwidth, Gfx.min_windowheight, false, 0x000000);
+			backbuffercache = new BitmapData(Gfx.min_windowwidth, Gfx.min_windowheight, false, 0x000000);
+			
 			
 		i = 0;
 	while( i < 400){
@@ -1036,45 +1037,49 @@ class Gfx extends Sprite {
 		public static function printoncache(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool=false):Void {
 			y -= 3;
 			
-			tf_1.textColor = RGB(pal[col].r, pal[col].g, pal[col].b);
-			tf_1.text = t;
 			if (cen) x = Std.int(screenwidthmid - (tf_1.textWidth / 2) + x);
 			
 			if (shadow) {
-				shapematrix.translate(x + 1, y + 1);
 				tf_1.textColor = RGB(0, 0, 0);
+				tf_1.text = t;
+				shapematrix.translate(x + 1, y + 1);
+				
 				cachedtext[cacheindex].draw(tf_1, shapematrix);
 				
-				shapematrix.translate( -x - 1, -y - 1);
+				shapematrix.identity();
 			}
 			
-			shapematrix.translate(x, y);
 			tf_1.textColor = RGB(pal[col].r, pal[col].g, pal[col].b);
+			tf_1.text = t;
+			
+			shapematrix.translate(x, y);
 			cachedtext[cacheindex].draw(tf_1, shapematrix);
 			
-			shapematrix.translate(-x, -y);
+			shapematrix.identity();
 		}
 		
 		public static function normalprint(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool=false):Void {
 			y -= 3;
 			
-			tf_1.textColor = RGB(pal[col].r, pal[col].g, pal[col].b);
-			tf_1.text = t;
+			
 			if (cen) x = Std.int(screenwidthmid - (tf_1.textWidth / 2) + x);
 			
 			if (shadow) {
-				shapematrix.translate(x + 1, y + 1);
 				tf_1.textColor = RGB(0, 0, 0);
+				tf_1.text = t;
+				shapematrix.translate(x + 1, y + 1);
 				backbuffer.draw(tf_1, shapematrix);
 				
-				shapematrix.translate( -x - 1, -y - 1);
+				shapematrix.identity();
 			}
 			
-			shapematrix.translate(x, y);
 			tf_1.textColor = RGB(pal[col].r, pal[col].g, pal[col].b);
+			tf_1.text = t;
+			
+			shapematrix.translate(x, y);
 			backbuffer.draw(tf_1, shapematrix);
 			
-			shapematrix.translate(-x, -y);
+			shapematrix.identity();
 		}
 		
 		public static function len(t:String, sz:Int = 1):Int {
@@ -1227,7 +1232,6 @@ class Gfx extends Sprite {
 		public static var temp3:Int;
 		public static var alphamult:Int;
 		public static var stemp:String;
-		public static var buffer:BitmapData;
 		public static var temppal:Int;
 		
 		public static var zoom:Int;
@@ -1236,6 +1240,7 @@ class Gfx extends Sprite {
 		public static var tempicon:BitmapData;
 		
 		public static var drawto:BitmapData;
+		public static var buffer:BitmapData;
 		public static var backbuffer:BitmapData;
 		public static var backbuffercache:BitmapData;
 		public static var updatebackground:Int;

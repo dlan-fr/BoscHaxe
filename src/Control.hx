@@ -426,18 +426,15 @@ package ;
     }
 		
 		public static function loadscreensettings():Void {
-			fullscreen = false;
-			Gfx.changewindowsize(Gfx.windowwidth,Gfx.windowheight);
-			
 			
 			//TODO: port to haxe settings load
-			/*programsettings = SharedObject.getLocal("boscaceoil_settings");		
+			programsettings = SharedObject.getLocal("boscaceoil_settings");		
 			
 			if (programsettings.data.firstrun == null) {
-				guiclass.firstrun = true;
+				Guiclass.firstrun = true;
 				programsettings.data.firstrun = 1;
 			}else {
-				guiclass.firstrun = false;
+				Guiclass.firstrun = false;
 			}
 			
 			if (programsettings.data.fullscreen == 0) {
@@ -447,30 +444,30 @@ package ;
 			}
 			
 			if (programsettings.data.scalemode == null) {
-				gfx.changescalemode(0);
+				Gfx.changescalemode(0);
 			}else{
-				gfx.changescalemode(programsettings.data.scalemode);
+				Gfx.changescalemode(programsettings.data.scalemode);
 			}
 			
 			if (programsettings.data.windowwidth == null) {
-				gfx.windowwidth = 768;
-				gfx.windowheight = 560;
+				Gfx.windowwidth = 768;
+				Gfx.windowheight = 560;
 			}else {
-				gfx.windowwidth = programsettings.data.windowwidth;
-				gfx.windowheight = programsettings.data.windowheight;
+				Gfx.windowwidth = programsettings.data.windowwidth;
+				Gfx.windowheight = programsettings.data.windowheight;
 			}
 			
-			gfx.changewindowsize(gfx.windowwidth, gfx.windowheight);
+			Gfx.changewindowsize(Gfx.windowwidth, Gfx.windowheight);
 			
 			programsettings.flush();
-			programsettings.close();*/
+			programsettings.close();
 			
 		}
 		
 		public static function savescreensettings():Void {
 			
 			//TODO: port to haxe settings save
-			/*programsettings = SharedObject.getLocal("boscaceoil_settings");		
+			programsettings = SharedObject.getLocal("boscaceoil_settings");		
 			
 			programsettings.data.firstrun = 1;
 			
@@ -480,12 +477,12 @@ package ;
 				programsettings.data.fullscreen = 1;
 			}
 			
-			programsettings.data.scalemode = gfx.scalemode;
-			programsettings.data.windowwidth = gfx.windowwidth;
-			programsettings.data.windowheight = gfx.windowheight;
+			programsettings.data.scalemode = Gfx.scalemode;
+			programsettings.data.windowwidth = Gfx.windowwidth;
+			programsettings.data.windowheight = Gfx.windowheight;
 			
 			programsettings.flush();
-			programsettings.close();*/
+			programsettings.close();
 		}
 		
 		public static function setbuffersize(t:Int):Void {
