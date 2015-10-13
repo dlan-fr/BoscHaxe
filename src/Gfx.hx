@@ -898,7 +898,7 @@ class Gfx extends Sprite {
 		public static function drawimage(t:Int, xp:Int, yp:Int):Void {
 			settpoint(xp, yp);
 			settrect(0, 0, images[t].width, images[t].height);
-			backbuffer.copyPixels(images[t], trect, tpoint);
+			backbuffer.copyPixels(images[t], trect, tpoint,null,null,true);
 		}
 		
 		public static function makeiconarray():Void {
@@ -966,38 +966,38 @@ class Gfx extends Sprite {
 		
 		public static function drawbuffericon(x:Int, y:Int, t:Int):Void {
 			settpoint(x, y);
-			buffer.copyPixels(icons[t], icons_rect, tpoint);
+			buffer.copyPixels(icons[t], icons_rect, tpoint,null,null,true);
 		}
 
 		public static function drawicon(x:Int, y:Int, t:Int):Void {
 			settpoint(x, y);
-			backbuffer.copyPixels(icons[t], icons_rect, tpoint);
+			backbuffer.copyPixels(icons[t], icons_rect, tpoint,null,null,true);
 		}
 		
 		
 		public static function initfont():Void {			
 		  tf_1.embedFonts = true;
-			tf_1.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[0], 0, true);
+			tf_1.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[0], 0, false);
 			tf_1.width = screenwidth; tf_1.height = 200;
 			tf_1.antiAliasType = AntiAliasType.NORMAL;
 			
 		  tf_2.embedFonts = true;
-			tf_2.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[1], 0, true);
+			tf_2.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[1], 0, false);
 			tf_2.width = screenwidth; tf_2.height = 100;
 			tf_2.antiAliasType = AntiAliasType.NORMAL;
 			
 		  tf_3.embedFonts = true;
-			tf_3.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[2], 0, true);
+			tf_3.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[2], 0, false);
 			tf_3.width = screenwidth; tf_3.height = 100;
 			tf_3.antiAliasType = AntiAliasType.NORMAL;
 			
 		  tf_4.embedFonts = true;
-			tf_4.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[3], 0, true);
+			tf_4.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[3], 0, false);
 			tf_4.width = screenwidth; tf_4.height = 100;
 			tf_4.antiAliasType = AntiAliasType.NORMAL;
 			
 		  tf_5.embedFonts = true;
-			tf_5.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[4], 0, true);
+			tf_5.defaultTextFormat = new TextFormat("FFF Aquarius Bold Condensed", fontsize[4], 0, false);
 			tf_5.width = screenwidth; tf_5.height = 100;
 			tf_5.antiAliasType = AntiAliasType.NORMAL;
 		}
@@ -1010,10 +1010,14 @@ class Gfx extends Sprite {
 		public static var cachedtextindex:Map<String,Int> = new Map<String,Int>();
 		public static var cachedtext: Array<BitmapData> = new Array<BitmapData>();
 		public static var cachedrect: Array<Rectangle> = new Array<Rectangle>();
-		public static var cacheindex:Int;
-		public static var cachelabel:String;
+		/*public static var cacheindex:Int;
+		public static var cachelabel:String;*/
 		
 		public static function print(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool = false):Void {
+			
+			var cachelabel:String = "";
+			var cacheindex:Int = 0;
+			
 			if(shadow){
 				cachelabel = t + "_" + Std.string(col) + "_shadow";
 			}else {
@@ -1023,18 +1027,20 @@ class Gfx extends Sprite {
 				
 				cacheindex = cachedtext.length;
 				cachedtextindex.set(cachelabel, cacheindex);
-				cachedtext.push(new BitmapData(len(t), 22, true, 0));
+				cachedtext.push(new BitmapData(len(t), 22, true, 0x00000000));
 				cachedrect.push(new Rectangle(0, 0, len(t), 22));
 				
-				printoncache(0, 0, t, col, false, shadow);
+				printoncache(0, 0, t, col, cen, shadow,cacheindex,cachelabel);
 			}
 			
 			cacheindex = cachedtextindex.get(cachelabel);
 			settpoint(x, y);
-			backbuffer.copyPixels(cachedtext[cacheindex], cachedrect[cacheindex], tpoint);
+			backbuffer.copyPixels(cachedtext[cacheindex], cachedrect[cacheindex], tpoint,null,null,true);
+			
+			//normalprint(x, y, t, col, cen, shadow);
 		}
 		
-		public static function printoncache(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool=false):Void {
+		public static function printoncache(x:Int, y:Int, t:String, col:Int, cen:Bool = false, shadow:Bool=false,cacheindex:Int,cachelabel:String):Void {
 			y -= 3;
 			
 			if (cen) x = Std.int(screenwidthmid - (tf_1.textWidth / 2) + x);
