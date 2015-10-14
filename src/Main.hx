@@ -111,13 +111,9 @@ class Main extends Sprite
 		{
 			// adjust the gui to fit the new device resolution
 			var tempwidth:Int, tempheight:Int;
-			if (e != null) {
-				tempwidth = Lib.current.stage.stageWidth;
-				tempheight = Lib.current.stage.stageHeight;
-			}else {
-				tempwidth = Gfx.windowwidth;
-				tempheight = Gfx.windowheight;
-			}
+		
+			tempwidth = Lib.current.stage.stageWidth;
+			tempheight = Lib.current.stage.stageHeight;
 			
 			Control.savescreencountdown = 30; //Half a second after a resize, save the settings
 			Control.minresizecountdown = 5; //Force a minimum screensize
@@ -145,6 +141,25 @@ class Main extends Sprite
 				Gfx.screen.scaleX = 1;
 				Gfx.screen.scaleY = 1;
 			}
+			
+			var doResize:Bool = false;
+			
+			if (tempwidth < Gfx.min_windowwidth)
+			{
+				tempwidth = Gfx.min_windowwidth;
+				doResize = true;
+			}
+				
+			if (tempheight < Gfx.min_windowheight)
+			{
+				tempheight = Gfx.min_windowheight;
+				doResize = true;
+			}
+				
+			
+			//if (doResize)
+				//Application.current.window.resize(tempwidth, tempheight);
+			
 		}
 			
 	}
@@ -201,6 +216,10 @@ class Main extends Sprite
 		updategraphicsmode();
 		
 		Gfx.changescalemode(2);
+		
+		resize(null);
+		
+		
 		
 		if (Guiclass.firstrun) {
 			Guiclass.changewindow("firstrun");

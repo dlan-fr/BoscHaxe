@@ -66,7 +66,9 @@ package co.sparemind.trackermodule ;
 
 		public function set_songname(unpadded:String):String {
 			_name.clear();
-			_name.writeMultiByte(unpadded.substring(0,20), 'us-ascii');
+			
+			//_name.writeMultiByte(unpadded.substring(0,20), 'us-ascii');
+			_name.writeUTFBytes(unpadded.substring(0,20));
 		var i:Int = _name.length;
 	while( i < 20){
 				_name.writeByte(0x20); 
@@ -81,10 +83,18 @@ package co.sparemind.trackermodule ;
 			var headbuf:ByteArray = new ByteArray();
 			headbuf.endian = Endian.LITTLE_ENDIAN;
 
-			headbuf.writeMultiByte(xm.idText, 'us-ascii'); 
+	
+				headbuf.writeUTFBytes(xm.idText); 
+				headbuf.writeUTFBytes(xm.songname);
+				headbuf.writeByte(xm.sep); 
+				headbuf.writeUTFBytes(xm.trackerName);
+			
+			/*headbuf.writeMultiByte(xm.idText, 'us-ascii'); 
 			headbuf.writeMultiByte(xm.songname, 'us-ascii');
 			headbuf.writeByte(xm.sep); 
-			headbuf.writeMultiByte(xm.trackerName, 'us-ascii');
+			headbuf.writeMultiByte(xm.trackerName, 'us-ascii');*/
+			
+			
 			headbuf.writeShort(xm.version); 
 			headbuf.writeUnsignedInt(xm.headerSize); 
 			headbuf.writeShort(xm.songLength);
@@ -150,7 +160,8 @@ package co.sparemind.trackermodule ;
 				instrheadbuf.endian = Endian.LITTLE_ENDIAN;
 				var headerSize:Int = (inst.samples.length < 1) ? 29 : 263;
 				instrheadbuf.writeUnsignedInt(headerSize);
-				instrheadbuf.writeMultiByte(inst.name, 'us-ascii');
+				//instrheadbuf.writeMultiByte(inst.name, 'us-ascii');
+				instrheadbuf.writeUTFBytes(inst.name);
 				instrheadbuf.writeByte(0); 
 				instrheadbuf.writeShort(inst.samples.length);
 				if (inst.samples.length < 1) {
@@ -219,7 +230,9 @@ package co.sparemind.trackermodule ;
 					sampleHeadBuf.writeByte(sample.panning);
 					sampleHeadBuf.writeByte(sample.relativeNoteNumber);
 					sampleHeadBuf.writeByte(0); 
-					sampleHeadBuf.writeMultiByte(sample.name, 'us-ascii');
+					
+					//sampleHeadBuf.writeMultiByte(sample.name, 'us-ascii');
+					sampleHeadBuf.writeUTFBytes(sample.name);
 					stream.writeBytes(sampleHeadBuf,0,sampleHeadBuf.byteLength);
 				 s++;
 }

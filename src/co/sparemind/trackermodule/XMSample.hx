@@ -32,7 +32,8 @@ package co.sparemind.trackermodule ;
 		}
 		public function set_name(unpadded:String):String {
 			_name.clear();
-			_name.writeMultiByte(unpadded.substring(0,22), 'us-ascii');
+			//_name.writeMultiByte(unpadded.substring(0,22), 'us-ascii');
+			_name.writeUTFBytes(unpadded.substring(0,22));
 		var i:Int = _name.length;
 	while( i < 22){
 				_name.writeByte(0x20); 

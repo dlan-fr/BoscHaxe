@@ -49,10 +49,12 @@ class Gfx extends Sprite {
 			if (t == 0) {
 				min_windowwidth = 768;
 				min_windowheight = 540;
-				//st_stage.nativeWindow.minSize = new Point(768 + windowboundsx, 540 + windowboundsy);
+				Lib.current.stage.setMinimumSize(min_windowwidth, min_windowheight);
+				//.minSize = new Point(768 + windowboundsx, 540 + windowboundsy);
 			}else {
 				min_windowwidth = 1152;
 				min_windowheight = 690;
+				Lib.current.stage.setMinimumSize(min_windowwidth, min_windowheight);
 				//st_stage.nativeWindow.minSize = new Point(1152 + windowboundsx, 690 + windowboundsy);
 			}
 			
@@ -852,6 +854,7 @@ class Gfx extends Sprite {
 		}
 		
 			public static function changewindowsize(w:Int, h:Int):Void {
+				
 				windowboundsx = Std.int(st_stage.getBounds(st_stage).width - st_stage.stageWidth);
 				windowboundsy = Std.int(st_stage.getBounds(st_stage).height - st_stage.stageHeight);
 				windowwidth = w;

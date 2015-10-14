@@ -9,7 +9,7 @@
 	<app main="Main" file="BoscHaxe" path="bin" />
 	
 	<window background="#000000" fps="60" />
-	<window width="768" height="480" unless="android" />
+	<window width="1152" height="690" unless="android" />
 	<window orientation="landscape" vsync="false" antialiasing="0" if="cpp" />
 	 
 	<!-- classpath, haxe libs -->
@@ -17,7 +17,6 @@
 	<source path="org" />
 	<!--<haxelib name="openfl-native" />-->
 	<set name="openfl-legacy" />
-	<!--<set name="lime-hybrid" if="emscripten" />-->
 	<haxelib name="openfl" />
 	<haxelib name="actuate" /> 
 	<haxelib name="systools" if="desktop" />
