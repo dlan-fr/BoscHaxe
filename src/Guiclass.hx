@@ -1339,8 +1339,8 @@ package ;
 					addminusbutton(706, (Gfx.linespacing * 2) + 6, "previousinstrument");
 					addplusbutton(726, (Gfx.linespacing * 2) + 6, "nextinstrument");
 				case Control.MENUTAB_ADVANCED:
-					tx = Std.int((Gfx.screenwidth - 768) * 0.5);
-				  addcontrol(40 + tx, (Gfx.linespacing * 3) + 4, "changesoundbuffer");
+					tx = Std.int((Gfx.screenwidth - 768) * 0.25);
+				  addcontrol(40 + tx, (Gfx.linespacing * 3) + 4, "changesoundbuffer");//40
 					addcontrol(40 + tx, (Gfx.linespacing * 7) + 4, "swingControl.");
 					addcontrol(Gfx.screenwidth - 210 - tx,  (Gfx.linespacing * 3) + 4, "globaleffects");
 					
