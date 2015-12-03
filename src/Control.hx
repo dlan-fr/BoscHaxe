@@ -1561,7 +1561,7 @@ package ;
 		private static function onexportxm(filename:String):Void {
 
 			if (!fileHasExtension(filename, "xm")) {
-				addExtensionToFile(filename, "xm");
+				filename = addExtensionToFile(filename, "xm");
 			}
 
 			var xm:TrackerModuleXM = new TrackerModuleXM();
@@ -1600,7 +1600,7 @@ package ;
 		private static function onexportmml(filename:String):Void {
 
 			if (!fileHasExtension(filename, "mml")) {
-				addExtensionToFile(filename, "mml");
+				filename = addExtensionToFile(filename, "mml");
 			}
 
 			var song:MMLSong = new MMLSong();
