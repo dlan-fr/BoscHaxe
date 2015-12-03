@@ -169,11 +169,11 @@ package ocean.midi ;
 			file.writeShort( _division );
 			
 			
-		 var i:Int=0 ;
-	while( i< _tracks ){
-				_trackArray[i].serialize(file);
-			 i++;
-}
+			var i:Int=0 ;
+			while( i< _tracks ){
+					_trackArray[i].serialize(file);
+				 i++;
+			}
 			
 			
 			return file;

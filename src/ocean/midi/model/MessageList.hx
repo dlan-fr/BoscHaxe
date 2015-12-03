@@ -4,7 +4,7 @@ package ocean.midi.model ;
 	import ocean.midi.MidiTrack;
 	
 	
-	class MessageList implements Dynamic {
+	class MessageList {
 				
 		private var _array:Array<Dynamic>;
 		
@@ -20,12 +20,26 @@ package ocean.midi.model ;
 			_array[key] = value;
 		}
 		
+		@:isVar public var length(get,null):Int;
+		
+		
+		public function get_length():Int{
+			return _array.length;
+		}
+		
 		
 		public function new():Void{
 			_array = new Array<Dynamic>();
 			
 		}
+		
+		public function push(value:Dynamic):Void
+		{
+			_array.push(value);
+		}
 
+		
+		
 		
 		public function output():MidiTrack{
 			var mt:MidiTrack = new MidiTrack();

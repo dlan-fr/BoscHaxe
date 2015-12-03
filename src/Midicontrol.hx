@@ -99,13 +99,8 @@ package ;
 			#if cpp
 				#if (!android && !emscripten)
 				
-				var result:String = Dialogs.saveFile(
-				"Save .mid File"
-				, "Save .mid File",Sys.getCwd()
-				, midFilter
-				);	
+				var result:String = Control.ShowSaveDialog("Save .mid File", "Save .mid File", midFilter);
 				
-
 				if (result != null && result.length != 0)
 					onsavemidi(result);
 				#end
@@ -118,7 +113,7 @@ package ;
 		private static function onsavemidi(file:String):Void {    
 			
 			if (!Control.fileHasExtension(file, "mid")) {
-				Control.addExtensionToFile(file, "mid");
+				file = Control.addExtensionToFile(file, "mid");
 			}
 			
 			convertceoltomidi();
@@ -227,7 +222,7 @@ package ;
 			var i:Int = 0;
 			while (i < source.byteLength)
 			{
-				source.writeByte(source.get(i));
+				myBA.writeByte(source.get(i));
 				i++;
 			}
 			
@@ -623,11 +618,11 @@ package ;
 			
 			
 			
-		var j:Int = 0;
-	while( j < Control.numinstrument){
-			  midiexporter.writeinstrument(instrumentconverttomidi(Control.instrument[j].index), j);
-			 j++;
-}
+			var j:Int = 0;
+			while( j < Control.numinstrument){
+				  midiexporter.writeinstrument(instrumentconverttomidi(Control.instrument[j].index), j);
+				 j++;
+			}
 			
 			
 			Control.arrange.loopstart = 0;
@@ -639,59 +634,54 @@ package ;
 			
 			
 			
-		j = 0;
-	while( j < Control.arrange.lastbar){
-			var i:Int = 0;
-	while( i < 8){
-					if (Control.arrange.bar[j].channel[i] != -1) {
-						var t:Int = Control.arrange.bar[j].channel[i];
-						
-						if (Control.instrument[Control.musicbox[Control.arrange.bar[j].channel[i]].instr].type == 0) {
-						var k:Int = 0;
-	while( k < Control.musicbox[t].numnotes){
-								midiexporter.writenote(Control.musicbox[t].instr, 
-																			 Std.int(Control.musicbox[t].notes[k].x), 
-																			 ((j * Control.boxcount) + Std.int(Control.musicbox[t].notes[k].width)) * 30, 
-																			 Std.int(Control.musicbox[t].notes[k].y) * 30, 255);
-							 k++;
-}
-						}
+			j = 0;
+			while( j < Control.arrange.lastbar){
+					var i:Int = 0;
+					while( i < 8){
+						if (Control.arrange.bar[j].channel[i] != -1) {
+							var t:Int = Control.arrange.bar[j].channel[i];
+							
+							if (Control.instrument[Control.musicbox[Control.arrange.bar[j].channel[i]].instr].type == 0) {
+							var k:Int = 0;
+								while( k < Control.musicbox[t].numnotes){
+																midiexporter.writenote(Control.musicbox[t].instr, Std.int(Control.musicbox[t].notes[k].x), 
+																((j * Control.boxcount) + Std.int(Control.musicbox[t].notes[k].width)) * 30, 
+																Std.int(Control.musicbox[t].notes[k].y) * 30, 255);
+															 k++;
+								}
+						   }
+					    }
+						i++;
 					}
-				 i++;
-}
 			 j++;
-}
+			}
 			
 			midiexporter.nexttrack();
 			midiexporter.writeinstrument(0, 9);
 			
-		j = 0;
-	while( j < Control.arrange.lastbar){
-			var i:Int = 0;
-	while( i < 8){
-					if (Control.arrange.bar[j].channel[i] != -1) {
-						var t:Int = Control.arrange.bar[j].channel[i];
-						var drumkit:Int = Control.musicbox[Control.arrange.bar[j].channel[i]].instr;
-						
-						if (Help.Left(Control.voicelist.voice[Control.instrument[drumkit].index], 7) == "drumkit") {
-						var k:Int = 0;
-	while( k < Control.musicbox[t].numnotes){
-								midiexporter.writenote(9, 
-																			 convertdrumtonote(Std.int(Control.musicbox[t].notes[k].x), Control.instrument[drumkit].index), 
-																			 ((j * Control.boxcount) + Std.int(Control.musicbox[t].notes[k].width)) * 30, 
-																			 Std.int(Control.musicbox[t].notes[k].y) * 30, 255);
-							 k++;
-}
-						}
+			j = 0;
+			while( j < Control.arrange.lastbar){
+					var i:Int = 0;
+					while( i < 8){
+							if (Control.arrange.bar[j].channel[i] != -1) {
+								var t:Int = Control.arrange.bar[j].channel[i];
+								var drumkit:Int = Control.musicbox[Control.arrange.bar[j].channel[i]].instr;
+								
+								if (Help.Left(Control.voicelist.voice[Control.instrument[drumkit].index], 7) == "drumkit") {
+										var k:Int = 0;
+										while( k < Control.musicbox[t].numnotes){
+												midiexporter.writenote(9, convertdrumtonote(Std.int(Control.musicbox[t].notes[k].x), 
+																					Control.instrument[drumkit].index), 
+																					((j * Control.boxcount) + Std.int(Control.musicbox[t].notes[k].width)) * 30, 
+																					 Std.int(Control.musicbox[t].notes[k].y) * 30, 255);
+											 k++;
+									}
+								}
+							}
+						 i++;
 					}
-				 i++;
-}
-			 j++;
-}
-			
-			
-			
-			
+					 j++;
+			}
 			
 			
 		}

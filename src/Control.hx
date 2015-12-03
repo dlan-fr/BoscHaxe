@@ -1,4 +1,5 @@
 package ;
+  import openfl._legacy.display.GraphicsStroke;
   import org.si.sion.SiONDriver;
 	import org.si.sion.SiONData;
 	import org.si.sion.utils.SiONPresetVoice;
@@ -1397,11 +1398,53 @@ package ;
 			return filename + "." + extension;
 		}
 		
+		public static function ShowSaveDialog(saveTitle:String,saveMsg:String,filter:FILEFILTERS):String {
+			var filechoose = false;
+			var result:String = "";
+			
+			while (!filechoose)
+			{
+				result = Dialogs.saveFile(saveTitle, saveMsg, Sys.getCwd(), filter);
+				
+				if (FileSystem.exists(result))
+				{
+					var lastpos = result.lastIndexOf("\\");
+					
+					if (lastpos == -1)
+						lastpos = result.lastIndexOf("/");
+					
+					var filename = result.substring(lastpos+1, result.length);
+					
+					if (Dialogs.confirm("File already exist", filename+" already exist, replace it?",false))
+					{
+						try
+						{
+							FileSystem.deleteFile(result);
+							filechoose = true;
+						}
+						catch (e:Dynamic)
+						{
+							Dialogs.message("File in use!","Can't overwrite "+filename+", please choose another save destination",true);
+						}
+						
+					}
+				}
+				else
+				{
+					filechoose = true;
+				}
+			}
+			
+			return result;
+		}
+		
+		
 		public static function saveceol():Void {
 		
 			#if cpp
 				#if (!android && !emscripten)
-				var filename:String = Dialogs.saveFile("Save .ceol File", "Save .ceol File", Sys.getCwd(), ceolFilter);
+				var filename:String  = Control.ShowSaveDialog("Save .ceol File", "Save .ceol File", ceolFilter);
+				
 				
 				if(StringTools.trim(filename) != "")
 					onsaveceol(filename);
@@ -1502,13 +1545,8 @@ package ;
 			#if cpp
 				#if (!android && !emscripten)
 				
-				var result:String = Dialogs.saveFile(
-				"Export XM module file"
-				, "Export XM module file",Sys.getCwd()
-				, xmFilter
-				);	
+				var result:String = Control.ShowSaveDialog("Export XM module file", "Export XM module file", xmFilter);
 				
-
 				if (result != null && result.length != 0)
 					onexportxm(result);
 				
@@ -1547,12 +1585,7 @@ package ;
 			#if cpp
 				#if (!android && !emscripten)
 				
-				var result:String = Dialogs.saveFile(
-				"Export MML music text"
-				, "Export MML music text",Sys.getCwd()
-				, mmlFilter
-				);	
-				
+				var result:String = Control.ShowSaveDialog("Export MML music text", "Export MML music text", mmlFilter);
 
 				if (result != null && result.length != 0)
 					onexportmml(result);
@@ -1654,6 +1687,7 @@ package ;
 			nowexporting = true;
 		}
 		
+		
 		public static function savewav():Void {
 			nowexporting = false; followmode = false;
 			
@@ -1678,46 +1712,10 @@ package ;
 			
 			#if cpp
 				#if (!android && !emscripten)
+				var result:String = Control.ShowSaveDialog("Export .wav File", "Export .wav File", wavFilter);
 				
-				var filechoose = false;
-				var result:String = "";
-				
-				while (!filechoose)
-				{
-					result = Dialogs.saveFile("Export .wav File", "Export .wav File", Sys.getCwd(), wavFilter);
-					
-					if (FileSystem.exists(result))
-					{
-						
-						var lastpos = result.lastIndexOf("\\");
-						
-						if (lastpos == -1)
-							lastpos = result.lastIndexOf("/");
-						
-						var filename = result.substring(lastpos+1, result.length);
-						
-						if (Dialogs.confirm("File already exist", filename+" already exist, replace it?",false))
-						{
-							try
-							{
-								FileSystem.deleteFile(result);
-								filechoose = true;
-							}
-							catch (e:Dynamic)
-							{
-								Dialogs.message("File in use!","Can't overwrite " + filename+", please choose another export destination",true);
-							}
-							
-						}
-					}
-					else
-					{
-						filechoose = true;
-					}
-				}
-				
-				
-				onsavewav(result);
+				if(result != null && result.length != 0)
+					onsavewav(result);
 				#end
 			#end
 			

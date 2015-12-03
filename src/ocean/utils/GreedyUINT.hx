@@ -24,11 +24,11 @@ package ocean.utils ;
 			
 			var n:Int = 0;
 			
-		 var e:Int = _rawBytes.length-1;
-	while( e>=0){
+			var e:Int = _rawBytes.length-1;
+			while( e>=0){
 				n += ( _rawBytes.readByte()&0x7F )<<(7*e);
-			 e-- ;
-}
+				 e-- ;
+			}
 			/*if( n==INT_MAX_VALUE || n==-INT_MAX_VALUE ){
 				throw new Error("value is beyond uint infinity");
 			}*/
@@ -43,8 +43,8 @@ package ocean.utils ;
 			var temp:Array<Dynamic>=new Array<Dynamic>();
 			
 			if( 0!=n ){
-			 e=0 ; t = n>>(7*e) ;
-	while( t>=1 && e<5){
+				e=0 ; t = n>>(7*e) ;
+				while( t>=1 && e<5){
 					
 					
 					
@@ -56,11 +56,12 @@ package ocean.utils ;
 			}else{
 				temp[0]=0;
 			}
+			e = temp.length;
 		 //_rawBytes.length = e = temp.length ;
-	while( e>0 ){
+			while( e>0 ){
 				_rawBytes.writeByte(temp[e-1]);
-			 e-- ;
-}
+				e-- ;
+			}
 			
 			return 0;
 

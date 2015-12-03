@@ -170,26 +170,26 @@ package ocean.midi ;
 			guint.value = 0;
 			var note_on:Int = 0;
 
-		 var i:Int=0 ;
-	while( i< rawArray.length ){
-				guint.value = Std.int(rawArray[i].timeline - guint.value);
-				
-				
-				stream.writeBytes(guint.rawBytes);
-				
-				
-				if( note_on != rawArray[i].noteOn && rawArray[i].noteOn!=0 ){
-					stream.writeByte( rawArray[i].noteOn );
-				}
-				
-				
-				stream.writeBytes(rawArray[i].raw);
-				
-				
-				guint.value = rawArray[i].timeline;
-				note_on = rawArray[i].noteOn;
-			 i++ ;
-}
+			 var i:Int=0 ;
+			 while( i< rawArray.length ){
+					guint.value = Std.int(rawArray[i].timeline - guint.value);
+					
+					
+					stream.writeBytes(guint.rawBytes);
+					
+					
+					if( note_on != rawArray[i].noteOn && rawArray[i].noteOn!=0 ){
+						stream.writeByte( rawArray[i].noteOn );
+					}
+					
+					
+					stream.writeBytes(rawArray[i].raw);
+					
+					
+					guint.value = rawArray[i].timeline;
+					note_on = rawArray[i].noteOn;
+				 i++ ;
+			}
 			
 			
 			stream.writeUnsignedInt(0x00FF2F00);
