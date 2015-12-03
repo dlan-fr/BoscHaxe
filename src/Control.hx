@@ -1412,7 +1412,7 @@ package ;
 		}
 		
 		private static function onsaveceol(filename:String):Void {    
-			
+						
 			if (!fileHasExtension(filename, "ceol")) {
 				filename = addExtensionToFile(filename, "ceol");
 			}
@@ -1439,7 +1439,6 @@ package ;
 				, "Load .ceol File"
 				, ceolFilter
 				);	
-				
 
 				if (result != null && result.length != 0)
 					onloadceol(result);
@@ -1679,7 +1678,44 @@ package ;
 			
 			#if cpp
 				#if (!android && !emscripten)
-				var result:String =Dialogs.saveFile("Export .wav File", "Export .wav File", Sys.getCwd(), wavFilter);
+				
+				var filechoose = false;
+				var result:String = "";
+				
+				while (!filechoose)
+				{
+					result = Dialogs.saveFile("Export .wav File", "Export .wav File", Sys.getCwd(), wavFilter);
+					
+					if (FileSystem.exists(result))
+					{
+						
+						var lastpos = result.lastIndexOf("\\");
+						
+						if (lastpos == -1)
+							lastpos = result.lastIndexOf("/");
+						
+						var filename = result.substring(lastpos+1, result.length);
+						
+						if (Dialogs.confirm("File already exist", filename+" already exist, replace it?",false))
+						{
+							try
+							{
+								FileSystem.deleteFile(result);
+								filechoose = true;
+							}
+							catch (e:Dynamic)
+							{
+								Dialogs.message("File in use!","Can't overwrite " + filename+", please choose another export destination",true);
+							}
+							
+						}
+					}
+					else
+					{
+						filechoose = true;
+					}
+				}
+				
 				
 				onsavewav(result);
 				#end
@@ -1692,7 +1728,7 @@ package ;
 		private static function onsavewav(filename:String):Void {    
 			
 			if (!fileHasExtension(filename, "wav")) {
-				addExtensionToFile(filename, "wav");
+				filename = addExtensionToFile(filename, "wav");
 			}
 			#if cpp
 			var fo:FileOutput = File.write(filename);
