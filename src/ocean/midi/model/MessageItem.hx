@@ -4,8 +4,8 @@ package ocean.midi.model ;
 	
 	
 	class MessageItem {
-		public var _timeline:Int;
-		public var _kind:Int;
+		private var _timeline:Int;
+		private var _kind:Int;
 		
 		public var mark:Bool;
 		

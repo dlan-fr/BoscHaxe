@@ -17,7 +17,7 @@ package ocean.midi.model ;
 			_velocity = v&0x7F;
 			_duration = d;
 			
-			_timeline = t;
+			timeline = t;
 		}
 		
 		@:isVar public var channel(get, set):Int;

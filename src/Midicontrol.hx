@@ -617,14 +617,15 @@ package ;
 			midiexporter.nexttrack();
 			
 			
-			
+			//Write all the instruments to each channel.
+			//In MIDI, channel 9 is special.
 			var j:Int = 0;
 			while( j < Control.numinstrument){
 				  midiexporter.writeinstrument(instrumentconverttomidi(Control.instrument[j].index), j);
 				 j++;
 			}
 			
-			
+			//Cover the entire song
 			Control.arrange.loopstart = 0;
 			Control.arrange.loopend = Control.arrange.lastbar;	
 			if (Control.arrange.loopend <= Control.arrange.loopstart) {
@@ -633,7 +634,14 @@ package ;
 			
 			
 			
+			/*
+			These are the same patch numbers as defined in the original version of GS. 
+			Drum bank is accessed by setting cc#0 (Bank Select MSB) to 120 and cc#32 (Bank 
+			Select LSB) to 0 and PC (Program Change) to select drum kit.	
+			1 	Standard Kit 	The only kit specified by General MIDI Level 1
+			 * */
 			
+			//Write notes
 			j = 0;
 			while( j < Control.arrange.lastbar){
 					var i:Int = 0;
@@ -658,7 +666,8 @@ package ;
 			
 			midiexporter.nexttrack();
 			midiexporter.writeinstrument(0, 9);
-			
+            
+			//Drumkits
 			j = 0;
 			while( j < Control.arrange.lastbar){
 					var i:Int = 0;
@@ -666,7 +675,7 @@ package ;
 							if (Control.arrange.bar[j].channel[i] != -1) {
 								var t:Int = Control.arrange.bar[j].channel[i];
 								var drumkit:Int = Control.musicbox[Control.arrange.bar[j].channel[i]].instr;
-								
+								//Now do drum kits
 								if (Help.Left(Control.voicelist.voice[Control.instrument[drumkit].index], 7) == "drumkit") {
 										var k:Int = 0;
 										while( k < Control.musicbox[t].numnotes){
@@ -687,8 +696,8 @@ package ;
 		}
 		
 		public static function convertdrumtonote(note:Int, drumkit:Int):Int {
-			
-			
+			//Takes a drum beat from control.createdrumkit()'s list and converts it
+			//to a drum beat from the General Midi list (http://www.midi.org/techspecs/gm1sound.php)
 			var i:Int;
 			var voicename:String = "";
 			if (Control.voicelist.name[drumkit] == "Simple Drumkit") {

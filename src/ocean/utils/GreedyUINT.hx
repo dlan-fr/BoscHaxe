@@ -57,6 +57,7 @@ package ocean.utils ;
 				temp[0]=0;
 			}
 			e = temp.length;
+			_rawBytes = new ByteArray();
 		 //_rawBytes.length = e = temp.length ;
 			while( e>0 ){
 				_rawBytes.writeByte(temp[e-1]);
@@ -73,7 +74,8 @@ package ocean.utils ;
 			return _rawBytes;
 		}
 		
-		public function set_rawBytes(raw:ByteArray):ByteArray{
+		public function set_rawBytes(raw:ByteArray):ByteArray {
+			_rawBytes = new ByteArray();
 			_rawBytes.position = 0;
 			//_rawBytes.length = 0;
 			if( check(raw) ){

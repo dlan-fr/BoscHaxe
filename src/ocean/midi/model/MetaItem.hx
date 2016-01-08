@@ -7,8 +7,8 @@ package ocean.midi.model ;
 	
 	
 	class MetaItem extends MessageItem{
-		public var _text:ByteArray;
-		public var _type:Int;
+		private var _text:ByteArray;
+		private var _type:Int;
 		
 		public function new():Void{
 			super();
@@ -41,10 +41,16 @@ package ocean.midi.model ;
 			_type = t;
 			return _type;
 		}
-		public function metaName():String{
-			return MidiEnum.getMessageName(type);
+		
+		@:isVar public var metaName(get, null):String;
+		
+		public function get_metaName():String{
+			return MidiEnum.getMessageName(_type);
 		}
-		public function size():Int{
+		
+		@:isVar public var size(get,null):Int;
+		
+		public function get_size():Int{
 			if( _text != null )
 				return _text.length;
 			else

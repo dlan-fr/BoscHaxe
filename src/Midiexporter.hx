@@ -29,21 +29,20 @@ package ;
 		}
 		
 		public function writetimesig():Void {
-			currenttrack._msgList.push(new MetaItem());
-			var t:Int = currenttrack._msgList.length - 1;
-			currenttrack._msgList.get(t).type = 0x58; 
+			var newitem:MetaItem = new MetaItem();
+			newitem.type = 0x58; 
 			var myba:ByteArray = new ByteArray();
 			myba.writeByte(0x04);
 			myba.writeByte(0x02);
 			myba.writeByte(0x18);
 			myba.writeByte(0x08);
-			currenttrack._msgList.get(t).text = myba;
+			newitem.text = myba;
+			currenttrack.msgList.push(newitem);
 		}
 		
 		public function writetempo(tempo:Int):Void {
-			currenttrack._msgList.push(new MetaItem());
-			var t:Int = currenttrack._msgList.length - 1;
-			currenttrack._msgList.get(t).type = 0x51; 
+			var newitem:MetaItem = new MetaItem();
+			newitem.type = 0x51; 
 			var tempoinmidiformat:Int = Std.int(60000000 / tempo);
 			
 			var byte1:Int = (tempoinmidiformat >> 16) & 0xFF;
@@ -54,23 +53,25 @@ package ;
 			myba.writeByte(byte1);
 			myba.writeByte(byte2);
 			myba.writeByte(byte3);
-			currenttrack._msgList.get(t).text = myba;
+			
+			newitem.text = myba;
+			currenttrack.msgList.push(newitem);
 		}
 		
 		
 		public function writeinstrument(instr:Int, channel:Int):Void {
-			currenttrack._msgList.push(new ChannelItem());
-			var t:Int = currenttrack._msgList.length - 1;
-			currenttrack._msgList.get(t)._kind = 0xC0; 
-			currenttrack._msgList.get(t)._command = 192 + channel;
-			currenttrack._msgList.get(t)._data1 = instr;
+			var newitem:ChannelItem = new ChannelItem();
+			newitem.kind = 0xC0;
+			newitem.set_rawcommand(192 + channel);
+			newitem.data1 = instr;
+			currenttrack.msgList.push(newitem);
 		}
 		
 		public function writenote(channel:Int, pitch:Int, time:Int, length:Int, volume:Int):Void {
 			volume = Std.int(volume / 2);
 			if (volume > 127) volume = 127;
 			
-			currenttrack._msgList.push(new NoteItem(channel, pitch, volume, length, time)); 
+			currenttrack.msgList.push(new NoteItem(channel, pitch, volume, length, time)); 
 		}
 		
 		public var midifile:MidiFile;

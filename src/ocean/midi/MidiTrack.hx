@@ -24,7 +24,7 @@ package ocean.midi ;
 		private var _trackPatch:Int;
 		
 		
-		public var _msgList:MessageList;
+		private var _msgList:MessageList;
 		
 		@:isVar public var msgList(get, set):MessageList;
 		
@@ -82,27 +82,32 @@ package ocean.midi ;
 			stream.writeInt( MTrk );
 			stream.writeInt( _size );
 			var start:Int = stream.position;	
-			var rawArray:Array<Dynamic> = new Array<Dynamic>();	
+			var rawArray:Array<RawItem> = new Array<RawItem>();	
 			var rawItem:RawItem;				
 			var guint:GreedyUINT = new GreedyUINT(); 
 			var kind:Int;
 			var index:Int=0;
 
 			
-			for( item in _msgList ){
+			for( tmpitem in _msgList ){
+				
+				var item:MessageItem = cast(tmpitem, MessageItem);
 				
 				if( !item.mark ){
 					continue;
 				}
-				if( item.kind == MidiEnum.META ){
+
+				
+				if ( item.kind == MidiEnum.META ) {
+					var item_2:MetaItem = cast tmpitem;
 					rawItem = new RawItem();
-					rawItem.timeline = item.timeline;		
+					rawItem.timeline = item_2.timeline;		
 					rawItem.raw.writeByte( MidiEnum.META );	
-					rawItem.raw.writeByte( item.type );		
-					guint.value = item.size;				
+					rawItem.raw.writeByte( item_2.type );		
+					guint.value = item_2.size;				
 					rawItem.raw.writeBytes(guint.rawBytes);	
-					rawItem.raw.writeBytes(item.text);		
-					if( item.type==MidiEnum.END_OF_TRK )
+					rawItem.raw.writeBytes(item_2.text);		
+					if( item_2.type==MidiEnum.END_OF_TRK )
 						rawItem.index = 0xFFFFFF;		
 					else
 						rawItem.index = index++;		
@@ -110,53 +115,54 @@ package ocean.midi ;
 				}
 				else if( item.kind == MidiEnum.NOTE ){
 					
-					
+					var item_3:NoteItem = cast tmpitem;
 					rawItem = new RawItem();
-					rawItem.timeline = item.timeline;
-					rawItem.noteOn = (item.channel | MidiEnum.NOTE_ON);	
-					rawItem.raw.writeByte( item.pitch );
-					rawItem.raw.writeByte( item.velocity );
+					rawItem.timeline = item_3.timeline;
+					rawItem.noteOn = (item_3.channel | MidiEnum.NOTE_ON);	
+					rawItem.raw.writeByte( item_3.pitch );
+					rawItem.raw.writeByte( item_3.velocity );
 					rawItem.index = index++;
 					rawArray.push(rawItem);
 
 						
 					
 					rawItem = new RawItem();
-					rawItem.timeline = item.timeline + item.duration;	
-					rawItem.noteOn = (item.channel | MidiEnum.NOTE_ON);
-					rawItem.raw.writeByte( item.pitch );
+					rawItem.timeline = item_3.timeline + item_3.duration;	
+					rawItem.noteOn = (item_3.channel | MidiEnum.NOTE_ON);
+					rawItem.raw.writeByte( item_3.pitch );
 					rawItem.raw.writeByte( 0x00 );						
 					rawItem.index = index++;
 					rawArray.push(rawItem);
 				}
-				else if( item.kind == MidiEnum.SYSTEM_EXCLUSIVE ){
+				else if ( item.kind == MidiEnum.SYSTEM_EXCLUSIVE ) {
+					var item_4:SysxItem = cast tmpitem;
 					rawItem = new RawItem();
-					rawItem.timeline = item.timeline;
+					rawItem.timeline = item_4.timeline;
 					rawItem.raw.writeByte( MidiEnum.SYSTEM_EXCLUSIVE );
-					rawItem.raw.writeByte( item.size );
-					rawItem.raw.writeBytes( item.data );
+					rawItem.raw.writeByte( item_4.size() );
+					rawItem.raw.writeBytes( item_4.data );
 					rawItem.index = index++;
 					rawArray.push(rawItem);
 					
 				}
 				else{
-
 					
-					if( item.data2==0 ){
+					var item_5:ChannelItem = cast tmpitem;
+					
+					if( item_5.data2==null ){
 						rawItem = new RawItem();
-						rawItem.timeline = item.timeline;
-						rawItem.raw.writeByte( item.command | item.channel );
-						rawItem.raw.writeByte( item.data1 );	
+						rawItem.timeline = item_5.timeline;
+						rawItem.raw.writeByte( item_5.command | item_5.channel );
+						rawItem.raw.writeByte( item_5.data1 );	
 						rawItem.index = index++;
 						rawArray.push(rawItem);
 					}
-					
 					else{
 						rawItem = new RawItem();
-						rawItem.timeline = item.timeline;
-						rawItem.noteOn = (item.channel | item.command);
-						rawItem.raw.writeByte( item.data1 );
-						rawItem.raw.writeByte( item.data2 );
+						rawItem.timeline = item_5.timeline;
+						rawItem.noteOn = (item_5.channel | item_5.command);
+						rawItem.raw.writeByte( item_5.data1 );
+						rawItem.raw.writeByte( item_5.data2 );
 						rawItem.index = index++;
 						rawArray.push(rawItem);
 						kind = item.kind;
@@ -429,18 +435,32 @@ package ocean.midi ;
 		
 		
 		public function set_trackChannel(ch:Int):Void{
-			for ( item in _msgList ){
-				if( (Std.is(item,ChannelItem)) || (Std.is(item,NoteItem)) ){
-					item.channel = ch;
+			for ( item in _msgList )
+			{
+				if (Std.is(item, ChannelItem))
+				{
+					cast(item, ChannelItem).channel = ch;
+				}
+				else if (Std.is(item, NoteItem))
+				{
+					cast(item,NoteItem).channel = ch;
 				}
 			}
 		}
 		
 		public function set_trackPatch(ph:Int):Void{
-			for( item in _msgList ){
-				if( (Std.is(item,ChannelItem)) && (item.command == MidiEnum.PROGRAM_CHANGE) ){
-					item.data1 = ph;
-					break;
+			for ( item in _msgList )
+			{
+				if ( Std.is(item, ChannelItem))
+				{
+					var tmp:ChannelItem = cast item;
+					
+					if (tmp.command == MidiEnum.PROGRAM_CHANGE)
+					{
+						tmp.data1 = ph;
+						break;
+					}
+					
 				}
 			}
 		}

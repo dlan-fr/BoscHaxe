@@ -10,7 +10,7 @@ package ocean.midi.model
 		private var _data:ByteArray;
 		public function new():Void{
 			super();
-			this.set_kind(MidiEnum.SYSTEM_EXCLUSIVE);
+			this.kind = MidiEnum.SYSTEM_EXCLUSIVE;
 			_data = new ByteArray();
 		}
 		public function size():Int{
@@ -34,8 +34,8 @@ package ocean.midi.model
 		}
 		override public function clone():MessageItem{
 			var item:SysxItem = new SysxItem();
-			item.set_timeline(this.get_timeline());
-			item.set_data(this.get_data());
+			item.timeline = this.timeline;
+			item.data = this.data;
 			return item;
 		}
 	}

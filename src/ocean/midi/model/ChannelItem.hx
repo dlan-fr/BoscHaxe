@@ -4,10 +4,10 @@ package ocean.midi.model ;
 
 	
 	class ChannelItem extends MessageItem{
-		public var _channel:Int;
-		public var _command:Int;
-		public var _data1:Int;
-		public var _data2:Dynamic;
+		private var _channel:Int;
+		private var _command:Int;
+		private var _data1:Int;
+		private var _data2:Dynamic;
 
 		public function new():Void{
 			super();
@@ -34,6 +34,10 @@ package ocean.midi.model ;
 			_command = c&0xF0;
 			kind = _command;
 			return _command;
+		}
+		
+		public function set_rawcommand(c:Int):Void {
+			_command = c;
 		}
 		
 		@:isVar public var data1(get, set):Int;
