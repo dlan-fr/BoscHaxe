@@ -71,12 +71,12 @@ package ;
 				    var drumkitNumber:Int = boscaInstrument.type - 1;
 				    xmInstrument.addSamples(_boscaDrumkitToXMSamples(Control.drumkit[drumkitNumber], notesUsed, perInstrumentBoscaNoteToXMNoteMap[i],Control._driver));
 				   var s:Int = 0;
-	while( s < notesUsed.length){
-							var sionNote:Int = notesUsed[s];
-							var key:Int = perInstrumentBoscaNoteToXMNoteMap[i][sionNote] - 1; 
-							xmInstrument.keymapAssignments[key] = s;
-						 s++;
-}
+					while( s < notesUsed.length){
+											var sionNote:Int = notesUsed[s];
+											var key:Int = perInstrumentBoscaNoteToXMNoteMap[i][sionNote] - 1; 
+											xmInstrument.keymapAssignments[key] = s;
+										 s++;
+					}
 						
 				    for (sample in xmInstrument.samples) {
 							sample.volume = xmInstrument.volume;
@@ -150,56 +150,53 @@ package ;
 		
 		
 		
-		
-		
-		
-		
-		var rowToBlank:Int = 0;
-	while( rowToBlank < numrows){
-				rows[rowToBlank] = new XMPatternLine(numtracks);
-			 rowToBlank++;
-}
-			
-		var i:Int = 0;
-	while( i < numtracks){
-				var whichbox:Int =Control.arrange.bar[barNum].channel[i];
-				if (whichbox < 0) { continue; }
-				var box:Musicphraseclass =Control.musicbox[whichbox];
+			var rowToBlank:Int = 0;
+				while( rowToBlank < numrows){
+							rows[rowToBlank] = new XMPatternLine(numtracks);
+						 rowToBlank++;
+			}
+				
+			//var i:Int = 0;
+			for ( i in 0...numtracks)
+			{
+					var whichbox:Int =Control.arrange.bar[barNum].channel[i];
+					if (whichbox < 0) { continue; }
+					var box:Musicphraseclass =Control.musicbox[whichbox];
 
-				var notes: Array<Rectangle> = box.notes;
-			var j:Int = 0;
-	while( j < box.numnotes){
-					var boscaNote:Rectangle = notes[j];
-					var timerelativetostartofbar:Int = Std.int(boscaNote.width); 
-					var notelength:Int = Std.int(boscaNote.y);
-					var xmnote:XMPatternCell = boscaBoxNoteToXMNote(box, j, instrumentNoteMap);
-
+					var notes: Array<Rectangle> = box.notes;
 					
-					var targetTrack:Int = i;
-					while (rows[timerelativetostartofbar].cellOnTrack[targetTrack].note > 0) {
-						
-						targetTrack++;
-						if (!(targetTrack < numtracks)) {
-							
-							continue;
-						}
-					}
+					for ( j in 0...box.numnotes)
+					{
+						var boscaNote:Rectangle = notes[j];
+						var timerelativetostartofbar:Int = Std.int(boscaNote.width); 
+						var notelength:Int = Std.int(boscaNote.y);
+						var xmnote:XMPatternCell = boscaBoxNoteToXMNote(box, j, instrumentNoteMap);
 
-					rows[timerelativetostartofbar].cellOnTrack[targetTrack] = xmnote;
-					var endrow:Int = timerelativetostartofbar + notelength;
-					if (endrow >= numrows) { continue; }
-					if (rows[endrow].cellOnTrack[targetTrack].note > 0) { continue; } 
-					rows[endrow].cellOnTrack[targetTrack] = new XMPatternCell({
-						note: 97, 
-						instrument: 0,
-						volume: 0,
-						effect: 0,
-						effectParam: 0
-					});
-				 j++;
-}
-			 i++;
-}
+						
+						var targetTrack:Int = i;
+						while (rows[timerelativetostartofbar].cellOnTrack[targetTrack].note > 0) {
+							
+							targetTrack++;
+							if (!(targetTrack < numtracks)) {
+								
+								continue;
+							}
+						}
+
+						rows[timerelativetostartofbar].cellOnTrack[targetTrack] = xmnote;
+						var endrow:Int = timerelativetostartofbar + notelength;
+						if (endrow >= numrows) { continue; }
+						if (rows[endrow].cellOnTrack[targetTrack].note > 0) { continue; } 
+						rows[endrow].cellOnTrack[targetTrack] = new XMPatternCell({
+							note: 97, 
+							instrument: 0,
+							volume: 0,
+							effect: 0,
+							effectParam: 0
+						});
+				}
+			}
+			
 			return pattern;
 		}
 
@@ -226,21 +223,20 @@ package ;
 
 		function _boscaNoteToXMNoteMapLinear(): Array<Int> {
 			var map: Array<Int> = new Array<Int>();
-		var scionNote:Int = 0;
-	while( scionNote < 127){
-				var maybeXMNote:Int = scionNote + 13;
-				var xmNote:Int;
-				if (maybeXMNote < 1) { 
-					map[scionNote] = 0;
-					continue;
-				}
-				if (maybeXMNote > 96) { 
-					map[scionNote] = 0;
-					continue;
-				}
-				map[scionNote] = Std.int(maybeXMNote);
-			 scionNote++;
-}
+			for (scionNote in 0...127)
+			{
+						var maybeXMNote:Int = scionNote + 13;
+						var xmNote:Int;
+						if (maybeXMNote < 1) { 
+							map[scionNote] = 0;
+							continue;
+						}
+						if (maybeXMNote > 96) { 
+							map[scionNote] = 0;
+							continue;
+						}
+						map[scionNote] = Std.int(maybeXMNote);
+			}
 			return map;
 		}
 

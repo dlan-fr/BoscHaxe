@@ -105,16 +105,16 @@ package co.sparemind.trackermodule ;
 			headbuf.writeShort(xm.flags); 
 			headbuf.writeShort(xm.defaultTempo);
 			headbuf.writeShort(xm.defaultBPM);
-		var i:Int = 0;
-	while( i < xm.patternOrderTable.length){
+			var i:Int = 0;
+			while( i < xm.patternOrderTable.length){
 				headbuf.writeByte(xm.patternOrderTable[i]);
-			 i++;
-}
+				 i++;
+			}
 			
 			stream.writeBytes(headbuf, 0, headbuf.byteLength);
 
-		i = 0;
-	while( i < xm.patterns.length){
+			i = 0;
+			while( i < xm.patterns.length){
 				var pattern:XMPattern = xm.patterns[i];
 				var patbuf:ByteArray = new ByteArray();
 				patbuf.endian = Endian.LITTLE_ENDIAN;
@@ -125,11 +125,11 @@ package co.sparemind.trackermodule ;
 
 				var patBodyBuf:ByteArray = new ByteArray();
 				patBodyBuf.endian = Endian.LITTLE_ENDIAN;
-			var rownum:Int = 0;
-	while( rownum < pattern.rows.length){
+				var rownum:Int = 0;
+				while ( rownum < pattern.rows.length)
+				{
 					var line:XMPatternLine = pattern.rows[rownum];
-				var chan:Int = 0;
-	while( chan < line.cellOnTrack.length){
+					for(chan in 0...line.cellOnTrack.length){
 						var cell:XMPatternCell = line.cellOnTrack[chan];
 						if (cell.isEmpty()) {
 							patBodyBuf.writeByte(0x80);
@@ -140,21 +140,20 @@ package co.sparemind.trackermodule ;
 						patBodyBuf.writeByte(cell.volume);
 						patBodyBuf.writeByte(cell.effect);
 						patBodyBuf.writeByte(cell.effectParam);
-					 chan++;
-}
-				 rownum++;
-}
+					}
+					rownum++;
+				}
 
 				patbuf.writeShort(patBodyBuf.length); 
 				
 				
 				stream.writeBytes(patbuf,0,patbuf.byteLength);
 				stream.writeBytes(patBodyBuf,0,patBodyBuf.byteLength);
-			 i++;
-}
+				i++;
+			}
 
-		var instno:Int = 0;
-	while( instno < xm.instruments.length){
+			var instno:Int = 0;
+			while( instno < xm.instruments.length){
 				var inst:XMInstrument = xm.instruments[instno];
 				var instrheadbuf:ByteArray = new ByteArray();
 				instrheadbuf.endian = Endian.LITTLE_ENDIAN;
@@ -168,29 +167,28 @@ package co.sparemind.trackermodule ;
 					stream.writeBytes(instrheadbuf,0,instrheadbuf.byteLength);
 				}
 				instrheadbuf.writeUnsignedInt(40); 
-			var kma:Int = 0;
-	while( kma < inst.keymapAssignments.length){
-					instrheadbuf.writeByte(inst.keymapAssignments[kma]);
-				 kma++;
-}
-			var p:Int = 0;
-	while( p < 12){
-					
-					
-					
+				var kma:Int = 0;
+				while( kma < inst.keymapAssignments.length){
+								instrheadbuf.writeByte(inst.keymapAssignments[kma]);
+							 kma++;
+				}
+				
+				var p:Int = 0;
+				
+				while( p < 12){		
 					instrheadbuf.writeShort(0x1111);
 					instrheadbuf.writeShort(0x2222);
-				 p++;
-}
-			p = 0;
-	while( p < 12){
-					
-					
-					
+					p++;
+				}
+				
+				p = 0;
+				
+				while( p < 12){				
 					instrheadbuf.writeShort(0x0000);
 					instrheadbuf.writeShort(0x0000);
-				 p++;
-}
+					p++;
+				}
+				
 				instrheadbuf.writeByte(0); 
 				instrheadbuf.writeByte(0); 
 				instrheadbuf.writeByte(0); 
@@ -207,15 +205,16 @@ package co.sparemind.trackermodule ;
 				instrheadbuf.writeByte(0); 
 				instrheadbuf.writeShort(0); 
 
-				
-			i = 0;
-	while( i < 22){
+							
+				i = 0;
+				while( i < 22){
 					instrheadbuf.writeByte(0x00);
-				 i++;
-}
+					i++;
+				}
+				
 				stream.writeBytes(instrheadbuf,0,instrheadbuf.byteLength);
-			var s:Int = 0;
-	while( s < inst.samples.length){
+				var s:Int = 0;
+				while( s < inst.samples.length){
 					var sample:XMSample = inst.samples[s];
 					var sampleHeadBuf:ByteArray = new ByteArray();
 					sampleHeadBuf.endian = Endian.LITTLE_ENDIAN;
@@ -224,8 +223,7 @@ package co.sparemind.trackermodule ;
 					sampleHeadBuf.writeUnsignedInt(sample.loopLength);
 					sampleHeadBuf.writeByte(sample.volume);
 					sampleHeadBuf.writeByte(sample.finetune);
-					var sampleType:Int = (sample.loopsForward ? 1 : 0) |
-						(sample.bitsPerSample == 16 ? 16 : 0);
+					var sampleType:Int = (sample.loopsForward ? 1 : 0) | (sample.bitsPerSample == 16 ? 16 : 0);
 					sampleHeadBuf.writeByte(sampleType);
 					sampleHeadBuf.writeByte(sample.panning);
 					sampleHeadBuf.writeByte(sample.relativeNoteNumber);
@@ -234,16 +232,16 @@ package co.sparemind.trackermodule ;
 					//sampleHeadBuf.writeMultiByte(sample.name, 'us-ascii');
 					sampleHeadBuf.writeUTFBytes(sample.name);
 					stream.writeBytes(sampleHeadBuf,0,sampleHeadBuf.byteLength);
-				 s++;
-}
-			s = 0;
-	while( s < inst.samples.length){
+					s++;
+				}
+				s = 0;
+				while( s < inst.samples.length){
 					var sample:XMSample = inst.samples[s];
 					stream.writeBytes(sample.data,0,sample.data.byteLength);
-				 s++;
-}
-			 instno++;
-}
+					s++;
+				}
+				 instno++;
+			}
 		}
 
 		public function addInstrument(instrument:XMInstrument):Void {
