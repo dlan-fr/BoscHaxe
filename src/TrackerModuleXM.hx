@@ -35,27 +35,27 @@ package ;
 			
 			
 			var perInstrumentBoscaNoteToXMNoteMap: Array<Array<Int>> = new Array<Array<Int>>();
-		var i:Int = 0;
-	while( i <Control.numinstrument){
-				boscaInstrument =Control.instrument[i];
-				var boscaNoteToXMNoteMapForThisInstrument: Array<Int> = _boscaNoteToXMNoteMapForInstrument(boscaInstrument, notesByEachInstrumentNumber[i]);
-				perInstrumentBoscaNoteToXMNoteMap[i] = boscaNoteToXMNoteMapForThisInstrument;
-			 i++;
-}
+			var i:Int = 0;
+			while( i <Control.numinstrument){
+						boscaInstrument =Control.instrument[i];
+						var boscaNoteToXMNoteMapForThisInstrument: Array<Int> = _boscaNoteToXMNoteMapForInstrument(boscaInstrument, notesByEachInstrumentNumber[i]);
+						perInstrumentBoscaNoteToXMNoteMap[i] = boscaNoteToXMNoteMapForThisInstrument;
+					 i++;
+			}
 			
 			
-		var i:Int = 0;
-	while( i <Control.arrange.lastbar){
-				var xmpat:XMPattern = xmPatternFromBoscaBar(i, perInstrumentBoscaNoteToXMNoteMap);
-				xm.patterns.push(xmpat);
-				xm.patternOrderTable[i] = i;
-				xm.numPatterns++;
-				xm.songLength++;
-			 i++;
-}
+			var i:Int = 0;
+			while( i <Control.arrange.lastbar){
+						var xmpat:XMPattern = xmPatternFromBoscaBar(i, perInstrumentBoscaNoteToXMNoteMap);
+						xm.patterns.push(xmpat);
+						xm.patternOrderTable[i] = i;
+						xm.numPatterns++;
+						xm.songLength++;
+					 i++;
+			}
 			
-		i = 0;
-	while( i <Control.numinstrument){
+			i = 0;
+			while( i <Control.numinstrument){
 				boscaInstrument =Control.instrument[i];
 				var xmInstrument:XMInstrument = new XMInstrument();
 				var notesUsed: Array<Int> = notesByEachInstrumentNumber[i];
@@ -64,7 +64,6 @@ package ;
 				switch (boscaInstrument.type) {
 					case 0:
 				    xmInstrument.addSample(_boscaInstrumentToXMSample(boscaInstrument,Control._driver));
-						break;
 					default:
 						
 						
@@ -85,7 +84,7 @@ package ;
 				
 				xm.addInstrument(xmInstrument);
 			 i++;
-}
+			}
 		}
 
 		public function writeToStream(stream:FileOutput):Void {
@@ -328,14 +327,14 @@ package ;
 
 			
 			var previousSample:Int = 0;
-		var i:Int = 0;
-	while( i < renderBuffer.length){
+			var i:Int = 0;
+			while( i < renderBuffer.length){
 				var thisSample:Int = Std.int(renderBuffer[i] * 32767); 
 				var sampleDelta:Int = thisSample - previousSample;
 				deltasamples.writeShort(sampleDelta);
 				previousSample = thisSample;
-			 i++;
-}
+				 i++;
+			}
 			driver.play();
 
 			return deltasamples;

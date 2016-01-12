@@ -1563,9 +1563,16 @@ package ;
 			if (!fileHasExtension(filename, "xm")) {
 				filename = addExtensionToFile(filename, "xm");
 			}
-
+			
+			#if windows
+				var sep:String = "\\";
+			#else
+				var sep:String = "/";
+			#end
+	
+			var song_name:String = filename.substring(filename.lastIndexOf(sep)+1);
 			var xm:TrackerModuleXM = new TrackerModuleXM();
-			xm.loadFromLiveBoscaCeoilModel(filename);
+			xm.loadFromLiveBoscaCeoilModel(song_name);
 			
 			#if cpp
 			var fo:FileOutput = File.write(filename);

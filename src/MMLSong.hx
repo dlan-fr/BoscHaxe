@@ -26,8 +26,8 @@ package ;
 
 			instrumentDefinitions = new Array<String>();
 			mmlToUseInstrument = new Array<String>();
-		var i:Int = 0;
-	while( i < Control.numinstrument){
+			var i:Int = 0;
+			while( i < Control.numinstrument){
 				var boscaInstrument:Instrumentclass = Control.instrument[i];
 				if (boscaInstrument.type == 0) { 
 					instrumentDefinitions[i] = _boscaInstrumentToMML(boscaInstrument, i);
@@ -41,35 +41,40 @@ package ;
 						"31,22, 5,14, 5, 0, 1, 7, 0, 0};\n";
 					mmlToUseInstrument[i] = _boscaInstrumentToMMLUse(boscaInstrument, i);
 				}
-			 i++;
-}
+				i++;
+			}
 
 			var monophonicTracksForBoscaPattern: Array<Array<String>> = new Array<Array<String>>();
 			monophonicTracksForBoscaTrack = new Array<Array<String>>();
-		var track:Int = 0;
-	while( track < 8){
+			var track:Int = 0;
+			while( track < 8){
 				var maxMonoTracksForBoscaTrack:Int = 0;
-			bar = 0;
-	while( bar < Control.arrange.lastbar){
+				bar = 0;
+				while( bar < Control.arrange.lastbar){
 					patternNum = Control.arrange.bar[bar].channel[track];
 
-					if (patternNum < 0) { continue; }
+					if (patternNum < 0) 
+					{
+						bar++;  
+						continue; 
+					}
 					var monoTracksForBar: Array<String> = _mmlTracksForBoscaPattern(patternNum, Control.musicbox);
 					maxMonoTracksForBoscaTrack = Std.int(Math.max(maxMonoTracksForBoscaTrack, monoTracksForBar.length));
 
 					monophonicTracksForBoscaPattern[patternNum] = monoTracksForBar;
-				 bar++;
-}
+					bar++;
+				}
 
 				var outTracks: Array<String> = new Array<String>();
 				
 				for(monoTrackNo in 0...maxMonoTracksForBoscaTrack){
 					var outTrack:String = "\n";
-				bar = 0;
-	while( bar < Control.arrange.lastbar){
+					bar = 0;
+					while( bar < Control.arrange.lastbar){
 						patternNum = Control.arrange.bar[bar].channel[track];
 						if (patternNum < 0) {
 							outTrack += emptyBarMML;
+							bar++;
 							continue;
 						}
 
@@ -81,12 +86,12 @@ package ;
 							outTrack += emptyBarMML;
 						}
 					 bar++;
-}
+					}
 					outTracks.push(outTrack);
 				}
 				monophonicTracksForBoscaTrack[track] = outTracks;
 			 track++;
-}
+			}
 		}
 
 		public function writeToStream(stream:FileOutput):Void {
@@ -122,11 +127,11 @@ package ;
 			var pattern:Musicphraseclass = patternDefinitions[patternNum];
 			var octave:Int = -1;
 
-		var place:Int = 0;
-	while( place < lengthOfPattern){
+			var place:Int = 0;
+			while( place < lengthOfPattern){
 				var notesInThisSlot: Array<String> = new Array<String>();
-			var n:Int = 0;
-	while( n < pattern.numnotes){
+				var n:Int = 0;
+				while( n < pattern.numnotes){
 					var note:Rectangle = pattern.notes[n];
 					var noteStartingAt:Int = Std.int(note.width);
 					var sionNoteNum:Int = Std.int(note.x);
@@ -135,7 +140,10 @@ package ;
 
 					var isNotePlaying:Bool = (noteStartingAt <= place) && (place <= noteEndingAt);
 
-					if (!isNotePlaying) { continue; }
+					if (!isNotePlaying) { 
+						n++;
+						continue; 
+					}
 
 					var newOctave:Int = _octaveFromSiONNoteNumber(sionNoteNum);
 					var mmlOctave:String = _mmlTransitionFromOctaveToOctave(octave, newOctave);
@@ -146,7 +154,7 @@ package ;
 
 					notesInThisSlot.push(mmlOctave + mmlNoteName + mmlSlur);
 				 n++;
-}
+				}
 				var emptyNoteMML:String = "  r   ";
 
 				while (notesInThisSlot.length > tracks.length) {
@@ -155,8 +163,8 @@ package ;
 				}
 				
 
-			var track:Int = 0;
-	while( track < tracks.length){
+				var track:Int = 0;
+				while( track < tracks.length){
 					var noteMML:String;
 					if (track < notesInThisSlot.length) {
 						noteMML = notesInThisSlot[track];
@@ -165,9 +173,9 @@ package ;
 					}
 					tracks[track] += noteMML;
 				 track++;
-}
-			 place++;
-}
+				}
+				place++;
+			}
 
 			return tracks;
 		}
