@@ -155,6 +155,7 @@ package ;
 						mididata.writeByte(tmpb.get(i));
 						i++;
 					}
+					mididata.position = 0;
 				#end
 			
 			
@@ -174,32 +175,29 @@ package ;
 			
 			
 			
-		var trackn:Int = 0;
-				while( trackn < smfData.numTracks){
+			var trackn:Int = 0;
+			while( trackn < smfData.numTracks){
 							
-							for (event in smfData.tracks[trackn].sequence) {
+				for (event in smfData.tracks[trackn].sequence) {
+					
+					switch (event.type & 0xf0) {
+						case SMFEvent.NOTE_ON:
+							if(event.velocity == 0) {
 								
-								switch (event.type & 0xf0) {
-									case SMFEvent.NOTE_ON:
-										if(event.velocity == 0) {
-											
-											changenotelength(event.time, event.note, event.channel);
-										}else{
-											addnote(event.time, event.note, event.channel);
-											if (event.velocity > channelvolume[event.channel]) {
-												channelvolume[event.channel] = event.velocity;
-											}
-										}
-									break;
-									case SMFEvent.NOTE_OFF:
-										changenotelength(event.time, event.note, event.channel);
-									break;
-									case SMFEvent.PROGRAM_CHANGE:
-										channelinstrument[event.channel] = event.value;
-									break;
+								changenotelength(event.time, event.note, event.channel);
+							}else{
+								addnote(event.time, event.note, event.channel);
+								if (event.velocity > channelvolume[event.channel]) {
+									channelvolume[event.channel] = event.velocity;
 								}
 							}
-						 trackn++;
+						case SMFEvent.NOTE_OFF:
+							changenotelength(event.time, event.note, event.channel);
+						case SMFEvent.PROGRAM_CHANGE:
+							channelinstrument[event.channel] = event.value;
+					}
+				}
+			 trackn++;
 			} 
 			
 			
@@ -447,6 +445,7 @@ package ;
 				signature = 4;
 				numnotes = 16;
 			}
+			
 			if (numnotes > 16) Control.doublesize = true;
 			
 			var boxsize:Int = Std.int(resolution);
@@ -455,8 +454,8 @@ package ;
 			Control.arrange.bar[0].channel[0] = -1;
 			
 			Control.numinstrument = 16;
-		var j:Int = 0;
-	while( j < 16){
+			var j:Int = 0;
+			while( j < 16){
 			  Control.currentinstrument = j;
 				Control.voicelist.index = 132; 
 				Control.changeinstrumentvoice(Control.voicelist.name[Control.voicelist.index]);
@@ -472,15 +471,15 @@ package ;
 					}
 				}
 			 j++;
-}
+			}
 			
 			var i:Int;
 			var note:Int;
 			var notelength:Int;
 			var currentpattern:Int;
 			
-		i = 0;
-	while( i < midinotes.length){
+			i = 0;
+			while( i < midinotes.length){
 				
 				if (Std.int (midinotes[i].height) == 9) {
 					
@@ -502,53 +501,53 @@ package ;
 					
 					
 					switch(midinotes[i].y) {
-						case MIDIDRUM_35_Acoustic_Bass_Drum: drumnote = 0; break;
-						case MIDIDRUM_36_Bass_Drum_1: drumnote = 1; break;
-						case MIDIDRUM_37_Side_Stick: drumnote = 3; break;
-						case MIDIDRUM_38_Acoustic_Snare: drumnote = 3; break;
-						case MIDIDRUM_39_Hand_Clap: drumnote = 1; break;
-						case MIDIDRUM_40_Electric_Snare: drumnote = 4; break;
-						case MIDIDRUM_41_Low_Floor_Tom: drumnote = 1; break;
-						case MIDIDRUM_42_Closed_Hi_Hat: drumnote = 6; break;
-						case MIDIDRUM_43_High_Floor_Tom: drumnote = 2; break;
-						case MIDIDRUM_44_Pedal_Hi_Hat: drumnote = 5; break;
-						case MIDIDRUM_45_Low_Tom: drumnote = 1; break;
-						case MIDIDRUM_46_Open_Hi_Hat: drumnote = 5; break;
-						case MIDIDRUM_47_Low_Mid_Tom: drumnote = 1; break;
-						case MIDIDRUM_48_Hi_Mid_Tom: drumnote = 2; break;
-						case MIDIDRUM_49_Crash_Cymbal_1: drumnote = 7; break;
-						case MIDIDRUM_50_High_Tom: drumnote = 2; break;
-						case MIDIDRUM_51_Ride_Cymbal_1: drumnote = 7; break;
-						case MIDIDRUM_52_Chinese_Cymbal: drumnote = 7; break;
-						case MIDIDRUM_53_Ride_Bell: drumnote = 5; break;
-						case MIDIDRUM_54_Tambourine: drumnote = 5; break;
-						case MIDIDRUM_55_Splash_Cymbal: drumnote = 7; break;
-						case MIDIDRUM_56_Cowbell: drumnote = 7; break;
-						case MIDIDRUM_57_Crash_Cymbal_2: drumnote = 7; break;
-						case MIDIDRUM_58_Vibraslap: drumnote = 5; break;
-						case MIDIDRUM_59_Ride_Cymbal_2: drumnote = 7; break;
-						case MIDIDRUM_60_Hi_Bongo: drumnote = 4; break;
-						case MIDIDRUM_61_Low_Bongo: drumnote = 3; break;
-						case MIDIDRUM_62_Mute_Hi_Conga: drumnote = 4; break;
-						case MIDIDRUM_63_Open_Hi_Conga: drumnote = 5; break;
-						case MIDIDRUM_64_Low_Conga: drumnote = 2; break;
-						case MIDIDRUM_65_High_Timbale: drumnote = 4; break;
-						case MIDIDRUM_66_Low_Timbale: drumnote = 3; break;
-						case MIDIDRUM_67_High_Agogo: drumnote = 4; break;
-						case MIDIDRUM_68_Low_Agogo: drumnote = 3; break;
-						case MIDIDRUM_69_Cabasa: drumnote = 5; break;
-						case MIDIDRUM_70_Maracas: drumnote = 7; break;
-						case MIDIDRUM_71_Short_Whistle: drumnote = 7; break;
-						case MIDIDRUM_72_Long_Whistle: drumnote = 7; break;
-						case MIDIDRUM_73_Short_Guiro: drumnote = 3; break;
-						case MIDIDRUM_74_Long_Guiro: drumnote = 4; break;
-						case MIDIDRUM_75_Claves: drumnote = 6; break;
-						case MIDIDRUM_76_Hi_Wood_Block: drumnote = 4; break;
-						case MIDIDRUM_77_Low_Wood_Block: drumnote = 3; break;
-						case MIDIDRUM_78_Mute_Cuica: drumnote = 2; break;
-						case MIDIDRUM_79_Open_Cuica: drumnote = 4; break;
-						case MIDIDRUM_80_Mute_Triangle: drumnote = 5; break;
-						case MIDIDRUM_81_Open_Triangle: drumnote = 7; break;
+						case MIDIDRUM_35_Acoustic_Bass_Drum: drumnote = 0;
+						case MIDIDRUM_36_Bass_Drum_1: drumnote = 1;
+						case MIDIDRUM_37_Side_Stick: drumnote = 3;
+						case MIDIDRUM_38_Acoustic_Snare: drumnote = 3;
+						case MIDIDRUM_39_Hand_Clap: drumnote = 1;
+						case MIDIDRUM_40_Electric_Snare: drumnote = 4;
+						case MIDIDRUM_41_Low_Floor_Tom: drumnote = 1;
+						case MIDIDRUM_42_Closed_Hi_Hat: drumnote = 6;
+						case MIDIDRUM_43_High_Floor_Tom: drumnote = 2;
+						case MIDIDRUM_44_Pedal_Hi_Hat: drumnote = 5;
+						case MIDIDRUM_45_Low_Tom: drumnote = 1;
+						case MIDIDRUM_46_Open_Hi_Hat: drumnote = 5;
+						case MIDIDRUM_47_Low_Mid_Tom: drumnote = 1;
+						case MIDIDRUM_48_Hi_Mid_Tom: drumnote = 2;
+						case MIDIDRUM_49_Crash_Cymbal_1: drumnote = 7;
+						case MIDIDRUM_50_High_Tom: drumnote = 2; 
+						case MIDIDRUM_51_Ride_Cymbal_1: drumnote = 7;
+						case MIDIDRUM_52_Chinese_Cymbal: drumnote = 7;
+						case MIDIDRUM_53_Ride_Bell: drumnote = 5;
+						case MIDIDRUM_54_Tambourine: drumnote = 5;
+						case MIDIDRUM_55_Splash_Cymbal: drumnote = 7;
+						case MIDIDRUM_56_Cowbell: drumnote = 7;
+						case MIDIDRUM_57_Crash_Cymbal_2: drumnote = 7;
+						case MIDIDRUM_58_Vibraslap: drumnote = 5;
+						case MIDIDRUM_59_Ride_Cymbal_2: drumnote = 7;
+						case MIDIDRUM_60_Hi_Bongo: drumnote = 4;
+						case MIDIDRUM_61_Low_Bongo: drumnote = 3;
+						case MIDIDRUM_62_Mute_Hi_Conga: drumnote = 4;
+						case MIDIDRUM_63_Open_Hi_Conga: drumnote = 5;
+						case MIDIDRUM_64_Low_Conga: drumnote = 2;
+						case MIDIDRUM_65_High_Timbale: drumnote = 4;
+						case MIDIDRUM_66_Low_Timbale: drumnote = 3;
+						case MIDIDRUM_67_High_Agogo: drumnote = 4;
+						case MIDIDRUM_68_Low_Agogo: drumnote = 3;
+						case MIDIDRUM_69_Cabasa: drumnote = 5;
+						case MIDIDRUM_70_Maracas: drumnote = 7;
+						case MIDIDRUM_71_Short_Whistle: drumnote = 7;
+						case MIDIDRUM_72_Long_Whistle: drumnote = 7;
+						case MIDIDRUM_73_Short_Guiro: drumnote = 3;
+						case MIDIDRUM_74_Long_Guiro: drumnote = 4; 
+						case MIDIDRUM_75_Claves: drumnote = 6;
+						case MIDIDRUM_76_Hi_Wood_Block: drumnote = 4;
+						case MIDIDRUM_77_Low_Wood_Block: drumnote = 3;
+						case MIDIDRUM_78_Mute_Cuica: drumnote = 2;
+						case MIDIDRUM_79_Open_Cuica: drumnote = 4;
+						case MIDIDRUM_80_Mute_Triangle: drumnote = 5;
+						case MIDIDRUM_81_Open_Triangle: drumnote = 7;
 					}
 					
 					addnotetoceol(currentpattern, note - (numnotes * currentpattern), drumnote, notelength, Std.int(midinotes[i].height));
@@ -564,15 +563,15 @@ package ;
 					addnotetoceol(currentpattern, note - (numnotes * currentpattern), Std.int(midinotes[i].y), notelength, Std.int(midinotes[i].height));
 				}
 			 i++;
-}
+			}
 			
 			
-		i = 0;
-	while( i < Control.numboxes){
+			i = 0;
+			while( i < Control.numboxes){
 				var currenthash:Int = Control.musicbox[i].hash;
 				if (currenthash != -1) {
 				j = i + 1;
-	while( j < Control.numboxes){
+					while( j < Control.numboxes){
 						if (Control.musicbox[j].hash == currenthash) {
 							
 							if (musicboxmatch(i, j)) {
@@ -580,11 +579,11 @@ package ;
 								Control.musicbox[j].hash = -1;
 							}
 						}
-					 j++;
-}
+						j++;
+					}
 				}
-			 i++;
-}
+				i++;
+			}
 			
 			
 			i = Control.numboxes;
